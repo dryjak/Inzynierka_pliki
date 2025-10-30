@@ -50,7 +50,7 @@
 MPU6050_t MPU6050;
 float Roll;
 float Pitch;
-uint8_t FlagGetDegree;
+volatile uint8_t FlagGetDegreeIt;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -109,8 +109,12 @@ int main(void)
   while (1)
   {
 //todo: read acceleration and gyro data, plot results on the graph
-	  if()
-	  MPU6050_STATE_t MPU6050_DegFromAccel(MPU6050_t *MPU6050, float *Roll, float *Pitch);
+	  if(FlagGetDegreeIt)
+	  {
+		  FlagGetDegreeIt = 0;
+		  MPU6050_STATE_t MPU6050_DegFromAccel(MPU6050_t *MPU6050, float *Roll, float *Pitch);
+
+	  }
 
     /* USER CODE END WHILE */
 
@@ -177,7 +181,13 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM1)
+	{
+		FlagGetDegreeIt = 1;
+	}
+}
 /* USER CODE END 4 */
 
 /**
