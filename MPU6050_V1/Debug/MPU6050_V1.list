@@ -3136,14 +3136,14 @@ int main(void)
  8001e14:	491d      	ldr	r1, [pc, #116]	@ (8001e8c <main+0xd4>)
  8001e16:	4813      	ldr	r0, [pc, #76]	@ (8001e64 <main+0xac>)
  8001e18:	f7ff fba6 	bl	8001568 <MPU6050_Angle>
-		  sprintf(Message, "%.3f, %.3f\n", RollAccel, PitchAccel);
- 8001e1c:	4b15      	ldr	r3, [pc, #84]	@ (8001e74 <main+0xbc>)
+		  sprintf(Message, "%.3f, %.3f\n", RollGyro, PitchGyro);
+ 8001e1c:	4b18      	ldr	r3, [pc, #96]	@ (8001e80 <main+0xc8>)
  8001e1e:	681b      	ldr	r3, [r3, #0]
  8001e20:	4618      	mov	r0, r3
  8001e22:	f7fe fbb9 	bl	8000598 <__aeabi_f2d>
  8001e26:	4604      	mov	r4, r0
  8001e28:	460d      	mov	r5, r1
- 8001e2a:	4b11      	ldr	r3, [pc, #68]	@ (8001e70 <main+0xb8>)
+ 8001e2a:	4b14      	ldr	r3, [pc, #80]	@ (8001e7c <main+0xc4>)
  8001e2c:	681b      	ldr	r3, [r3, #0]
  8001e2e:	4618      	mov	r0, r3
  8001e30:	f7fe fbb2 	bl	8000598 <__aeabi_f2d>
