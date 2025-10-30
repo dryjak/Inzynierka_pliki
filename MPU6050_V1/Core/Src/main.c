@@ -48,8 +48,8 @@
 /* USER CODE BEGIN PV */
 //MPU6050 variables
 MPU6050_t MPU6050;
-float Roll;
-float Pitch;
+float RollAccel  = 0;
+float PitchAccel = 0;
 volatile uint8_t FlagGetDegreeIt;
 /* USER CODE END PV */
 
@@ -112,8 +112,7 @@ int main(void)
 	  if(FlagGetDegreeIt)
 	  {
 		  FlagGetDegreeIt = 0;
-		  MPU6050_STATE_t MPU6050_DegFromAccel(MPU6050_t *MPU6050, float *Roll, float *Pitch);
-
+		  MPU6050_DegFromAccel(&MPU6050, &RollAccel, &PitchAccel);
 	  }
 
     /* USER CODE END WHILE */
