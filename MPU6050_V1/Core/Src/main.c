@@ -56,6 +56,10 @@ float PitchAccel = 0.00;
 float RollGyro = 0.00;
 float PitchGyro = 0.00;
 float YawGyro = 0.00;
+
+float RollFinal = 0.00;
+float PitchFinal = 0.00;
+float YawFinal = 0.00;
 volatile uint8_t FlagGetDegreeIt;
 
 
@@ -124,8 +128,8 @@ int main(void)
 		  FlagGetDegreeIt = 0;
 		  MPU6050_DegFromAccel(&MPU6050, &RollAccel, &PitchAccel);
 		  MPU6050_DegFromGyro(&MPU6050, &RollGyro, &PitchGyro, &YawGyro);
-
-		  sprintf(Message, "RollA: %.3f, PitchA: %.3f\n", RollAccel, PitchAccel);
+		  MPU6050_Angle(&MPU6050, &RollFinal, &PitchFinal, &YawFinal);
+		  sprintf(Message, "%.3f, %.3f\n", RollAccel, PitchAccel);
 		  HAL_UART_Transmit(&hlpuart1,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 

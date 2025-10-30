@@ -126,6 +126,7 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
 {
     float RollAccel, PitchAccel;
 
+
     //Accel
     MPU6050_DegFromAccel(MPU6050, &RollAccel, &PitchAccel);
 
@@ -138,8 +139,6 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
         initialized = 1;
         return MPU6050_OK;
     }
-
-
 
     //Gyro
     MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
@@ -266,9 +265,15 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Gyro_t *GyroCalculat
 
     const float ScaleFactor = 131.0f; // ±250°/s
 
-    GyroCalculated->GyroX = (float)((Raw.GyroX - MPU6050->GyroOffset.OffsetX) / ScaleFactor);
-    GyroCalculated->GyroY = (float)((Raw.GyroY - MPU6050->GyroOffset.OffsetY) / ScaleFactor);
-    GyroCalculated->GyroZ = (float)((Raw.GyroZ - MPU6050->GyroOffset.OffsetZ) / ScaleFactor);
+    GyroCalculated->GyroX = (float)((Raw.GyroX) / ScaleFactor);
+    GyroCalculated->GyroY = (float)((Raw.GyroY) / ScaleFactor);
+    GyroCalculated->GyroZ = (float)((Raw.GyroZ) / ScaleFactor);
+
+
+    //GyroCalculated->GyroX = (float)((Raw.GyroX - MPU6050->GyroOffset.OffsetX) / ScaleFactor);
+    //GyroCalculated->GyroY = (float)((Raw.GyroY - MPU6050->GyroOffset.OffsetY) / ScaleFactor);
+    //GyroCalculated->GyroZ = (float)((Raw.GyroZ - MPU6050->GyroOffset.OffsetZ) / ScaleFactor);
+
 
     return MPU6050_OK;
 }
