@@ -26,6 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "MPU6050.h"
+#include "string.h"
+#include "stdio.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -48,9 +50,12 @@
 /* USER CODE BEGIN PV */
 //MPU6050 variables
 MPU6050_t MPU6050;
-float RollAccel  = 0;
-float PitchAccel = 0;
+float RollAccel  = 0.00;
+float PitchAccel = 0.00;
 volatile uint8_t FlagGetDegreeIt;
+
+
+char Message[128];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -82,7 +87,6 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  MPU6050_Init(&MPU6050, &hi2c1, 0x68);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -101,18 +105,23 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+  MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
+  HAL_TIM_Base_Start_IT(&htim1);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-//todo: read acceleration and gyro data, plot results on the graph
+
 	  if(FlagGetDegreeIt)
 	  {
 		  FlagGetDegreeIt = 0;
 		  MPU6050_DegFromAccel(&MPU6050, &RollAccel, &PitchAccel);
+
+		  sprintf(Message, "RollA: %.3f, PitchA: %.3f\n", RollAccel, PitchAccel);
+		  HAL_UART_Transmit(&hlpuart1,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 
     /* USER CODE END WHILE */

@@ -190,9 +190,15 @@ static MPU6050_STATE_t MPU6050_SetAccelerationRange(MPU6050_t *MPU6050)
 
 static MPU6050_STATE_t MPU6050_ReadAccelerationRaw(MPU6050_t *MPU6050, AccelRaw_t *AccelRaw)
 {
-    AccelRaw->AccelX = Read16(MPU6050, ACCEL_XOUT_H);
-    AccelRaw->AccelY = Read16(MPU6050, ACCEL_YOUT_H);
-    AccelRaw->AccelZ = Read16(MPU6050, ACCEL_ZOUT_H);
+    uint8_t buf[6] = {0};
+    if (HAL_I2C_Mem_Read(MPU6050->hi2c, (MPU6050->address)<<1, ACCEL_XOUT_H, 1, buf, 6, MPU6050_TIMEOUT) != HAL_OK)
+    {
+        return MPU6050_ERROR;
+    }
+
+    AccelRaw->AccelX = (int16_t)((buf[0] << 8) | buf[1]);
+    AccelRaw->AccelY = (int16_t)((buf[2] << 8) | buf[3]);
+    AccelRaw->AccelZ = (int16_t)((buf[4] << 8) | buf[5]);
     return MPU6050_OK;
 }
 
@@ -213,29 +219,43 @@ static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Accel_t *Acc
 static MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050)
 {
     AccelRaw_t Accelerations;
-    int32_t SumX = 0, SumY = 0, SumZ = 0;
-    uint8_t i;
-    const int8_t Samples = 200;
+    int64_t SumX = 0, SumY = 0, SumZ = 0;
+    uint16_t i;
+    const uint16_t Samples = 200; // poprawny typ i wartość
     for(i = 0; i < Samples; i++)
     {
-    	MPU6050_ReadAccelerationRaw(MPU6050, &Accelerations);
-    	SumX += Accelerations.AccelX;
-    	SumY += Accelerations.AccelY;
-    	SumZ += Accelerations.AccelZ;
-    	HAL_Delay(1);
+        if (MPU6050_ReadAccelerationRaw(MPU6050, &Accelerations) != MPU6050_OK)
+        {
+            HAL_Delay(2);
+            return MPU6050_ERROR;
+        }
+        SumX += Accelerations.AccelX;
+        SumY += Accelerations.AccelY;
+        SumZ += Accelerations.AccelZ;
+        HAL_Delay(1);
     }
-    MPU6050->AccelOffset.OffsetX = (float) SumX / Samples;
-    MPU6050->AccelOffset.OffsetY = (float) SumY / Samples;
-    MPU6050->AccelOffset.OffsetZ = (float) SumZ / Samples;
+
+    const float ScaleFactor = 16384.0f; // ±2g raw per 1g
+    MPU6050->AccelOffset.OffsetX = (float)SumX / Samples;
+    MPU6050->AccelOffset.OffsetY = (float)SumY / Samples;
+    // ustawiamy offset tak, aby po (raw - offset)/ScaleFactor = +1g dla Z
+    MPU6050->AccelOffset.OffsetZ = ((float)SumZ / Samples) - ScaleFactor;
 
     return MPU6050_OK;
 }
 
 static MPU6050_STATE_t MPU6050_ReadGyroRaw(MPU6050_t *MPU6050, GyroRaw_t *GyroRaw)
 {
-    GyroRaw->GyroX = Read16(MPU6050, GYRO_XOUT_H);
-    GyroRaw->GyroY = Read16(MPU6050, GYRO_YOUT_H);
-    GyroRaw->GyroZ = Read16(MPU6050, GYRO_ZOUT_H);
+    uint8_t buf[6] = {0};
+    if (HAL_I2C_Mem_Read(MPU6050->hi2c, (MPU6050->address)<<1, GYRO_XOUT_H, 1, buf, 6, MPU6050_TIMEOUT) != HAL_OK)
+    {
+        return MPU6050_ERROR;
+    }
+
+    GyroRaw->GyroX = (int16_t)((buf[0] << 8) | buf[1]);
+    GyroRaw->GyroY = (int16_t)((buf[2] << 8) | buf[3]);
+    GyroRaw->GyroZ = (int16_t)((buf[4] << 8) | buf[5]);
+
     return MPU6050_OK;
 }
 
@@ -256,16 +276,20 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Gyro_t *GyroCalculat
 static MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050)
 {
     GyroRaw_t Gyro;
-    int32_t SumX = 0, SumY = 0, SumZ = 0;
-    uint8_t i;
-    int8_t Samples = 200;
+    int64_t SumX = 0, SumY = 0, SumZ = 0;
+    uint16_t i;
+    const uint16_t Samples = 200;
     for(i = 0; i < Samples; i++)
     {
-    	MPU6050_ReadGyroRaw(MPU6050, &Gyro);
-    	SumX += Gyro.GyroX;
-    	SumY += Gyro.GyroY;
-    	SumZ += Gyro.GyroZ;
-    	HAL_Delay(1);
+        if (MPU6050_ReadGyroRaw(MPU6050, &Gyro) != MPU6050_OK)
+        {
+            HAL_Delay(2);
+            return MPU6050_ERROR;
+        }
+        SumX += Gyro.GyroX;
+        SumY += Gyro.GyroY;
+        SumZ += Gyro.GyroZ;
+        HAL_Delay(1);
     }
     MPU6050->GyroOffset.OffsetX = (float)SumX / Samples;
     MPU6050->GyroOffset.OffsetY = (float)SumY / Samples;

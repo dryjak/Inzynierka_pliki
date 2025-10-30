@@ -9,9 +9,9 @@
 ../Core/Src/MPU6050.c:168:16:Read16	40	static
 ../Core/Src/MPU6050.c:175:24:MPU6050_SetGyroRange	24	static
 ../Core/Src/MPU6050.c:182:24:MPU6050_SetAccelerationRange	24	static
-../Core/Src/MPU6050.c:191:24:MPU6050_ReadAccelerationRaw	16	static
-../Core/Src/MPU6050.c:199:24:MPU6050_ReadAcceleration	32	static
-../Core/Src/MPU6050.c:213:24:MPU6050_CalibrateAccel	40	static
-../Core/Src/MPU6050.c:234:24:MPU6050_ReadGyroRaw	16	static
-../Core/Src/MPU6050.c:242:24:MPU6050_ReadGyro	32	static
-../Core/Src/MPU6050.c:256:24:MPU6050_CalibrateGyro	40	static
+../Core/Src/MPU6050.c:191:24:MPU6050_ReadAccelerationRaw	40	static
+../Core/Src/MPU6050.c:205:24:MPU6050_ReadAcceleration	32	static
+../Core/Src/MPU6050.c:219:24:MPU6050_CalibrateAccel	104	static
+../Core/Src/MPU6050.c:247:24:MPU6050_ReadGyroRaw	40	static
+../Core/Src/MPU6050.c:262:24:MPU6050_ReadGyro	32	static
+../Core/Src/MPU6050.c:276:24:MPU6050_CalibrateGyro	104	static
