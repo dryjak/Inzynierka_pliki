@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "motor_simple.h"
 
 /* USER CODE END Includes */
 
@@ -45,7 +46,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+//motors variable
+Motor_t Motor1;
+uint8_t MotorPWM;
+uint8_t Direction;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,6 +95,20 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
+//initializing motor
+  Motor_Init(&Motor1, &htim4, TIM_CHANNEL_1, MotorPWM, MotorDir1_GPIO_Port, MotorDir1_Pin, MotorDir2_GPIO_Port, MotorDir2_Pin);
+
+  MotorPWM = 50;
+  Direction = 1;
+  Motor_SetRideParameters(&Motor1, MotorPWM, Direction);
+  Motor_Ride(&Motor1);
+  HAL_Delay(3000);
+
+  MotorPWM = 50;
+  Direction = 0;
+  Motor_SetRideParameters(&Motor1, MotorPWM, Direction);
+  Motor_Ride(&Motor1);
+  HAL_Delay(3000);
 
   /* USER CODE END 2 */
 
