@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "i2c.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -44,6 +45,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+// MPU6050
+MPU6050_t MPU6050;
+float Roll, Pitch, Yaw;
+volatile uint8_t InterruptFlag = 0;
 
 /* USER CODE END PV */
 
@@ -88,6 +93,7 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_I2C1_Init();
+  MX_TIM1_Init();
   /* USER CODE BEGIN 2 */
 
   /* USER CODE END 2 */
@@ -96,6 +102,17 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  if(InterruptFlag == 1)
+	  {
+		  InterruptFlag = 0;
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+	  }
+	  if(Roll < 5 && Roll > -5)
+	  {
+		  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_SET);
+	  }
+	  HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -145,7 +162,13 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
+void HAL_TIM_IC_CaptureCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM1)
+	{
+		InterruptFlag = 1;
+	}
+}
 /* USER CODE END 4 */
 
 /**
