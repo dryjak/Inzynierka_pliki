@@ -25,11 +25,6 @@ static MPU6050_STATE_t MPU6050_ReadGyroRaw(MPU6050_t *MPU6050, DataRaw_t *GyroRa
 static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculated);
 static MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050);
 
-
-static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel);
-
-
-
 //Initialize MPU6050
 MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16_t Address)
 {
@@ -148,19 +143,16 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
     MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
 
     //Filter
-    //const float alpha = 0.9f;
-    //*Roll  = alpha * (*Roll)  + (1.0f - alpha) * RollAccel;
-    //*Pitch = alpha * (*Pitch) + (1.0f - alpha) * RollAccel;
-
-    ComplementaryFilter(Roll, Pitch, RollAccel, PitchAccel);
-
+    const float alpha = 0.9f;
+    *Roll  = alpha * (*Roll)  + (1.0f - alpha) * RollAccel;
+    *Pitch = alpha * (*Pitch) + (1.0f - alpha) * PitchAccel;
 
     return MPU6050_OK;
 }
 //filter functions
-static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel)
+void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel, float dt)
 {
-    const float alpha = 0.97f;
+    const float alpha = 0.98f;
     *roll  = alpha * (*roll)  + (1.0f - alpha) * roll_accel;
     *pitch = alpha * (*pitch) + (1.0f - alpha) * pitch_accel;
 }
