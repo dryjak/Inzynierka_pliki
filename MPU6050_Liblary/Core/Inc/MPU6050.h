@@ -10,6 +10,7 @@
 
 #include "main.h"
 
+
 #define WHO_AM_I 			0x75
 #define ADR0		 		0x68
 #define ADR1 				0x69
