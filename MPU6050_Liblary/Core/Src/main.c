@@ -27,6 +27,8 @@
 /* USER CODE BEGIN Includes */
 #include "MPU6050.h"
 #include "Filters.h"
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -54,6 +56,8 @@ float Roll, Pitch, Yaw;
 float RollA, PitchA, YawA;
 float RollG, PitchG, YawG;
 volatile uint8_t InterruptFlag;
+
+char Message[128];
 
 /* USER CODE END PV */
 
@@ -105,6 +109,7 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+  MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
   /* USER CODE END 2 */
 
@@ -114,7 +119,10 @@ int main(void)
   {
 	  if(InterruptFlag == 1)
 	  {
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  InterruptFlag = 0;
+		  sprintf(Message, "Roll: %.3f, Pitch: %.3f\n", Roll, Pitch);
+		  HAL_UART_Transmit(&hlpuart1,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  }
     /* USER CODE END WHILE */
