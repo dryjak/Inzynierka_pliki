@@ -76,7 +76,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-
+  HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -98,6 +98,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 1000);
+	HAL_Delay(2000);
+	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 2000);
+	HAL_Delay(2000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
