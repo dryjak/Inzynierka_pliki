@@ -98,10 +98,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 000);
+	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 900);
 	HAL_Delay(2000);
-	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 00);
-	HAL_Delay(2000);
+	//__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 2000);
+	//HAL_Delay(2000);
 
     /* USER CODE END WHILE */
 
