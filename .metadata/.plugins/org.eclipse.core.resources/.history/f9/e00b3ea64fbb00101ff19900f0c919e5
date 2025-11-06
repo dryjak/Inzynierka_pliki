@@ -117,13 +117,10 @@ int main(void)
 	for(uint16_t i = 0; i < 450; i++)
 	{
 		SetAngle(i, 1);
-		HAL_Delay(10);
 	}
 	for(uint16_t i = 450; i > 0; i--)
 	{
 		SetAngle(i, 1);
-		HAL_Delay(10);
-
 	}
 
 

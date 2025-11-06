@@ -104,27 +104,12 @@ int main(void)
 	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 00);
 	HAL_Delay(2000);
 	*/
-	/*
 	SetAngle(0, 1);
 	HAL_Delay(2000);
-	SetAngle(450, 1);
+	SerAngle(900, 1);
 	HAL_Delay(2000);
 
-	SetAngle(900, 1);
-	HAL_Delay(2000);
-	*/
-
-	for(uint16_t i = 0; i < 450; i++)
-	{
-		SetAngle(i, 1);
-		HAL_Delay(10);
-	}
-	for(uint16_t i = 450; i > 0; i--)
-	{
-		SetAngle(i, 1);
-		HAL_Delay(10);
-
-	}
+	SerAngle(900, 1);
 
 
     /* USER CODE END WHILE */
