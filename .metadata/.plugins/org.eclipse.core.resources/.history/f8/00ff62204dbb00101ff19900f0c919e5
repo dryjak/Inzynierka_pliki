@@ -12,7 +12,7 @@
 
 //void ServoInit(TIM_HandleTypeDef *Tim, uint16_t TimChannel, uint16_t AngleMin, uint16_t AngleMax, uint16_t PWM_Min, uint16_t PWM_Max);
 
-#define WhichTimer htim15
+#define TimerHandler htim16
 #define TimerChannel TIM_CHANNEL_1
 
 #define AngleMin 0

@@ -31,6 +31,6 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
 		Tmp = (AngleMin - ((Angle - AngleMin) * STEP) / 1000);
 	}
 
-	__HAL_TIM_SET_COMPARE(&WhichTimer, TimerChannel,Tmp);
+	__HAL_TIM_SET_COMPARE(Timer, TimerChannel,Tmp);
 }
 
