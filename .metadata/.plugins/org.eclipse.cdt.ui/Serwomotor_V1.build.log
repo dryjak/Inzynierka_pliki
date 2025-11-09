@@ -1,10 +1,10 @@
-19:21:37 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+21:30:00 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
 make -j12 all 
 arm-none-eabi-size  Serwomotor_V1.elf 
    text	   data	    bss	    dec	    hex	filename
-  22244	     96	   2416	  24756	   60b4	Serwomotor_V1.elf
+  49032	    472	   2432	  51936	   cae0	Serwomotor_V1.elf
 Finished building: default.size.stdout
  
 
-19:21:38 Build Finished. 0 errors, 0 warnings. (took 654ms)
+21:30:01 Build Finished. 0 errors, 0 warnings. (took 1s.237ms)
 

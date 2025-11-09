@@ -61,7 +61,7 @@ main-build: Serwomotor_V1.elf secondary-outputs
 
 # Tool invocations
 Serwomotor_V1.elf Serwomotor_V1.map: $(OBJS) $(USER_OBJS) D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+	arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

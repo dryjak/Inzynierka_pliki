@@ -72,3 +72,9 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-09 12:59:14.080
 !MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-11-09 21:05:33.029
+!MESSAGE Indexed 'Serwomotor_V1' (32 sources, 132 headers) in 5.03 sec: 15,994 declarations; 92,091 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.16%)
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-11-09 21:29:40.572
+!MESSAGE Indexed 'MPU6050_Liblary' (30 sources, 131 headers) in 3.63 sec: 15,809 declarations; 91,311 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.16%)
