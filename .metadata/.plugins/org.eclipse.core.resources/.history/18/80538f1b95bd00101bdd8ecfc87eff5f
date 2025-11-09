@@ -45,7 +45,6 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
 volatile int16_t ServoValue = 0;
 volatile int8_t Dir = 1;
 /* USER CODE END PV */
@@ -208,12 +207,10 @@ static void MX_NVIC_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
 	if(htim->Instance == TIM1)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 	}
-	/*
 	if(htim->Instance == TIM20)
 	{
 		ServoValue += Dir;
@@ -227,21 +224,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		SetAngle(ServoValue, 1);
 	}
-	*/
-	if(htim->Instance == TIM20)
-	{
-		if(Dir == 1)
-		{
-			Dir = 0;
-			SetAngle(450, 1);
-		}
-		else if(Dir == 0)
-		{
-			Dir = 1;
-			SetAngle(0, 1);
-		}
-	}
-
 }
 /* USER CODE END 4 */
 

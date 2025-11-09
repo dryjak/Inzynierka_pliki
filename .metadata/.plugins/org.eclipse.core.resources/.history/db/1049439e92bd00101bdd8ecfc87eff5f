@@ -46,8 +46,6 @@
 
 /* USER CODE BEGIN PV */
 
-volatile int16_t ServoValue = 0;
-volatile int8_t Dir = 1;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,14 +92,12 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_TIM15_Init();
   MX_TIM1_Init();
-  MX_TIM20_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim1);
-  HAL_TIM_Base_Start_IT(&htim20);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -124,7 +120,6 @@ int main(void)
 	HAL_Delay(2000);
 	*/
 
-	/*
 	for(uint16_t i = 0; i < 450; i++)
 	{
 		SetAngle(i, 1);
@@ -136,7 +131,8 @@ int main(void)
 		HAL_Delay(10);
 
 	}
-	*/
+	//todo: dodaj miganie diodą
+
 
     /* USER CODE END WHILE */
 
@@ -200,48 +196,15 @@ static void MX_NVIC_Init(void)
   /* TIM1_UP_TIM16_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
-  /* TIM20_UP_IRQn interrupt configuration */
-  HAL_NVIC_SetPriority(TIM20_UP_IRQn, 0, 0);
-  HAL_NVIC_EnableIRQ(TIM20_UP_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
 	if(htim->Instance == TIM1)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 	}
-	/*
-	if(htim->Instance == TIM20)
-	{
-		ServoValue += Dir;
-		if(ServoValue >= 450)
-		{
-			Dir = -1;
-		}
-		else if(ServoValue <= 0)
-		{
-			Dir = 1;
-		}
-		SetAngle(ServoValue, 1);
-	}
-	*/
-	if(htim->Instance == TIM20)
-	{
-		if(Dir == 1)
-		{
-			Dir = 0;
-			SetAngle(450, 1);
-		}
-		else if(Dir == 0)
-		{
-			Dir = 1;
-			SetAngle(0, 1);
-		}
-	}
-
 }
 /* USER CODE END 4 */
 
