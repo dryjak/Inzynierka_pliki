@@ -68,7 +68,7 @@ MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16
     MPU6050_CalibrateGyro(MPU6050);			//Getting data to calibrate gyro
 
     //level device and take first measurement
-    //MPU6050_DegFromAccel(MPU6050, &MPU6050->FirstMeasure.X, &MPU6050->FirstMeasure.Y);
+    MPU6050_DegFromAccel(MPU6050, &MPU6050->FirstMeasure.X, &MPU6050->FirstMeasure.Y);
 
     return MPU6050_OK;
 }
@@ -95,12 +95,8 @@ MPU6050_STATE_t MPU6050_DegFromAccel(MPU6050_t *MPU6050, float *Roll, float *Pit
     Data_t Accel;
     MPU6050_ReadAcceleration(MPU6050, &Accel);
 
-    //*Roll  = atan2f(Accel.Y, Accel.Z) * 180.0f / M_PI - MPU6050->FirstMeasure.X;
-    //*Pitch = atan2f(-Accel.X, sqrtf(Accel.Y*Accel.Y + Accel.Z*Accel.Z)) * 180.0f / M_PI - MPU6050->FirstMeasure.Y;
-
-    // Poprawione obliczenia:
-    *Roll  = atan2f(Accel.Y, Accel.Z) * 180.0f / M_PI;
-    *Pitch = atan2f(-Accel.X, sqrtf(Accel.Y*Accel.Y + Accel.Z*Accel.Z)) * 180.0f / M_PI;
+    *Roll  = atan2f(Accel.Y, Accel.Z) * 180.0f / M_PI - MPU6050->FirstMeasure.X;
+    *Pitch = atan2f(-Accel.X, sqrtf(Accel.Y*Accel.Y + Accel.Z*Accel.Z)) * 180.0f / M_PI - MPU6050->FirstMeasure.Y;
 
     return MPU6050_OK;
 }
@@ -145,8 +141,6 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
         *Pitch = PitchAccel;
         *Yaw = 0.0f;
         initialized = 1;
-
-        MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
         return MPU6050_OK;
     }
 

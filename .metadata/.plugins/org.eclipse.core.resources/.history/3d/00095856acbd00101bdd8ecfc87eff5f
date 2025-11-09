@@ -44,7 +44,7 @@ typedef struct
 	Data_t AccelOffset;
 	Data_t GyroOffset;
 
-
+	Data_t FirstMeasure;
 
 }MPU6050_t;
 
