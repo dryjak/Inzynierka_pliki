@@ -56,7 +56,7 @@ float RollA, PitchA, YawA;
 float RollG, PitchG, YawG;
 
 //Servomotor
-//volatile int16_t ServoValue = 0;
+volatile int16_t ServoValue = 0;
 //volatile int8_t Dir = 1;
 //uint16_t Tmp = 0;
 

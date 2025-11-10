@@ -56,14 +56,9 @@ float RollA, PitchA, YawA;
 float RollG, PitchG, YawG;
 
 //Servomotor
-//volatile int16_t ServoValue = 0;
-//volatile int8_t Dir = 1;
-//uint16_t Tmp = 0;
-
-static int ServoValue = 0;
-static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
-static int Tmp = 0;
-const int CZAS_POSTOJU = 1000;
+volatile int16_t ServoValue = 0;
+volatile int8_t Dir = 1;
+uint16_t Tmp = 0;
 
 char Message[128];
 
@@ -246,64 +241,25 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		InterruptFlag = 1;
 	}
-/*
+
 	if(htim->Instance == TIM20)
 	{
 		ServoValue += Dir;
 		if(ServoValue >= 450)
 		{
 			Dir = -1;
+			Tmp = 0;
 		}
-		else if(ServoValue <= 0)
+		else if(ServoValue <= 0 && Tmp < 1000)
+		{
+			Tmp++;
+		}
+		else if(ServoValue <= 0 && Tmp >= 1000 )
 		{
 			Dir = 1;
 		}
 		SetAngle(ServoValue, 1);
 	}
-*/
-	if (Dir == 1) // Stan: RUCH DO 45 STOPNI
-			{
-				ServoValue++; // Krok w górę
-				if (ServoValue >= 450)
-				{
-					ServoValue = 450; // Ustaw na 45 (zapobiegaj przekroczeniu)
-					Dir = 0;          // Zmień stan na POSTÓJ
-					Tmp = 0;          // Zresetuj licznik czasu postoju
-				}
-			}
-			else if (Dir == -1) // Stan: RUCH DO 0 STOPNI
-			{
-				ServoValue--; // Krok w dół
-				if (ServoValue <= 0)
-				{
-					ServoValue = 0;   // Ustaw na 0 (zapobiegaj przekroczeniu)
-					Dir = 0;          // Zmień stan na POSTÓJ
-					Tmp = 0;          // Zresetuj licznik czasu postoju
-				}
-			}
-			else // Stan: POSTÓJ (Dir == 0)
-			{
-				Tmp++; // Odliczaj czas postoju
-
-				// Sprawdź, czy czas postoju minął
-				if (Tmp >= CZAS_POSTOJU)
-				{
-					// Czas minął, zdecyduj, w którą stronę ruszyć
-					if (ServoValue == 450) // Jeśli stoimy na 45 stopniach
-					{
-						Dir = -1; // Ustaw kierunek na RUCH DO 0
-					}
-					else // Jeśli stoimy na 0 stopni
-					{
-						Dir = 1; // Ustaw kierunek na RUCH DO 45
-					}
-				}
-				// Jeśli Tmp < CZAS_POSTOJU, nic nie rób, po prostu czekaj dalej
-			}
-
-			// Wywołaj funkcję ustawiającą kąt w każdej iteracji
-			// Upewnij się, że SetAngle akceptuje wartości 0-450
-			SetAngle(ServoValue, 1);
 
 	/*
 	if(htim->Instance == TIM20)
