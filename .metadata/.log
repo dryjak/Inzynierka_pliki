@@ -78,3 +78,18 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-11-09 21:29:40.572
 !MESSAGE Indexed 'MPU6050_Liblary' (30 sources, 131 headers) in 3.63 sec: 15,809 declarations; 91,311 references; 3 unresolved inclusions; 46 syntax errors; 171 unresolved names (0.16%)
+!SESSION 2025-11-10 09:45:20.652 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-11-10 09:45:40.346
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-11-10 09:45:40.348
+!MESSAGE Log4j2 initialized with config file D:\GithubRepo\Inzynierka_pliki\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-10 09:45:53.607
+!MESSAGE Started RMI Server, listening on port 41337

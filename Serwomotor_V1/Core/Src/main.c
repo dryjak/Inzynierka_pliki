@@ -240,7 +240,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		InterruptFlag = 1;
 	}
-	/*
+
 	if(htim->Instance == TIM20)
 	{
 		ServoValue += Dir;
@@ -254,7 +254,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 		SetAngle(ServoValue, 1);
 	}
-	*/
+
+	/*
 	if(htim->Instance == TIM20)
 	{
 		if(Dir == 1)
@@ -271,6 +272,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 
 	}
+	*/
 
 }
 /* USER CODE END 4 */
