@@ -65,6 +65,8 @@ static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
 static int Tmp = 0;
 const int CZAS_POSTOJU = 1000;
 
+uint16_t Counter = 0;
+
 char Message[128];
 
 volatile uint8_t InterruptFlag = 0;
@@ -246,6 +248,20 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		InterruptFlag = 1;
 	}
+	if(htim->Instance == TIM20)
+	{
+		Counter++;
+		if(Counter == 2)
+		{
+			ServoValue = 450;
+			SetAngle(ServoValue, 1);
+		}
+		if(Counter == 25)
+		{
+			ServoValue = 0;
+			SetAngle(ServoValue, 1);
+		}
+	}
 /*
 	if(htim->Instance == TIM20)
 	{
@@ -261,6 +277,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		SetAngle(ServoValue, 1);
 	}
 */
+	/*
 	if (Dir == 1) // Stan: RUCH DO 45 STOPNI
 			{
 				ServoValue++; // Krok w górę
@@ -304,7 +321,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			// Wywołaj funkcję ustawiającą kąt w każdej iteracji
 			// Upewnij się, że SetAngle akceptuje wartości 0-450
 			SetAngle(ServoValue, 1);
-
+	*/
 	/*
 	if(htim->Instance == TIM20)
 	{
