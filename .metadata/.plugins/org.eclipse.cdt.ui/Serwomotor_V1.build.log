@@ -1,4 +1,4 @@
-19:31:34 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+19:32:34 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
@@ -19,5 +19,5 @@ Finished building: default.size.stdout
 Finished building: Serwomotor_V1.list
  
 
-19:31:36 Build Finished. 0 errors, 2 warnings. (took 2s.394ms)
+19:32:37 Build Finished. 0 errors, 2 warnings. (took 2s.376ms)
 

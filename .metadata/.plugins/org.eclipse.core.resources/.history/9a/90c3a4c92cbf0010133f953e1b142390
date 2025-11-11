@@ -169,7 +169,7 @@ int main(void)
 		  sprintf(Message, "%.3f %.3f %.3f %d\n\r", Roll, Pitch, Yaw, ServoValue);
 		  HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
-	  //todo: graphs of the response
+
 
     /* USER CODE END WHILE */
 
