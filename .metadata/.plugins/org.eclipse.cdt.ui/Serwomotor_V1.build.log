@@ -1,10 +1,23 @@
-18:47:02 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+19:31:34 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
 arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
    text	   data	    bss	    dec	    hex	filename
-  48968	    468	   2428	  51864	   ca98	Serwomotor_V1.elf
+  49376	    468	   2556	  52400	   ccb0	Serwomotor_V1.elf
 Finished building: default.size.stdout
  
+Finished building: Serwomotor_V1.list
+ 
 
-18:47:03 Build Finished. 0 errors, 0 warnings. (took 632ms)
+19:31:36 Build Finished. 0 errors, 2 warnings. (took 2s.394ms)
 

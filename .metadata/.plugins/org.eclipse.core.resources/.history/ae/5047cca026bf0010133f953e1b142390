@@ -166,8 +166,8 @@ int main(void)
 	  {
 		  InterruptFlag = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  sprintf(Message, "%.3f %.3f %.3f %d\n\r", Roll, Pitch, Yaw, ServoValue);
-		  HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
+		  //sprintf(Message, "%.3f %.3f %.3f %d\n\r", Roll, Pitch, Yaw, ServoValue);
+		  //HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 
 
@@ -251,7 +251,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM20)
 	{
 		Counter++;
-		if(Counter == 5)
+		if(Counter == 2)
 		{
 			ServoValue = 450;
 			SetAngle(ServoValue, 1);
