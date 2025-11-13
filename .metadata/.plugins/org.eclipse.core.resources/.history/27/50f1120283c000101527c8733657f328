@@ -250,7 +250,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
-
+	/*
 	if(htim->Instance == TIM20)
 	{
 		Counter++;
@@ -265,7 +265,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
-
+	*/
 
 /*
 	if(htim->Instance == TIM20)

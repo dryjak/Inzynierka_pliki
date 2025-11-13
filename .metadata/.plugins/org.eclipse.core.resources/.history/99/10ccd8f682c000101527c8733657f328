@@ -248,9 +248,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		InterruptFlag = 1;
 	}
-	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
-	//zmienić tim20 counter period na 9999 (1hz)
-
+	/*
 	if(htim->Instance == TIM20)
 	{
 		Counter++;
@@ -265,7 +263,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
-
+	*/
 
 /*
 	if(htim->Instance == TIM20)
@@ -282,8 +280,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		SetAngle(ServoValue, 1);
 	}
 */
-	//Wartość kąta servomotoru zmienia się stopniowo w zakresie od 0 do 45 stopni, następnie następuje postój i z powrotem
-	//należy zmienić timer20 counter period na 99 lub 999 (10 Hz lub 100Hz)
 	/*
 	if (Dir == 1) // Stan: RUCH DO 45 STOPNI
 			{
@@ -329,8 +325,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			// Upewnij się, że SetAngle akceptuje wartości 0-450
 			SetAngle(ServoValue, 1);
 	*/
-	//Wartość kąta servomotoru zmienia się stopniowo w zakresie od 0 do 45 stopni i z powrotem
-	//należy zmienić timer20 counter period na 99 lub 999 (10 Hz lub 100Hz)
 	/*
 	if(htim->Instance == TIM20)
 	{
@@ -346,6 +340,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	        ServoValue = 0;
 			SetAngle(ServoValue, 1);
 		}
+
 	}
 	*/
 
