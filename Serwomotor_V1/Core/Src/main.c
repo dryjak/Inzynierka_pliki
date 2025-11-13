@@ -244,10 +244,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 	if(htim->Instance == TIM1)
 	{
-		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		//HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
 		InterruptFlag = 1;
 	}
+	/*
 	if(htim->Instance == TIM20)
 	{
 		Counter++;
@@ -262,6 +263,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
+	*/
+
 /*
 	if(htim->Instance == TIM20)
 	{

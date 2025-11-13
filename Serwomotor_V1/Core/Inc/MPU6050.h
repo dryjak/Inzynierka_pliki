@@ -43,9 +43,7 @@ typedef struct
 	uint16_t address;
 	Data_t AccelOffset;
 	Data_t GyroOffset;
-
-
-
+	Data_t GyroDryf;
 }MPU6050_t;
 
 typedef enum
