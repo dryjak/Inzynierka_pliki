@@ -229,10 +229,6 @@ static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Acce
     Accelerations->Y = (float)(Raw.Y - MPU6050->AccelOffset.Y) / ScaleFactor;
     Accelerations->Z = (float)(Raw.Z - MPU6050->AccelOffset.Z) / ScaleFactor;
 
-    MPU6050->AccelTest.X = Accelerations->X;
-    MPU6050->AccelTest.Y = Accelerations->Y;
-    MPU6050->AccelTest.Z = Accelerations->Z;
-
     return MPU6050_OK;
 }
 

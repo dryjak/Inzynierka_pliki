@@ -1,4 +1,4 @@
-12:22:17 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+12:50:24 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
@@ -13,11 +13,11 @@ Finished building target: Serwomotor_V1.elf
 arm-none-eabi-size  Serwomotor_V1.elf 
 arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
    text	   data	    bss	    dec	    hex	filename
-  49392	    468	   2572	  52432	   ccd0	Serwomotor_V1.elf
+  49536	    468	   2596	  52600	   cd78	Serwomotor_V1.elf
 Finished building: default.size.stdout
  
 Finished building: Serwomotor_V1.list
  
 
-12:22:19 Build Finished. 0 errors, 2 warnings. (took 2s.280ms)
+12:50:26 Build Finished. 0 errors, 2 warnings. (took 2s.357ms)
 
