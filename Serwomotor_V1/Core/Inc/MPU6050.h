@@ -17,6 +17,7 @@
 #define PWR_MGMT_1			0x6B
 #define GYRO_CONFIG 		0x1B
 #define ACCEL_CONFIG 		0x1C
+#define CONFIG				0x1A
 
 #define ACCEL_XOUT_H		0x3B
 #define GYRO_XOUT_H			0x43

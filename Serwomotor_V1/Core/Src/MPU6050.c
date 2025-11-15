@@ -25,6 +25,7 @@ static MPU6050_STATE_t MPU6050_ReadGyroRaw(MPU6050_t *MPU6050, DataRaw_t *GyroRa
 static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculated);
 static MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050);
 
+static MPU6050_STATE_t MPU6050_SetDigitalLowPassFilter(MPU6050_t *MPU6050);
 
 static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel);
 
@@ -200,6 +201,11 @@ static MPU6050_STATE_t MPU6050_SetAccelerationRange(MPU6050_t *MPU6050)
     uint8_t RegisterValue = Read8(MPU6050, ACCEL_CONFIG);
     RegisterValue &= ~( (1 << 4) | (1 << 5) ); // ±2g
     return Write8(MPU6050, ACCEL_CONFIG, RegisterValue);
+}
+static MPU6050_STATE_t MPU6050_SetDigitalLowPassFilter(MPU6050_t *MPU6050)
+{
+	uint8_t RegisterValue = Read8(MPU6050, CONFIG);
+	RegisterValue |= (( 1 << 0) ); //184Hz (Accel) and 188Hz (Gyro)
 }
 
 // --- surowe i skalowane odczyty Accel/Gyro (prywatne) ---
