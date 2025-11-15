@@ -176,7 +176,7 @@ int main(void)
 		  //RollG = MPU6050.GyroDryf.X;
 		  //PitchG = MPU6050.GyroDryf.Y;
 
-		  sprintf(Message, "%.3f %.3f %.3f %.3f\r", RollA, PitchA, RollG, PitchG);
+		  sprintf(Message, "%.3f %.3f %.3f %.3f\n", RollA, PitchA, RollG, PitchG);
 		  HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 

@@ -2384,3 +2384,279 @@ arm-none-eabi-size  Serwomotor_V1.elf
   48480	    468	   2428	  51376	   c8b0	Serwomotor_V1.elf
 Finished building: default.size.stdout
  
+20:30:14 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+20:30:15 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+20:30:16 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+../Core/Src/main.c:63:12: warning: 'ServoValue' defined but not used [-Wunused-variable]
+   63 | static int ServoValue = 0;
+      |            ^~~~~~~~~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+20:30:22 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:31:06 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:33:37 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:36:17 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:38:10 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:49:21 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:53:01 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:53:54 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:54:59 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+20:57:47 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+../Core/Src/main.c:63:12: warning: 'ServoValue' defined but not used [-Wunused-variable]
+   63 | static int ServoValue = 0;
+      |            ^~~~~~~~~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+20:58:43 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+../Core/Src/main.c:63:12: warning: 'ServoValue' defined but not used [-Wunused-variable]
+   63 | static int ServoValue = 0;
+      |            ^~~~~~~~~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+21:00:13 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+../Core/Src/main.c:63:12: warning: 'ServoValue' defined but not used [-Wunused-variable]
+   63 | static int ServoValue = 0;
+      |            ^~~~~~~~~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+21:00:35 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+21:01:26 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+21:01:27 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+21:01:28 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+../Core/Src/main.c:63:12: warning: 'ServoValue' defined but not used [-Wunused-variable]
+   63 | static int ServoValue = 0;
+      |            ^~~~~~~~~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+21:01:52 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+21:41:21 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+21:44:35 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+21:46:49 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+23:20:28 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+23:21:18 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+23:22:57 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+23:23:30 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+23:26:08 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
