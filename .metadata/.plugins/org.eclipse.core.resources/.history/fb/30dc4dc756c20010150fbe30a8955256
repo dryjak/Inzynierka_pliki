@@ -165,7 +165,7 @@ int main(void)
 	  if(InterruptFlag == 1)
 	  {
 		  InterruptFlag = 0;
-		  //MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
 		  //MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
 
@@ -176,8 +176,8 @@ int main(void)
 		  //RollG = MPU6050.GyroDryf.X;
 		  //PitchG = MPU6050.GyroDryf.Y;
 
-		  //sprintf(Message, "%.3f %.3f %.3f \n\r", RollA, RollG, Roll);
-		  //HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
+		  sprintf(Message, "%.3f %.3f %.3f \n\r", RollA, RollG, Roll);
+		  HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 
     /* USER CODE END WHILE */
@@ -253,7 +253,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 	if(htim->Instance == TIM1)
 	{
-		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+		//HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
 		InterruptFlag = 1;
 	}

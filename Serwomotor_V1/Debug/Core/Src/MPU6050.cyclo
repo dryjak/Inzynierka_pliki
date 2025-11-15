@@ -13,7 +13,7 @@
 ../Core/Src/MPU6050.c:205:24:MPU6050_SetDigitalLowPassFilter	1
 ../Core/Src/MPU6050.c:214:24:MPU6050_ReadAccelerationRaw	2
 ../Core/Src/MPU6050.c:228:24:MPU6050_ReadAcceleration	1
-../Core/Src/MPU6050.c:246:24:MPU6050_CalibrateAccel	3
-../Core/Src/MPU6050.c:274:24:MPU6050_ReadGyroRaw	2
-../Core/Src/MPU6050.c:289:24:MPU6050_ReadGyro	1
-../Core/Src/MPU6050.c:309:24:MPU6050_CalibrateGyro	3
+../Core/Src/MPU6050.c:242:24:MPU6050_CalibrateAccel	3
+../Core/Src/MPU6050.c:270:24:MPU6050_ReadGyroRaw	2
+../Core/Src/MPU6050.c:285:24:MPU6050_ReadGyro	1
+../Core/Src/MPU6050.c:304:24:MPU6050_CalibrateGyro	3

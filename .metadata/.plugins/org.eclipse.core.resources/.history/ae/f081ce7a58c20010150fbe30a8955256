@@ -165,7 +165,7 @@ int main(void)
 	  if(InterruptFlag == 1)
 	  {
 		  InterruptFlag = 0;
-		  //MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
 		  //MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
 

@@ -236,6 +236,10 @@ static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Acce
     Accelerations->Y = (float)(Raw.Y - MPU6050->AccelOffset.Y) / ScaleFactor;
     Accelerations->Z = (float)(Raw.Z - MPU6050->AccelOffset.Z) / ScaleFactor;
 
+    MPU6050->AccelTest.X = Accelerations->X;
+    MPU6050->AccelTest.Y = Accelerations->Y;
+    MPU6050->AccelTest.Z = Accelerations->Z;
+
     return MPU6050_OK;
 }
 
@@ -289,14 +293,15 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
 
     const float ScaleFactor = 131.0f; // ±250°/s
 
-    //code with calibrated gyro data
-    //GyroCalculated->X = (float)((Raw.X - MPU6050->GyroOffset.X) / ScaleFactor);
-    //GyroCalculated->Y = (float)((Raw.Y - MPU6050->GyroOffset.Y) / ScaleFactor);
-    //GyroCalculated->Z = (float)((Raw.Z - MPU6050->GyroOffset.Z) / ScaleFactor);
+    //code to see gyro dryf
+    MPU6050->GyroDryf.X = (float)((Raw.X) / ScaleFactor);
+    MPU6050->GyroDryf.Y = (float)((Raw.Y) / ScaleFactor);
+    MPU6050->GyroDryf.Z = (float)((Raw.Z) / ScaleFactor);
 
-    GyroCalculated->X = (float)((Raw.X) / ScaleFactor);
-    GyroCalculated->Y = (float)((Raw.Y) / ScaleFactor);
-    GyroCalculated->Z = (float)((Raw.Z) / ScaleFactor);
+    //code with calibrated gyro data
+    GyroCalculated->X = (float)((Raw.X - MPU6050->GyroOffset.X) / ScaleFactor);
+    GyroCalculated->Y = (float)((Raw.Y - MPU6050->GyroOffset.Y) / ScaleFactor);
+    GyroCalculated->Z = (float)((Raw.Z - MPU6050->GyroOffset.Z) / ScaleFactor);
 
     return MPU6050_OK;
 }
