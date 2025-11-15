@@ -166,13 +166,17 @@ int main(void)
 	  {
 		  InterruptFlag = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
+		  //MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
 		  //MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
 
-		  RollG = MPU6050.GyroDryf.X;
-		  PitchG = MPU6050.GyroDryf.Y;
+		 MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
+		 MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
 
-		  sprintf(Message, "%.3f %.3f %.3f %.3f %.3f %.3f %d\n\r", RollA, PitchA, RollG, PitchG, Roll, Pitch, ServoValue);
+
+		  //RollG = MPU6050.GyroDryf.X;
+		  //PitchG = MPU6050.GyroDryf.Y;
+
+		  sprintf(Message, "%.3f %.3f %.3f \n\r", RollA, RollG, Roll);
 		  HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 
@@ -334,7 +338,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			// Upewnij się, że SetAngle akceptuje wartości 0-450
 			SetAngle(ServoValue, 1);
 	*/
-	//Wartość kąta servomotoru zmienia się stopniowo w zakresie od 0 do 45 stopni i z powrotem
+	//Wartość kąta servomotoru zmienia się skokowo w zakresie od 0 do 45 stopni i z powrotem
 	//należy zmienić timer20 counter period na 99 lub 999 (10 Hz lub 100Hz)
 	/*
 	if(htim->Instance == TIM20)

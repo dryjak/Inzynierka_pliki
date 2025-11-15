@@ -144,7 +144,7 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
         *Yaw = 0.0f;
         initialized = 1;
 
-        MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
+        //MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
         return MPU6050_OK;
     }
 
@@ -206,6 +206,7 @@ static MPU6050_STATE_t MPU6050_SetDigitalLowPassFilter(MPU6050_t *MPU6050)
 {
 	uint8_t RegisterValue = Read8(MPU6050, CONFIG);
 	RegisterValue |= (( 1 << 0) ); //184Hz (Accel) and 188Hz (Gyro)
+	return Write8(MPU6050, CONFIG, RegisterValue);
 }
 
 // --- surowe i skalowane odczyty Accel/Gyro (prywatne) ---
@@ -294,8 +295,8 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
 
     //code to see gyro dryf
     MPU6050->GyroDryf.X = (float)((Raw.X) / ScaleFactor);
-    MPU6050->GyroDryf.X = (float)((Raw.Y) / ScaleFactor);
-    MPU6050->GyroDryf.X = (float)((Raw.Z) / ScaleFactor);
+    MPU6050->GyroDryf.Y = (float)((Raw.Y) / ScaleFactor);
+    MPU6050->GyroDryf.Z = (float)((Raw.Z) / ScaleFactor);
 
     //code with calibrated gyro data
     GyroCalculated->X = (float)((Raw.X - MPU6050->GyroOffset.X) / ScaleFactor);
