@@ -160,6 +160,7 @@ int main(void)
   HAL_Delay(1000);
   while (1)
   {
+//todo: strojenie silników
 	  /*
 	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 000);
 	HAL_Delay(2000);
