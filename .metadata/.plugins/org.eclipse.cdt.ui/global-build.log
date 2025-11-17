@@ -2660,3 +2660,44 @@ arm-none-eabi-size  Serwomotor_V1.elf
   48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
 Finished building: default.size.stdout
  
+07:31:14 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+07:31:15 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+07:31:16 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  48904	    468	   2556	  51928	   cad8	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+07:31:17 **** Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:65:12: warning: 'Tmp' defined but not used [-Wunused-variable]
+   65 | static int Tmp = 0;
+      |            ^~~
+../Core/Src/main.c:64:12: warning: 'Dir' defined but not used [-Wunused-variable]
+   64 | static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+      |            ^~~
+arm-none-eabi-gcc -o "Serwomotor_V2_StepAG.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V2_StepAG\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V2_StepAG.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V2_StepAG.elf
+ 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V2_StepAG.elf  > "Serwomotor_V2_StepAG.list"
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V2_StepAG.list
+ 
