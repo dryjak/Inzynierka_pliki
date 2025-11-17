@@ -288,7 +288,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
-/*
+
 	if(htim->Instance == TIM20)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
@@ -305,7 +305,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
-*/
+
 
 /*
 	if(htim->Instance == TIM20)
@@ -377,6 +377,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			}
 	}
 	*/
+	/*
 	//sinusoida
 	if(htim->Instance == TIM20)
 	{
@@ -397,6 +398,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
+	*/
 	//Wartość kąta servomotoru zmienia się skokowo w zakresie od 0 do 45 stopni i z powrotem
 	//należy zmienić timer20 counter period na 99 lub 999 (10 Hz lub 100Hz)
 /*
