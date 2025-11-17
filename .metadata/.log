@@ -816,3 +816,33 @@ Project's 'Serwomotor_V2_StepAG' active one is 'Serwomotor_V2_StepAG.ioc' file
 
 !ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-11-17 08:13:02.758
 !MESSAGE Existing sessions are:
+!SESSION 2025-11-17 14:03:46.728 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-11-17 14:03:59.504
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-11-17 14:03:59.506
+!MESSAGE Log4j2 initialized with config file D:\GithubRepo\Inzynierka_pliki\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-17 14:04:10.967
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-11-17 19:59:34.049 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-11-17 20:00:11.204
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-11-17 20:00:11.209
+!MESSAGE Log4j2 initialized with config file D:\GithubRepo\Inzynierka_pliki\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-11-17 20:00:25.467
+!MESSAGE Started RMI Server, listening on port 41337

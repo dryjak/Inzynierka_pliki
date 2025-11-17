@@ -56,20 +56,36 @@ float RollA, PitchA, YawA;
 float RollG, PitchG, YawG;
 
 //Servomotor
-volatile int16_t ServoValue = 0;
-volatile int8_t Dir = 1;
-uint16_t Tmp = 0;
+//volatile int16_t ServoValue = 0;
+//volatile int8_t Dir = 1;
+//uint16_t Tmp = 0;
 
-//static int ServoValue = 0;
-//static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
-//static int Tmp = 0;
+static int ServoValue = 0;
+static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+static int Tmp = 0;
 const int CZAS_POSTOJU = 1000;
 
 uint16_t Counter = 0;
 
 char Message[128];
 
+volatile uint16_t StartTheServo = 0;
+volatile uint16_t ServoInterrupt = 0;
 volatile uint8_t InterruptFlag = 0;
+
+
+
+//sinusoida
+static float phase = 0.0f;
+
+// Amplituda (0..450)
+#define SERVO_AMPLITUDE 450.0f
+
+// Krok fazy – im większy, tym szybciej „sinusoida”
+// 0.05 → wolno i płynnie
+// 0.1  → dwa razy szybciej
+#define PHASE_STEP 0.01f
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,19 +134,30 @@ int main(void)
   MX_TIM1_Init();
   MX_TIM20_Init();
   MX_I2C1_Init();
+  MX_TIM8_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+
+
+  MPU6050_Init(&MPU6050, &hi2c1, 0x68);
+
+  HAL_Delay(2000);
+
+
+
   HAL_TIM_PWM_Start(&htim15, TIM_CHANNEL_1);
   HAL_TIM_Base_Start_IT(&htim1);
   HAL_TIM_Base_Start_IT(&htim20);
+  HAL_TIM_Base_Start_IT(&htim8);
 
-  MPU6050_Init(&MPU6050, &hi2c1, 0x68);
+  StartTheServo = 1;
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+  HAL_Delay(1000);
   while (1)
   {
 	  /*
@@ -165,18 +192,18 @@ int main(void)
 	  if(InterruptFlag == 1)
 	  {
 		  InterruptFlag = 0;
-		  //MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
 		  //MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
 
-		 MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
-		 MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
+		 //MPU6050_DegFromAccel(&MPU6050, &RollA, &PitchA);
+		 //MPU6050_DegFromGyro(&MPU6050, &RollG, &PitchG, &YawG);
 
 
 		  //RollG = MPU6050.GyroDryf.X;
 		  //PitchG = MPU6050.GyroDryf.Y;
 
-		  sprintf(Message, "%.3f %.3f %.3f %.3f %d\r", RollA, PitchA, RollG, PitchG, ServoValue);
+		  sprintf(Message, "%.3f %.3f %d\r", Roll, Pitch, ServoValue);
 		  HAL_UART_Transmit(&hlpuart1, (uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 
@@ -245,6 +272,9 @@ static void MX_NVIC_Init(void)
   /* TIM20_UP_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(TIM20_UP_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(TIM20_UP_IRQn);
+  /* TIM8_UP_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM8_UP_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM8_UP_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
@@ -258,7 +288,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
-
+/*
 	if(htim->Instance == TIM20)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
@@ -275,7 +305,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
-
+*/
 
 /*
 	if(htim->Instance == TIM20)
@@ -295,53 +325,81 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	//Wartość kąta servomotoru zmienia się stopniowo w zakresie od 0 do 45 stopni, następnie następuje postój i z powrotem
 	//należy zmienić timer20 counter period na 99 lub 999 (10 Hz lub 100Hz)
 	/*
-	if (Dir == 1) // Stan: RUCH DO 45 STOPNI
-			{
-				ServoValue++; // Krok w górę
-				if (ServoValue >= 450)
-				{
-					ServoValue = 450; // Ustaw na 45 (zapobiegaj przekroczeniu)
-					Dir = 0;          // Zmień stan na POSTÓJ
-					Tmp = 0;          // Zresetuj licznik czasu postoju
-				}
-			}
-			else if (Dir == -1) // Stan: RUCH DO 0 STOPNI
-			{
-				ServoValue--; // Krok w dół
-				if (ServoValue <= 0)
-				{
-					ServoValue = 0;   // Ustaw na 0 (zapobiegaj przekroczeniu)
-					Dir = 0;          // Zmień stan na POSTÓJ
-					Tmp = 0;          // Zresetuj licznik czasu postoju
-				}
-			}
-			else // Stan: POSTÓJ (Dir == 0)
-			{
-				Tmp++; // Odliczaj czas postoju
-
-				// Sprawdź, czy czas postoju minął
-				if (Tmp >= CZAS_POSTOJU)
-				{
-					// Czas minął, zdecyduj, w którą stronę ruszyć
-					if (ServoValue == 450) // Jeśli stoimy na 45 stopniach
+	if(htim->Instance == TIM20)
+	{
+		if(ServoInterrupt == 1)
+		{
+			if (Dir == 1) // Stan: RUCH DO 45 STOPNI
 					{
-						Dir = -1; // Ustaw kierunek na RUCH DO 0
+						ServoValue++; // Krok w górę
+						if (ServoValue >= 450)
+						{
+							ServoValue = 450; // Ustaw na 45 (zapobiegaj przekroczeniu)
+							Dir = -1;          // Zmień stan na POSTÓJ
+							Tmp = 0;          // Zresetuj licznik czasu postoju
+						}
 					}
-					else // Jeśli stoimy na 0 stopni
+					else if (Dir == -1) // Stan: RUCH DO 0 STOPNI
 					{
-						Dir = 1; // Ustaw kierunek na RUCH DO 45
-					}
-				}
-				// Jeśli Tmp < CZAS_POSTOJU, nic nie rób, po prostu czekaj dalej
-			}
 
-			// Wywołaj funkcję ustawiającą kąt w każdej iteracji
-			// Upewnij się, że SetAngle akceptuje wartości 0-450
-			SetAngle(ServoValue, 1);
+						ServoValue--; // Krok w dół
+						if (ServoValue <= 0)
+						{
+							ServoValue = 0;   // Ustaw na 0 (zapobiegaj przekroczeniu)
+							Dir = 1;          // Zmień stan na POSTÓJ
+							Tmp = 0;          // Zresetuj licznik czasu postoju
+						}
+
+					}
+					else // Stan: POSTÓJ (Dir == 0)
+					{
+						Tmp++; // Odliczaj czas postoju
+
+						// Sprawdź, czy czas postoju minął
+						if (Tmp >= CZAS_POSTOJU)
+						{
+							// Czas minął, zdecyduj, w którą stronę ruszyć
+							if (ServoValue == 450) // Jeśli stoimy na 45 stopniach
+							{
+								Dir = -1; // Ustaw kierunek na RUCH DO 0
+							}
+							else // Jeśli stoimy na 0 stopni
+							{
+								Dir = 1; // Ustaw kierunek na RUCH DO 45
+							}
+						}
+						// Jeśli Tmp < CZAS_POSTOJU, nic nie rób, po prostu czekaj dalej
+					}
+
+					// Wywołaj funkcję ustawiającą kąt w każdej iteracji
+					// Upewnij się, że SetAngle akceptuje wartości 0-450
+					SetAngle(ServoValue, 1);
+			}
+	}
 	*/
+	//sinusoida
+	if(htim->Instance == TIM20)
+	{
+		if(ServoInterrupt == 1)
+		{
+			// Aktualizacja fazy
+			phase += PHASE_STEP;
+
+			// Opcjonalnie — reset fazy (żeby nie rosła w nieskończoność)
+			if(phase >= 6.28318f)   // 2 * PI
+				phase = 0.0f;
+
+			// Liczymy sinusoidę 0..450
+			float sinVal = (sinf(phase) + 1.0f) * 0.5f;  // 0..1
+			ServoValue = (int)(sinVal * SERVO_AMPLITUDE);
+
+			// Ustawiamy serwo
+			SetAngle(ServoValue, 1);
+		}
+	}
 	//Wartość kąta servomotoru zmienia się skokowo w zakresie od 0 do 45 stopni i z powrotem
 	//należy zmienić timer20 counter period na 99 lub 999 (10 Hz lub 100Hz)
-	/*
+/*
 	if(htim->Instance == TIM20)
 	{
 		if(Dir == 1)
@@ -357,7 +415,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
-	*/
+*/
+	if(htim->Instance == TIM8)
+	{
+		StartTheServo ++;
+
+		if(StartTheServo == 2)
+		{
+			ServoInterrupt = 1;
+		}
+	}
 
 }
 /* USER CODE END 4 */
