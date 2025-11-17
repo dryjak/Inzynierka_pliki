@@ -3344,29 +3344,30 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8001f2e:	681b      	ldr	r3, [r3, #0]
  8001f30:	4a1b      	ldr	r2, [pc, #108]	@ (8001fa0 <HAL_TIM_PeriodElapsedCallback+0x7c>)
  8001f32:	4293      	cmp	r3, r2
- 8001f34:	d107      	bne.n	8001f46 <HAL_TIM_PeriodElapsedCallback+0x22>
+ 8001f34:	d102      	bne.n	8001f3c <HAL_TIM_PeriodElapsedCallback+0x18>
 	{
-		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
- 8001f36:	2120      	movs	r1, #32
- 8001f38:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
- 8001f3c:	f000 ff5c 	bl	8002df8 <HAL_GPIO_TogglePin>
 
 		InterruptFlag = 1;
- 8001f40:	4b18      	ldr	r3, [pc, #96]	@ (8001fa4 <HAL_TIM_PeriodElapsedCallback+0x80>)
- 8001f42:	2201      	movs	r2, #1
- 8001f44:	701a      	strb	r2, [r3, #0]
+ 8001f36:	4b1b      	ldr	r3, [pc, #108]	@ (8001fa4 <HAL_TIM_PeriodElapsedCallback+0x80>)
+ 8001f38:	2201      	movs	r2, #1
+ 8001f3a:	701a      	strb	r2, [r3, #0]
 	}
 	//step response
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
 
 	if(htim->Instance == TIM20)
- 8001f46:	687b      	ldr	r3, [r7, #4]
- 8001f48:	681b      	ldr	r3, [r3, #0]
- 8001f4a:	4a17      	ldr	r2, [pc, #92]	@ (8001fa8 <HAL_TIM_PeriodElapsedCallback+0x84>)
- 8001f4c:	4293      	cmp	r3, r2
- 8001f4e:	d122      	bne.n	8001f96 <HAL_TIM_PeriodElapsedCallback+0x72>
+ 8001f3c:	687b      	ldr	r3, [r7, #4]
+ 8001f3e:	681b      	ldr	r3, [r3, #0]
+ 8001f40:	4a19      	ldr	r2, [pc, #100]	@ (8001fa8 <HAL_TIM_PeriodElapsedCallback+0x84>)
+ 8001f42:	4293      	cmp	r3, r2
+ 8001f44:	d127      	bne.n	8001f96 <HAL_TIM_PeriodElapsedCallback+0x72>
 	{
+		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+ 8001f46:	2120      	movs	r1, #32
+ 8001f48:	f04f 4090 	mov.w	r0, #1207959552	@ 0x48000000
+ 8001f4c:	f000 ff54 	bl	8002df8 <HAL_GPIO_TogglePin>
+
 		Counter++;
  8001f50:	4b16      	ldr	r3, [pc, #88]	@ (8001fac <HAL_TIM_PeriodElapsedCallback+0x88>)
  8001f52:	881b      	ldrh	r3, [r3, #0]

@@ -256,7 +256,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		InterruptFlag = 1;
 	}
-	//step response
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
 

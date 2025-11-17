@@ -810,3 +810,9 @@ Project's 'Serwomotor_V2_StepAG' active one is 'Serwomotor_V2_StepAG.ioc' file
 !MESSAGE Invalid Input: Must be project's active .ioc file.
 
 Project's 'Serwomotor_V2_StepAG' active one is 'Serwomotor_V2_StepAG.ioc' file
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-11-17 08:13:02.757
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 4 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-11-17 08:13:02.758
+!MESSAGE Existing sessions are:

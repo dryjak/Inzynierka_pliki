@@ -56,13 +56,13 @@ float RollA, PitchA, YawA;
 float RollG, PitchG, YawG;
 
 //Servomotor
-//volatile int16_t ServoValue = 0;
-//volatile int8_t Dir = 1;
-//uint16_t Tmp = 0;
+volatile int16_t ServoValue = 0;
+volatile int8_t Dir = 1;
+uint16_t Tmp = 0;
 
-static int ServoValue = 0;
-static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
-static int Tmp = 0;
+//static int ServoValue = 0;
+//static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
+//static int Tmp = 0;
 const int CZAS_POSTOJU = 1000;
 
 uint16_t Counter = 0;
@@ -136,7 +136,7 @@ int main(void)
 	  /*
 	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 000);
 	HAL_Delay(2000);
-	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 00);
+	__HAL_TIM_SET_COMPARE(&htim15, TIM_CHANNEL_1, 450);
 	HAL_Delay(2000);
 	*/
 	/*
@@ -253,15 +253,16 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 	if(htim->Instance == TIM1)
 	{
-		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
 
 		InterruptFlag = 1;
 	}
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
-/*
+
 	if(htim->Instance == TIM20)
 	{
+		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
+
 		Counter++;
 		if(Counter == 5)
 		{
@@ -274,7 +275,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			SetAngle(ServoValue, 1);
 		}
 	}
-*/
+
 
 /*
 	if(htim->Instance == TIM20)

@@ -250,16 +250,15 @@ static void MX_NVIC_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-
+/*
 	if(htim->Instance == TIM1)
 	{
 
 		InterruptFlag = 1;
 	}
-	//step response
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
-
+*/
 	if(htim->Instance == TIM20)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
