@@ -63,7 +63,6 @@ void Button_Pressed(Button_t *Button)
 void ButtonTasks(Button_t *Button)
 {
 	switch(Button->State)
-	{
 		case IDLE:
 			Button_IdleState(Button);
 			break;
@@ -75,7 +74,7 @@ void ButtonTasks(Button_t *Button)
 			break;
 		default:
 			break;
-	}
+
 
 }
 

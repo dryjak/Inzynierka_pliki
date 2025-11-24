@@ -60,22 +60,4 @@ void Button_Pressed(Button_t *Button)
 	}
 }
 
-void ButtonTasks(Button_t *Button)
-{
-	switch(Button->State)
-	{
-		case IDLE:
-			Button_IdleState(Button);
-			break;
-		case DEBOUNCE:
-			Button_Debounce(Button);
-			break;
-		case PRESSED:
-			Button_Pressed(Button);
-			break;
-		default:
-			break;
-	}
-
-}
 

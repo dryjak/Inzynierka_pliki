@@ -1,3 +1,5 @@
 ../Core/Src/state_mashine.c:12:6:Button_Init	1
 ../Core/Src/state_mashine.c:23:6:Button_IdleState	2
-../Core/Src/state_mashine.c:33:6:Button_Debounce	2
+../Core/Src/state_mashine.c:33:6:Button_Debounce	4
+../Core/Src/state_mashine.c:55:6:Button_Pressed	2
+../Core/Src/state_mashine.c:63:6:ButtonTasks	5

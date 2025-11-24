@@ -34,48 +34,7 @@ void Button_Debounce(Button_t *Button)
 {
 	if((HAL_GetTick() - Button->LastTick) >= Button->TimerDebounce)
 	{
-
-		if (HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_SET)
-		{
-			Button->State = PRESSED;
-
-			if(Button->ButtonPressed != NULL)
-			{
-				Button->ButtonPressed();
-			}
-		}
-		else //Button released
-		{
-			Button->State = IDLE;
-		}
+		Button->State = PRESSED;
+		Button->LastTick = HAL_GetTick();
 	}
 }
-
-//State Pressed
-void Button_Pressed(Button_t *Button)
-{
-	if (HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_RESET)
-	{
-		Button->State = IDLE;
-	}
-}
-
-void ButtonTasks(Button_t *Button)
-{
-	switch(Button->State)
-	{
-		case IDLE:
-			Button_IdleState(Button);
-			break;
-		case DEBOUNCE:
-			Button_Debounce(Button);
-			break;
-		case PRESSED:
-			Button_Pressed(Button);
-			break;
-		default:
-			break;
-	}
-
-}
-
