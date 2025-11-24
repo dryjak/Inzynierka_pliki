@@ -17,12 +17,3 @@ void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uin
 
 	Button->State = IDLE;
 }
-
-void ButtonIdleState(Button_t *Button)
-{
-	if(HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_SET)
-	{
-		Button->State = DEBOUNCE;
-		Button->LastTick = HAL_GetTick();
-	}
-}

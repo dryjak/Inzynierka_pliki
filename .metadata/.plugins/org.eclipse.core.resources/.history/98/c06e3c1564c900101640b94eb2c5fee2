@@ -76,7 +76,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
-  Button_Init(&Button, LD2_GPIO_Port, LD2_Pin, TimerDebounce);
+  Button_Init(&Button, &LD2_GPIO_Port, LD2_Pin, TimerDebounce);
   /* USER CODE END Init */
 
   /* Configure the system clock */
