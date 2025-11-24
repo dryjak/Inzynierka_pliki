@@ -8,7 +8,6 @@
 #include <main.h>
 #include <state_mashine.h>
 
-//Init Function
 void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uint32_t TimerDebounce)
 {
 	Button->GpioPort = GpioPort;
@@ -19,22 +18,11 @@ void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uin
 	Button->State = IDLE;
 }
 
-//State Idle
-void Button_IdleState(Button_t *Button)
+void ButtonIdleState(Button_t *Button)
 {
 	if(HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_SET)
 	{
 		Button->State = DEBOUNCE;
-		Button->LastTick = HAL_GetTick();
-	}
-}
-
-//State Debounce
-void Button_Debounce(Button_t *Button)
-{
-	if((HAL_GetTick() - Button->LastTick) >= Button->TimerDebounce)
-	{
-		Button->State = PRESSED;
 		Button->LastTick = HAL_GetTick();
 	}
 }
