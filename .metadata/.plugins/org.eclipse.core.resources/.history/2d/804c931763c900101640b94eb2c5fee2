@@ -1,0 +1,14 @@
+/*
+ * state_mashine.c
+ *
+ *  Created on: Nov 24, 2025
+ *      Author: dryla
+ */
+
+#include <main.h>
+#include <state_mashine.h>
+
+void StateMashine_Init(Button_t *Button, GPIO_InitTypeDef *Port, uint16_t Pin, uint32_t TimerDebounce)
+{
+	Button->
+}

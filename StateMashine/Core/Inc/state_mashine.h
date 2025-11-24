@@ -14,11 +14,11 @@ typedef enum{
 		PRESSED
 }ButtonState;
 
-struct{
+typedef struct{
 	ButtonState 	State;
 
-	GPIO_TypeDef 	*ButtonPort;
-	uint16_t 		ButtonPin;
+	GPIO_TypeDef 	*GpioPort;
+	uint16_t 		GpioPin;
 
 	uint32_t		TimerDebounce;
 	uint32_t 		LastTick;
@@ -26,4 +26,9 @@ struct{
 	void (*Callback)(void);
 }Button_t;
 
+void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uint32_t TimerDebounce);
+
+
+
 #endif /* INC_STATE_MASHINE_H_ */
+
