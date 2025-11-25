@@ -71,6 +71,10 @@ static void Button_IdleState(Button_t *Button)
 		Button->LastTick = HAL_GetTick();
 	}
 }
+void Button_SetDebounceTimer(Button_t *Button, uint32_t Milliseconds)
+{
+	Button->TimerDebounce = Milliseconds;
+}
 //State Debounce
 static void Button_Debounce(Button_t *Button)
 {
@@ -128,19 +132,6 @@ static void Button_Repeat(Button_t *Button)
 
 		Button->LastTick = HAL_GetTick();
 	}
-}
-
-void Button_SetDebounceTimer(Button_t *Button, uint32_t Milliseconds)
-{
-	Button->TimerDebounce = Milliseconds;
-}
-void Button_SetRepeatTimer(Button_t *Button, uint32_t Milliseconds)
-{
-	Button->TimerRepeat = Milliseconds;
-}
-void Button_SetLongPressTimer(Button_t *Button, uint32_t Milliseconds)
-{
-	Button->TimerLongPress = Milliseconds;
 }
 
 

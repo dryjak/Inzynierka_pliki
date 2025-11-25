@@ -4,7 +4,9 @@
 ../Core/Src/state_mashine.c:39:6:Button_RegisterRepeatCallback	1
 ../Core/Src/state_mashine.c:44:6:ButtonTasks	5
 ../Core/Src/state_mashine.c:66:13:Button_IdleState	2
-../Core/Src/state_mashine.c:74:6:Button_SetDebounceTimer	1
-../Core/Src/state_mashine.c:79:13:Button_Debounce	4
-../Core/Src/state_mashine.c:102:13:Button_Pressed	3
-../Core/Src/state_mashine.c:119:13:Button_Repeat	3
+../Core/Src/state_mashine.c:75:13:Button_Debounce	4
+../Core/Src/state_mashine.c:98:13:Button_Pressed	3
+../Core/Src/state_mashine.c:115:13:Button_Repeat	3
+../Core/Src/state_mashine.c:133:6:Button_SetDebounceTimer	1
+../Core/Src/state_mashine.c:137:6:Button_SetRepeatTimer	1
+../Core/Src/state_mashine.c:141:6:Button_SetLongPressTimer	1

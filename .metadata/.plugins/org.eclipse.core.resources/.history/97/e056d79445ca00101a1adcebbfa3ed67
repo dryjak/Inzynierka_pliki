@@ -38,10 +38,12 @@ void Button_RegisterPressCallback(Button_t *Button, void(*Callback)());
 void Button_RegisterLongPressCallback(Button_t *Button, void(*Callback)());
 void Button_RegisterRepeatCallback(Button_t *Button, void(*Callback)());
 
+
 void ButtonTasks(Button_t *Button);
 void Button_SetDebounceTimer(Button_t *Button, uint32_t Milliseconds);
-void Button_SetLongPressTimer(Button_t *Button, uint32_t Milliseconds);
-void Button_SetRepeatTimer(Button_t *Button, uint32_t Milliseconds);
+
+
+
 
 
 #endif /* INC_STATE_MASHINE_H_ */
