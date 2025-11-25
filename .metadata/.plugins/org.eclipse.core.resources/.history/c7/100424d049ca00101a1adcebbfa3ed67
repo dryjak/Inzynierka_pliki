@@ -23,10 +23,6 @@ void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uin
 	Button->GpioPort = GpioPort;
 	Button->GpioPin = GpioPin;
 
-	Button->ButtonPressed = NULL;
-	Button->ButtonLongPress = NULL;
-	Button->ButtonRepeat = NULL;
-
 	Button->TimerDebounce = TimerDebounce;
 	Button->TimerLongPress = TimerLongPress;
 	Button->TimerRepeat = TimerRepeat;
@@ -118,7 +114,7 @@ static void Button_Pressed(Button_t *Button)
 
 static void Button_Repeat(Button_t *Button)
 {
-	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin))
+	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin))
 	{
 		Button->State = IDLE;
 	}

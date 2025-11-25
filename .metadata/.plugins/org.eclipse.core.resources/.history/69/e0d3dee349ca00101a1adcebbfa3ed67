@@ -23,10 +23,6 @@ void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uin
 	Button->GpioPort = GpioPort;
 	Button->GpioPin = GpioPin;
 
-	Button->ButtonPressed = NULL;
-	Button->ButtonLongPress = NULL;
-	Button->ButtonRepeat = NULL;
-
 	Button->TimerDebounce = TimerDebounce;
 	Button->TimerLongPress = TimerLongPress;
 	Button->TimerRepeat = TimerRepeat;
