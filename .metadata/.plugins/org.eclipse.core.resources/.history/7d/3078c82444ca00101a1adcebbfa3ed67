@@ -45,9 +45,7 @@
 
 /* USER CODE BEGIN PV */
 Button_t Button;
-uint32_t TimerDebounce = 20;
-uint32_t TimerLongPress = 2000;
-uint32_t TimerRepeat = 500;
+uint16_t TimerDebounce = 20;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -91,11 +89,8 @@ int main(void)
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
-  Button_Init(&Button, B1_GPIO_Port, B1_Pin, TimerDebounce, TimerRepeat, TimerLongPress);
+  Button_Init(&Button, B1_GPIO_Port, B1_Pin, TimerDebounce);
   Button_RegisterPressCallback(&Button, ToggleLed);
-  Button_RegisterLongPressCallback(&Button, ToggleLed);
-  Button_RegisterRepeatCallback(&Button, ToggleLed);
   /* USER CODE END 2 */
 
   /* Infinite loop */

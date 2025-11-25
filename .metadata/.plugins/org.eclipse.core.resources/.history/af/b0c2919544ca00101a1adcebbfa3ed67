@@ -32,14 +32,6 @@ void Button_RegisterPressCallback(Button_t *Button, void(*Callback)())
 {
 	Button->ButtonPressed = Callback;
 }
-void Button_RegisterLongPressCallback(Button_t *Button, void(*Callback)())
-{
-	Button->ButtonPressed = Callback;
-}
-void Button_RegisterRepeatCallback(Button_t *Button, void(*Callback)())
-{
-	Button->ButtonPressed = Callback;
-}
 
 void ButtonTasks(Button_t *Button)
 {

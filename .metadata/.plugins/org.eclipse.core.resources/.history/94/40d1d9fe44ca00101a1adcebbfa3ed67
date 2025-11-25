@@ -94,8 +94,6 @@ int main(void)
 
   Button_Init(&Button, B1_GPIO_Port, B1_Pin, TimerDebounce, TimerRepeat, TimerLongPress);
   Button_RegisterPressCallback(&Button, ToggleLed);
-  Button_RegisterLongPressCallback(&Button, ToggleLed);
-  Button_RegisterRepeatCallback(&Button, ToggleLed);
   /* USER CODE END 2 */
 
   /* Infinite loop */

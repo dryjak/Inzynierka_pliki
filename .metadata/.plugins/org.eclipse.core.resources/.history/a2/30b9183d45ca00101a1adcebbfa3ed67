@@ -35,7 +35,7 @@ void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uin
 		uint32_t TimerLongPress);
 
 void Button_RegisterPressCallback(Button_t *Button, void(*Callback)());
-void Button_RegisterLongPressCallback(Button_t *Button, void(*Callback)());
+void Button_RegisterPressCallback(Button_t *Button, void(*Callback)());
 void Button_RegisterRepeatCallback(Button_t *Button, void(*Callback)());
 
 
