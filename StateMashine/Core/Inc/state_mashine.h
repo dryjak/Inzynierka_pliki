@@ -27,6 +27,10 @@ typedef struct{
 }Button_t;
 
 void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uint32_t TimerDebounce);
+void Button_RegisterPressCallback(Button_t *Button, void(*Callback)());
+void ButtonTasks(Button_t *Button);
+
+
 
 
 

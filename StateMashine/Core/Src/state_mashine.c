@@ -8,56 +8,24 @@
 #include <main.h>
 #include <state_mashine.h>
 
+static void Button_IdleState(Button_t *Button);
+static void Button_Debounce(Button_t *Button);
+static void Button_Pressed(Button_t *Button);
+
 //Init Function
 void Button_Init(Button_t *Button, GPIO_TypeDef *GpioPort, uint16_t GpioPin, uint32_t TimerDebounce)
 {
+	Button->State = IDLE;
+
 	Button->GpioPort = GpioPort;
 	Button->GpioPin = GpioPin;
 
 	Button->TimerDebounce = TimerDebounce;
-
-	Button->State = IDLE;
 }
-
-//State Idle
-void Button_IdleState(Button_t *Button)
+//register callbacks
+void Button_RegisterPressCallback(Button_t *Button, void(*Callback)())
 {
-	if(HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_SET)
-	{
-		Button->State = DEBOUNCE;
-		Button->LastTick = HAL_GetTick();
-	}
-}
-
-//State Debounce
-void Button_Debounce(Button_t *Button)
-{
-	if((HAL_GetTick() - Button->LastTick) >= Button->TimerDebounce)
-	{
-
-		if (HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_SET)
-		{
-			Button->State = PRESSED;
-
-			if(Button->ButtonPressed != NULL)
-			{
-				Button->ButtonPressed();
-			}
-		}
-		else //Button released
-		{
-			Button->State = IDLE;
-		}
-	}
-}
-
-//State Pressed
-void Button_Pressed(Button_t *Button)
-{
-	if (HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_RESET)
-	{
-		Button->State = IDLE;
-	}
+	Button->ButtonPressed = Callback;
 }
 
 void ButtonTasks(Button_t *Button)
@@ -76,6 +44,48 @@ void ButtonTasks(Button_t *Button)
 		default:
 			break;
 	}
-
 }
+
+//State Idle
+static void Button_IdleState(Button_t *Button)
+{
+	if(HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin) == GPIO_PIN_SET)
+	{
+		Button->State = DEBOUNCE;
+		Button->LastTick = HAL_GetTick();
+	}
+}
+
+//State Debounce
+static void Button_Debounce(Button_t *Button)
+{
+	if((HAL_GetTick() - Button->LastTick) > Button->TimerDebounce)
+	{
+
+		if (GPIO_PIN_SET == (HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin)))
+		{
+			Button->State = PRESSED;
+
+			if(Button->ButtonPressed != NULL)
+			{
+				Button->ButtonPressed();
+			}
+		}
+		else //Button released
+		{
+			Button->State = IDLE;
+		}
+	}
+}
+
+//State Pressed
+static void Button_Pressed(Button_t *Button)
+{
+	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin))
+	{
+		Button->State = IDLE;
+	}
+}
+
+
 

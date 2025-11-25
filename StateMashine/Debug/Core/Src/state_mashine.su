@@ -1,5 +1,6 @@
-../Core/Src/state_mashine.c:12:6:Button_Init	24	static
-../Core/Src/state_mashine.c:23:6:Button_IdleState	16	static
-../Core/Src/state_mashine.c:33:6:Button_Debounce	16	static
-../Core/Src/state_mashine.c:55:6:Button_Pressed	16	static
-../Core/Src/state_mashine.c:63:6:ButtonTasks	16	static
+../Core/Src/state_mashine.c:16:6:Button_Init	24	static
+../Core/Src/state_mashine.c:26:6:Button_RegisterPressCallback	16	static
+../Core/Src/state_mashine.c:31:6:ButtonTasks	16	static
+../Core/Src/state_mashine.c:50:13:Button_IdleState	16	static
+../Core/Src/state_mashine.c:60:13:Button_Debounce	16	static
+../Core/Src/state_mashine.c:82:13:Button_Pressed	16	static
