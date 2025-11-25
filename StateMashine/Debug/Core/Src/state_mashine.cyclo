@@ -1,6 +1,0 @@
-../Core/Src/state_mashine.c:16:6:Button_Init	1
-../Core/Src/state_mashine.c:26:6:Button_RegisterPressCallback	1
-../Core/Src/state_mashine.c:31:6:ButtonTasks	5
-../Core/Src/state_mashine.c:50:13:Button_IdleState	2
-../Core/Src/state_mashine.c:60:13:Button_Debounce	4
-../Core/Src/state_mashine.c:82:13:Button_Pressed	2
