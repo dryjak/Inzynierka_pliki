@@ -95,9 +95,9 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   Button_Init(&Button, B1_GPIO_Port, B1_Pin, TimerDebounce, TimerRepeat, TimerLongPress);
-  Button_RegisterPressCallback(&Button, TurnOnLed);
-  Button_RegisterLongPressCallback(&Button, TurnOffLed);
-  Button_RegisterRepeatCallback(&Button, ToggleLed);
+  Button_RegisterPressCallback(&Button, ToggleLed);
+  Button_RegisterLongPressCallback(&Button, TurnOnLed);
+  Button_RegisterRepeatCallback(&Button, TurnOffLed);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -166,12 +166,9 @@ void ToggleLed(void)
 }
 void TurnOnLed (void)
 {
-	HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_SET);
+	HAL_GPIO_WritePin(B1_GPIO_Port, GPIO_Pin, PinState)
 }
-void TurnOffLed (void)
-{
-	HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_RESET);
-}
+void TurnOffLed (void);
 /* USER CODE END 4 */
 
 /**

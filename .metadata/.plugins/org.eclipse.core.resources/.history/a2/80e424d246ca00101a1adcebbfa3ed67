@@ -80,11 +80,11 @@ static void Button_Debounce(Button_t *Button)
 		if (GPIO_PIN_SET == (HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin)))
 		{
 			Button->State = PRESSED;
-			Button->LastTick = HAL_GetTick();
 
 			if(Button->ButtonPressed != NULL)
 			{
 				Button->ButtonPressed();
+				Button->LastTick = HAL_GetTick();
 			}
 		}
 		else //Button released
@@ -104,9 +104,9 @@ static void Button_Pressed(Button_t *Button)
 	else if (HAL_GetTick() - Button->LastTick >= 0)
 	{
 		Button->State = REPEAT;
-		Button->LastTick = HAL_GetTick();
 		if (Button->ButtonLongPress != NULL)
 		{
+			Button->LastTick = HAL_GetTick();
 			Button->ButtonLongPress();
 		}
 	}

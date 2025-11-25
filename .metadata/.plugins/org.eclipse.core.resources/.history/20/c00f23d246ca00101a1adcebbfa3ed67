@@ -54,8 +54,6 @@ uint32_t TimerRepeat = 500;
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
 void ToggleLed(void);
-void TurnOnLed (void);
-void TurnOffLed (void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -95,8 +93,8 @@ int main(void)
   /* USER CODE BEGIN 2 */
 
   Button_Init(&Button, B1_GPIO_Port, B1_Pin, TimerDebounce, TimerRepeat, TimerLongPress);
-  Button_RegisterPressCallback(&Button, TurnOnLed);
-  Button_RegisterLongPressCallback(&Button, TurnOffLed);
+  Button_RegisterPressCallback(&Button, ToggleLed);
+  Button_RegisterLongPressCallback(&Button, ToggleLed);
   Button_RegisterRepeatCallback(&Button, ToggleLed);
   /* USER CODE END 2 */
 
@@ -163,14 +161,6 @@ void SystemClock_Config(void)
 void ToggleLed(void)
 {
 	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-}
-void TurnOnLed (void)
-{
-	HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_SET);
-}
-void TurnOffLed (void)
-{
-	HAL_GPIO_WritePin(B1_GPIO_Port, B1_Pin, GPIO_PIN_RESET);
 }
 /* USER CODE END 4 */
 
