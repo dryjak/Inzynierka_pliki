@@ -94,32 +94,18 @@ static void Button_Pressed(Button_t *Button)
 	{
 		Button->State = IDLE;
 	}
-	else if (HAL_GetTick() - Button->LastTick >= 0)
+	if (HAL_GetTick() - Button->LastTick >= 0)
 	{
 		Button->State = REPEAT;
-		if (Button->ButtonLongPress != NULL)
-		{
-			Button->LastTick = HAL_GetTick();
-			Button->ButtonLongPress();
-		}
+		Button->LastTick = HAL_GetTick();
 	}
 }
 
 static void Button_Repeat(Button_t *Button)
 {
-	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(B1_GPIO_Port, B1_Pin))
-	{
-		Button->State = IDLE;
-	}
-	else if (HAL_GetTick() - Button->LastTick >= 0)
+	if (HAL_GetTick() - Button->LastTick >= 0)
 	{
 		//Repeat
-		if(Button->ButtonRepeat != NULL)
-		{
-			Button->ButtonRepeat();
-		}
-
-		Button->LastTick = HAL_GetTick();
 	}
 }
 

@@ -5852,3 +5852,214 @@ Finished building: default.size.stdout
  
 Finished building: StateMashine.list
  
+21:56:08 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+21:56:09 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+21:56:09 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49680	    468	   2636	  52784	   ce30	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+21:56:10 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+21:56:11 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/state_mashine.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/state_mashine.d" -MT"Core/Src/state_mashine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/state_mashine.o"
+arm-none-eabi-gcc -o "StateMashine.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\StateMashine\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="StateMashine.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: StateMashine.elf
+ 
+arm-none-eabi-size  StateMashine.elf 
+arm-none-eabi-objdump -h -S StateMashine.elf  > "StateMashine.list"
+   text	   data	    bss	    dec	    hex	filename
+  12016	     16	   1744	  13776	   35d0	StateMashine.elf
+Finished building: default.size.stdout
+ 
+Finished building: StateMashine.list
+ 
+21:58:07 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+21:58:08 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+21:58:09 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49680	    468	   2636	  52784	   ce30	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+21:58:10 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+21:58:10 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/state_mashine.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/state_mashine.d" -MT"Core/Src/state_mashine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/state_mashine.o"
+../Core/Src/state_mashine.c: In function 'Button_Repeat':
+../Core/Src/state_mashine.c:100:12: error: expected expression before ')' token
+  100 |         if()
+      |            ^
+make: *** [Core/Src/subdir.mk:43: Core/Src/state_mashine.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:06:27 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+22:06:27 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+22:06:28 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49680	    468	   2636	  52784	   ce30	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+22:06:29 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+22:06:30 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/state_mashine.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/state_mashine.d" -MT"Core/Src/state_mashine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/state_mashine.o"
+arm-none-eabi-gcc -o "StateMashine.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\StateMashine\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="StateMashine.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: StateMashine.elf
+ 
+arm-none-eabi-size  StateMashine.elf 
+arm-none-eabi-objdump -h -S StateMashine.elf  > "StateMashine.list"
+   text	   data	    bss	    dec	    hex	filename
+  12088	     16	   1760	  13864	   3628	StateMashine.elf
+Finished building: default.size.stdout
+ 
+Finished building: StateMashine.list
+ 
+22:11:56 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+22:11:57 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+22:11:58 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49680	    468	   2636	  52784	   ce30	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+22:11:58 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+22:11:59 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/state_mashine.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/state_mashine.d" -MT"Core/Src/state_mashine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/state_mashine.o"
+../Core/Src/state_mashine.c: In function 'Button_Pressed':
+../Core/Src/state_mashine.c:103:25: error: called object is not a function or function pointer
+  103 |                         Button->TimerLongPress();
+      |                         ^~~~~~
+../Core/Src/state_mashine.c: In function 'Button_Repeat':
+../Core/Src/state_mashine.c:117:40: warning: comparison between pointer and integer
+  117 |                 if(Button->TimerRepeat != NULL)
+      |                                        ^~
+../Core/Src/state_mashine.c:119:25: error: called object is not a function or function pointer
+  119 |                         Button->TimerRepeat();
+      |                         ^~~~~~
+make: *** [Core/Src/subdir.mk:43: Core/Src/state_mashine.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+22:13:11 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+22:13:12 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+22:13:13 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49680	    468	   2636	  52784	   ce30	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+22:13:14 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+22:13:15 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/state_mashine.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/state_mashine.d" -MT"Core/Src/state_mashine.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/state_mashine.o"
+arm-none-eabi-gcc -o "StateMashine.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\StateMashine\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="StateMashine.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: StateMashine.elf
+ 
+arm-none-eabi-size  StateMashine.elf 
+arm-none-eabi-objdump -h -S StateMashine.elf  > "StateMashine.list"
+   text	   data	    bss	    dec	    hex	filename
+  12156	     16	   1760	  13932	   366c	StateMashine.elf
+Finished building: default.size.stdout
+ 
+Finished building: StateMashine.list
+ 

@@ -100,7 +100,7 @@ static void Button_Pressed(Button_t *Button)
 		if (Button->ButtonLongPress != NULL)
 		{
 			Button->LastTick = HAL_GetTick();
-			Button->ButtonLongPress();
+			Button->TimerLongPress();
 		}
 	}
 }
@@ -114,9 +114,9 @@ static void Button_Repeat(Button_t *Button)
 	else if (HAL_GetTick() - Button->LastTick >= 0)
 	{
 		//Repeat
-		if(Button->ButtonRepeat != NULL)
+		if(Button->TimerRepeat != NULL)
 		{
-			Button->ButtonRepeat();
+			Button->TimerRepeat();
 		}
 
 		Button->LastTick = HAL_GetTick();
