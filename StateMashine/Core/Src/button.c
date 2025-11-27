@@ -12,6 +12,8 @@ static void Button_IdleState(Button_t *Button);
 static void Button_Debounce(Button_t *Button);
 static void Button_Pressed(Button_t *Button);
 static void Button_Repeat(Button_t *Button);
+static void Button_Release(Button_t *Button);
+
 
 
 //Init Function
@@ -44,6 +46,10 @@ void Button_RegisterRepeatCallback(Button_t *Button, void(*Callback)())
 {
 	Button->ButtonRepeat = Callback;
 }
+void Button_RegisterReleaseCallback(Button_t *Button, void(*Callback)())
+{
+	Button->ButtonRelease = Callback;
+}
 
 void ButtonTasks(Button_t *Button)
 {
@@ -60,6 +66,9 @@ void ButtonTasks(Button_t *Button)
 			break;
 		case REPEAT:
 			Button_Repeat(Button);
+			break;
+		case RELEASE:
+			Button_Release(Button);
 			break;
 		default:
 			break;
@@ -103,7 +112,7 @@ static void Button_Pressed(Button_t *Button)
 {
 	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin))
 	{
-		Button->State = IDLE;
+		Button->State = RELEASE;
 	}
 	else if ((HAL_GetTick() - Button->LastTick) >= Button->TimerLongPress)
 	{
@@ -120,7 +129,7 @@ static void Button_Repeat(Button_t *Button)
 {
 	if (GPIO_PIN_RESET == HAL_GPIO_ReadPin(Button->GpioPort, Button->GpioPin))
 	{
-		Button->State = IDLE;
+		Button->State = RELEASE;
 	}
 	else if ((HAL_GetTick() - Button->LastTick) >= Button->TimerRepeat)
 	{
@@ -132,6 +141,15 @@ static void Button_Repeat(Button_t *Button)
 
 		Button->LastTick = HAL_GetTick();
 	}
+}
+static void Button_Release(Button_t *Button)
+{
+	if(Button->ButtonRelease != NULL)
+	{
+		Button->ButtonRelease();
+	}
+	Button->State = RELEASE;
+
 }
 
 void Button_SetDebounceTimer(Button_t *Button, uint32_t Milliseconds)
