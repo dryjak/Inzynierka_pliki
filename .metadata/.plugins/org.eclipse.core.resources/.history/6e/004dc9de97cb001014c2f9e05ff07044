@@ -148,7 +148,7 @@ static void Button_Release(Button_t *Button)
 	{
 		Button->ButtonRelease();
 	}
-	Button->State = IDLE;
+	Button->State = RELEASE;
 
 }
 

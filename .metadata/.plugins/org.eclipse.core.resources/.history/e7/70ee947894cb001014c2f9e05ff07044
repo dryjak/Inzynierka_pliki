@@ -44,19 +44,6 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-typedef enum{
-	LED_ON,
-	LED_OFF
-}LedState;
-uint8_t LedCurretState =LED_ON;
-
-
-uint8_t Repetitions = 3;
-uint32_t RepetitionTimeOn = 500;
-uint32_t RepetitionTimeOff = 700;
-uint32_t RepetitionTime = 200;
-uint32_t LastTick;
-
 Button_t Button;
 uint32_t TimerDebounce = 20;
 uint32_t TimerLongPress = 2000;
@@ -69,7 +56,6 @@ void SystemClock_Config(void);
 void ToggleLed(void);
 void TurnOnLed (void);
 void TurnOffLed (void);
-void TurnLedOnAndOff (void);
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -186,7 +172,6 @@ void TurnOffLed (void)
 {
 	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 }
-
 /* USER CODE END 4 */
 
 /**

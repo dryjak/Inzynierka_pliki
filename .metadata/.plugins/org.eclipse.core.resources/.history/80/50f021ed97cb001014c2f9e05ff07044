@@ -50,7 +50,8 @@ typedef enum{
 }LedState;
 uint8_t LedCurretState =LED_ON;
 
-
+static TMP = 0;
+ReleaseCounter = 0;
 uint8_t Repetitions = 3;
 uint32_t RepetitionTimeOn = 500;
 uint32_t RepetitionTimeOff = 700;
@@ -186,7 +187,10 @@ void TurnOffLed (void)
 {
 	HAL_GPIO_WritePin(LD2_GPIO_Port, LD2_Pin, GPIO_PIN_RESET);
 }
-
+void TurnLedOnAndOff (void)
+{
+	ReleaseCounter = 6;
+}
 /* USER CODE END 4 */
 
 /**
