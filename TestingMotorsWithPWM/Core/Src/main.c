@@ -21,7 +21,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "motor_simple.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,7 +45,8 @@ UART_HandleTypeDef hlpuart1;
 TIM_HandleTypeDef htim4;
 
 /* USER CODE BEGIN PV */
-
+Motor_t Motor;
+uint16_t PWM;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -94,7 +95,7 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_TIM4_Init();
   /* USER CODE BEGIN 2 */
-
+  Motor_Init(&Motor, &htim4, TIM_CHANNEL_1, PWM, Motor1DirA_GPIO_Port, Motor1DirA_Pin, Motor1DirB_GPIO_Port, Motor1DirB_Pin);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -102,6 +103,15 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
+	  PWM = 50;
+	  Motor_SetRideParameters(&Motor, PWM, 1);
+	  Motor_Ride(&Motor);
+	  HAL_Delay(4000);
+
+	  PWM = 30;
+	  Motor_SetRideParameters(&Motor, PWM, 1);
+	  Motor_Ride(&Motor);
+	  HAL_Delay(4000);
 
     /* USER CODE BEGIN 3 */
   }
