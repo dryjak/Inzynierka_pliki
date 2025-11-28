@@ -35,17 +35,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_rnglists 00000c8e  00000000  00000000  0001bf48  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00025f2f  00000000  00000000  0001cbd6  2**0
+ 16 .debug_macro  00002277  00000000  00000000  0001cbd6  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001371a  00000000  00000000  00042b05  2**0
+ 17 .debug_line   0001371a  00000000  00000000  0001ee4d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    000f8148  00000000  00000000  0005621f  2**0
+ 18 .debug_str    000f8148  00000000  00000000  00032567  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0014e367  2**0
+ 19 .comment      00000043  00000000  00000000  0012a6af  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00004398  00000000  00000000  0014e3ac  2**2
+ 20 .debug_frame  00004398  00000000  00000000  0012a6f4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000062  00000000  00000000  00152744  2**0
+ 21 .debug_line_str 00000062  00000000  00000000  0012ea8c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -547,10 +547,10 @@ int main(void)
   /* Configure the system clock */
   SystemClock_Config();
  800065e:	f000 f84b 	bl	80006f8 <SystemClock_Config>
+
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
-
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
  8000662:	f7ff ff6f 	bl	8000544 <MX_GPIO_Init>
