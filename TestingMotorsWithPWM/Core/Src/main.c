@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "motor_simple.h"
+#include "Encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -47,6 +48,9 @@
 /* USER CODE BEGIN PV */
 Motor_t Motor;
 uint16_t PWM;
+
+Encoder_t Encoder;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
