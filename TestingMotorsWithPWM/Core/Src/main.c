@@ -90,10 +90,12 @@ int main(void)
   /* USER CODE BEGIN SysInit */
 
   /* USER CODE END SysInit */
+
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
   MX_TIM4_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
   Motor_Init(&Motor, &htim4, TIM_CHANNEL_1, PWM, Motor1DirA_GPIO_Port, Motor1DirA_Pin, Motor1DirB_GPIO_Port, Motor1DirB_Pin);
