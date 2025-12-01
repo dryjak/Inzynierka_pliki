@@ -19,11 +19,13 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "usart.h"
+#include "tim.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-#include "state_mashine.h"
+#include "motor_simple.h"
+#include "Encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -44,17 +46,17 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-Button_t Button;
-uint16_t TimerDebounce = 20;
+Motor_t Motor;
+uint16_t PWM;
+
+Encoder_t Encoder;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 /* USER CODE BEGIN PFP */
-void ToggleLed(void)
-{
-	HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
-}
+
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
@@ -79,6 +81,7 @@ int main(void)
   HAL_Init();
 
   /* USER CODE BEGIN Init */
+
   /* USER CODE END Init */
 
   /* Configure the system clock */
@@ -91,16 +94,26 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
+  MX_TIM4_Init();
+  MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
-  Button_Init(&Button, LD2_GPIO_Port, LD2_Pin, TimerDebounce);
-  Button_RegisterPressCallback(&Button, &ToggleLed());
+  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1);
+  Motor_Init(&Motor, &htim4, TIM_CHANNEL_1, PWM, Motor1DirA_GPIO_Port, Motor1DirA_Pin, Motor1DirB_GPIO_Port, Motor1DirB_Pin);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  PWM = 50;
+	  Motor_SetRideParameters(&Motor, PWM, 0);
+	  Motor_Ride(&Motor);
+	  HAL_Delay(4000);
 
+	  PWM = 60;
+	  Motor_SetRideParameters(&Motor, PWM, 0);
+	  Motor_Ride(&Motor);
+	  HAL_Delay(4000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

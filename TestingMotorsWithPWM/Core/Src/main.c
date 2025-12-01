@@ -51,6 +51,7 @@ uint16_t PWM;
 
 Encoder_t Encoder;
 
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
