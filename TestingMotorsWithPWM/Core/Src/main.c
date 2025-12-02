@@ -62,8 +62,8 @@ float EncoderRightSpeed = 0.0f;
 //PID S
 PID_t EncoderPid;
 
-float EncoderP = 7.0;
-float EncoderI = 5.0;
+float EncoderP = 3.7;
+float EncoderI = 40.36;
 float EncoderD = 0.0;
 
 float EncoderSampleTime = 0.01;
