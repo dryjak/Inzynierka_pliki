@@ -1,17 +1,18 @@
-10:46:01 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+11:00:18 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/Encoder.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Encoder.d" -MT"Core/Src/Encoder.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Encoder.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/tim.d" -MT"Core/Src/tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/tim.o"
 arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: TestingMotorsWithPWM.elf
  
 arm-none-eabi-size  TestingMotorsWithPWM.elf 
 arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
    text	   data	    bss	    dec	    hex	filename
-  18496	     12	   1932	  20440	   4fd8	TestingMotorsWithPWM.elf
+  18492	     12	   1928	  20432	   4fd0	TestingMotorsWithPWM.elf
 Finished building: default.size.stdout
  
 Finished building: TestingMotorsWithPWM.list
  
 
-10:46:03 Build Finished. 0 errors, 0 warnings. (took 2s.25ms)
+11:00:20 Build Finished. 0 errors, 0 warnings. (took 2s.39ms)
 
