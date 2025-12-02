@@ -1,48 +1,55 @@
-10:35:20 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+10:43:08 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/Encoder.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Encoder.d" -MT"Core/Src/Encoder.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Encoder.o"
+../Core/Src/Encoder.c: In function 'Encoder_Update':
+../Core/Src/Encoder.c:38:16: error: 'Encoder_t' has no member named 'Velocity'
+   38 |         Encoder->Velocity = (Encoder->Velocity * a) + (InstantVelocity * (1 - a));
+      |                ^~
+../Core/Src/Encoder.c:38:37: error: 'Encoder_t' has no member named 'Velocity'
+   38 |         Encoder->Velocity = (Encoder->Velocity * a) + (InstantVelocity * (1 - a));
+      |                                     ^~
 ../Core/Src/Encoder.c: In function 'Encoder_AngularVelocity':
-../Core/Src/Encoder.c:34:17: error: 'Encoder_t' has no member named 'Delta'
-   34 |         (Encoder->Delta) = CurrentValue - (Encoder->LastValue);
+../Core/Src/Encoder.c:46:17: error: 'Encoder_t' has no member named 'Delta'
+   46 |         (Encoder->Delta) = CurrentValue - (Encoder->LastValue);
       |                 ^~
-../Core/Src/Encoder.c:34:51: error: 'Encoder_t' has no member named 'LastValue'
-   34 |         (Encoder->Delta) = CurrentValue - (Encoder->LastValue);
+../Core/Src/Encoder.c:46:51: error: 'Encoder_t' has no member named 'LastValue'
+   46 |         (Encoder->Delta) = CurrentValue - (Encoder->LastValue);
       |                                                   ^~
-../Core/Src/Encoder.c:35:20: error: 'Encoder_t' has no member named 'Delta'
-   35 |         if((Encoder->Delta) > (Encoder->Resolution) / 2)
+../Core/Src/Encoder.c:47:20: error: 'Encoder_t' has no member named 'Delta'
+   47 |         if((Encoder->Delta) > (Encoder->Resolution) / 2)
       |                    ^~
-../Core/Src/Encoder.c:35:39: error: 'Encoder_t' has no member named 'Resolution'
-   35 |         if((Encoder->Delta) > (Encoder->Resolution) / 2)
+../Core/Src/Encoder.c:47:39: error: 'Encoder_t' has no member named 'Resolution'
+   47 |         if((Encoder->Delta) > (Encoder->Resolution) / 2)
       |                                       ^~
-../Core/Src/Encoder.c:37:25: error: 'Encoder_t' has no member named 'Delta'
-   37 |                 (Encoder->Delta) -=  (Encoder->Resolution);
+../Core/Src/Encoder.c:49:25: error: 'Encoder_t' has no member named 'Delta'
+   49 |                 (Encoder->Delta) -=  (Encoder->Resolution);
       |                         ^~
-../Core/Src/Encoder.c:37:46: error: 'Encoder_t' has no member named 'Resolution'
-   37 |                 (Encoder->Delta) -=  (Encoder->Resolution);
+../Core/Src/Encoder.c:49:46: error: 'Encoder_t' has no member named 'Resolution'
+   49 |                 (Encoder->Delta) -=  (Encoder->Resolution);
       |                                              ^~
-../Core/Src/Encoder.c:39:25: error: 'Encoder_t' has no member named 'Delta'
-   39 |         else if((Encoder->Delta) < -(Encoder->Resolution) / 2)
+../Core/Src/Encoder.c:51:25: error: 'Encoder_t' has no member named 'Delta'
+   51 |         else if((Encoder->Delta) < -(Encoder->Resolution) / 2)
       |                         ^~
-../Core/Src/Encoder.c:39:45: error: 'Encoder_t' has no member named 'Resolution'
-   39 |         else if((Encoder->Delta) < -(Encoder->Resolution) / 2)
+../Core/Src/Encoder.c:51:45: error: 'Encoder_t' has no member named 'Resolution'
+   51 |         else if((Encoder->Delta) < -(Encoder->Resolution) / 2)
       |                                             ^~
-../Core/Src/Encoder.c:41:25: error: 'Encoder_t' has no member named 'Delta'
-   41 |                 (Encoder->Delta) += (Encoder->Resolution);
+../Core/Src/Encoder.c:53:25: error: 'Encoder_t' has no member named 'Delta'
+   53 |                 (Encoder->Delta) += (Encoder->Resolution);
       |                         ^~
-../Core/Src/Encoder.c:41:45: error: 'Encoder_t' has no member named 'Resolution'
-   41 |                 (Encoder->Delta) += (Encoder->Resolution);
+../Core/Src/Encoder.c:53:45: error: 'Encoder_t' has no member named 'Resolution'
+   53 |                 (Encoder->Delta) += (Encoder->Resolution);
       |                                             ^~
-../Core/Src/Encoder.c:44:42: error: 'Encoder_t' has no member named 'Delta'
-   44 |         *EncoderAngle = (360.0 * (Encoder->Delta)) / (Encoder->Resolution);
+../Core/Src/Encoder.c:56:42: error: 'Encoder_t' has no member named 'Delta'
+   56 |         *EncoderAngle = (360.0 * (Encoder->Delta)) / (Encoder->Resolution);
       |                                          ^~
-../Core/Src/Encoder.c:44:62: error: 'Encoder_t' has no member named 'Resolution'
-   44 |         *EncoderAngle = (360.0 * (Encoder->Delta)) / (Encoder->Resolution);
+../Core/Src/Encoder.c:56:62: error: 'Encoder_t' has no member named 'Resolution'
+   56 |         *EncoderAngle = (360.0 * (Encoder->Delta)) / (Encoder->Resolution);
       |                                                              ^~
-../Core/Src/Encoder.c:46:17: error: 'Encoder_t' has no member named 'LastValue'
-   46 |         (Encoder->LastValue) = CurrentValue;
+../Core/Src/Encoder.c:58:17: error: 'Encoder_t' has no member named 'LastValue'
+   58 |         (Encoder->LastValue) = CurrentValue;
       |                 ^~
 make: *** [Core/Src/subdir.mk:52: Core/Src/Encoder.o] Error 1
 "make -j12 all" terminated with exit code 2. Build might be incomplete.
 
-10:35:21 Build Failed. 14 errors, 0 warnings. (took 910ms)
+10:43:09 Build Failed. 16 errors, 0 warnings. (took 921ms)
 

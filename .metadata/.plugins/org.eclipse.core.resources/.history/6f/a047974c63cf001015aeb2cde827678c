@@ -25,18 +25,6 @@ void Encoder_Init(Encoder_t *Encoder, TIM_HandleTypeDef *Tim, uint16_t PulsesPer
 
 void Encoder_Update(Encoder_t *Encoder)
 {
-	//get cutrrent value from counter
-	int16_t CurrentCounterValue = (int16_t)__HAL_TIM_GetCounter(Encoder->Tim);
-
-	int16_t Delta = CurrentCounterValue - Encoder->LastCounterValue;
-
-	//(Impulses / ImpulsesPerRevolution) / Time * 60s
-	float InstantVelocity = ((float)Delta / (float)Encoder->PulsesPerRevolution) / Encoder->SampleTime * 60.0f;
-
-	//Low pass filter
-	float a = 0.7f;
-	Encoder->Velocity = (Encoder->Velocity * a) + (InstantVelocity * (1 - a));
-	Encoder->LastCounterValue = CurrentCounterValue;
 
 }
 void Encoder_AngularVelocity(Encoder_t *Encoder, float *EncoderAngle, float *EncoderAngularVelocity)
