@@ -1,9 +1,3 @@
-Roll
-Pitch
-Yaw
-ServoValue
-RollA
-PitchA
-RollG
-PitchG
-MPU6050
+EncoderRight
+EncoderRightSpeed
+EncoderCallbackFlag

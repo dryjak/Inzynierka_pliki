@@ -23,6 +23,7 @@ typedef struct
 	float MinValue;
 
 	float LastError;
+	float LastMeasurement;
 
 	uint8_t Clamp;
 }PID_t;

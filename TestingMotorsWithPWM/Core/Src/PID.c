@@ -1,8 +1,8 @@
 /*
  * PID.c
  *
- *  Created on: Oct 12, 2025
- *      Author: jakub
+ * Created on: Oct 12, 2025
+ * Author: jakub
  */
 #include "PID.h"
 
@@ -17,7 +17,10 @@ void PID_Init(PID_t *Pid, float P, float I, float D, float SampleTime, float Max
 	Pid->MinValue = MinValue;
 
 	Pid->Integrator = 0;
-	Pid->LastError = 0;
+	Pid->LastError = 0.0;
+
+	Pid->LastMeasurement = 0.0;
+
 	Pid->Clamp = 0;
 }
 
@@ -25,23 +28,27 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 {
 	float Error = SetValue - MeasuredValue;
 
-	//proportional value
+	 //proportional value
 	float P = Pid->P * Error;
 
-	//Integrator value
+	 //Integrator value
 	if(Pid->Clamp == 0)
 	{
-	Pid->Integrator += Pid->SampleTime * Pid->I * Error;
+	    Pid->Integrator += Pid->SampleTime * Pid->I * Error;
 	}
 
-
-	//Deriative value
-	float D = ((Error - Pid->LastError) / Pid->SampleTime) * Pid->D;
+	 //Deriative value
+	float D = 0.0f;
+	if (Pid->SampleTime > 0)
+	{
+        // Tu jest OK: liczysz zmianę pomiaru
+		D = -1.0f * ((MeasuredValue - Pid->LastMeasurement) / Pid->SampleTime) * Pid->D;
+	}
 
 	float Output = P + Pid->Integrator + D;
 	float OutputLast = Output;
 
-	//checking limits
+	//Saturation limits
 	if (Output > Pid->MaxValue)
 	{
 		Output = Pid->MaxValue;
@@ -51,7 +58,8 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 		Output = Pid->MinValue;
 	}
 
-	uint8_t ClampigSaturationCheck = (Output != OutputLast) ? 1 : 0;
+	//Antiwindup
+	uint8_t ClampigSaturationCheck = (Output != OutputLast) ? 1 : 0; // Uwaga: porównywanie floatów != bywa ryzykowne, ale tutaj może zadziałać
 
 	int8_t ErrorSign = Signum(Error);
 	int8_t OutputSign = Signum(Output);
@@ -65,18 +73,16 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 		Pid->Clamp = 0;
 	}
 
-	//Update LastError
 	Pid->LastError = Error;
 
-	return Output;
+    Pid->LastMeasurement = MeasuredValue;
 
+	return Output;
 }
 
 int8_t Signum(float Value)
 {
-	if (Value > 0.0) return 1;
-	if (Value < 0.0) return -1;
+	if (Value > 0.0f) return 1;
+	if (Value < 0.0f) return -1;
 	return 0;
 }
-
-

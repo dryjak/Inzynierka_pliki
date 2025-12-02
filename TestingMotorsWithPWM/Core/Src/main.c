@@ -26,6 +26,7 @@
 /* USER CODE BEGIN Includes */
 #include "motor_simple.h"
 #include "Encoder.h"
+#include "PID.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -117,6 +118,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  PWM = 50;
+	  Motor_SetRideParameters(&Motor, PWM, 1);
+	  Motor_Ride(&Motor);
+
 
     /* USER CODE END WHILE */
 
