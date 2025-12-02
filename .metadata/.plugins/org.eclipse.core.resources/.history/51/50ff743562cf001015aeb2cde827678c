@@ -7,26 +7,18 @@
 
 #include "Encoder.h"
 
-void Encoder_Init(Encoder_t *Encoder, TIM_HandleTypeDef *Tim, uint16_t PulsesPerRevolution, float SampleTime)
+void Encoder_Init(Encoder_t *Encoder, TIM_HandleTypeDef *Tim, uint16_t EncoderResolution, float SampleTime)
 {
 	Encoder->Tim = Tim;
-	Encoder->PulsesPerRevolution = PulsesPerRevolution;
+	Encoder->Resolution = EncoderResolution;
 	Encoder->SampleTime = SampleTime;
 
-	Encoder->LastCounterValue = 0;
+	Encoder->Delta = 0;
+	Encoder->LastValue = 0;
 
-	Encoder->TotalPulses = 0;
-	Encoder->AngularVelocity = 0.0;
-	Encoder->Angle = 0.0;
-
-	__HAL_TIM_SET_COUNTER(Encoder->Tim, 0);		//reset counter value
 	HAL_TIM_Encoder_Start(Encoder->Tim, TIM_CHANNEL_ALL);
 }
 
-void Encoder_Update(Encoder_t *Encoder)
-{
-
-}
 void Encoder_AngularVelocity(Encoder_t *Encoder, float *EncoderAngle, float *EncoderAngularVelocity)
 {
 	int16_t CurrentValue =  __HAL_TIM_GetCounter(Encoder->Tim);
