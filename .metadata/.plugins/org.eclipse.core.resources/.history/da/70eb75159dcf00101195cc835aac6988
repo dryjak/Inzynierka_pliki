@@ -55,31 +55,29 @@ uint16_t PWM;
 //Encoder
 Encoder_t EncoderRight;
 float EncoderRightSpeed = 0.0f;
-
+uint8_t EncoderCallbackFlag = 0;
 
 //PID S
 PID_t EncoderPid;
 
-float EncoderP = 1.0;
-float EncoderI = 0.0;
-float EncoderD = 0.0;
+float EncoderP = 1;
+float EncoderI = 0;
+float EncoderD = 0;
 
 float EncoderSampleTime = 0.01;
 
-float EncoderMaxValue = 400.0;
-float EncoderMinValue = -400.0;
+float EncoderMaxValue = 400;
+float EncoderMinValue = 0;
 
 volatile float EncoderRightPidValue;
-float SetVelocity = 100;
-
-volatile uint8_t EncoderCallbackFlag = 0;
+uint8_t SetVelocity = 100;
+uint8_t MeasuredVelocity = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
-float MapValues(float MaxValue, float Value);
 
 /* USER CODE END PFP */
 
@@ -139,11 +137,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  if(EncoderCallbackFlag)
-	  {
-		  EncoderCallbackFlag = 0;
+	  PWM = 50;
+	  Motor_SetRideParameters(&Motor, PWM, 1);
+	  Motor_Ride(&Motor);
 
-	  }
 
     /* USER CODE END WHILE */
 
@@ -216,41 +213,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		Encoder_Update(&EncoderRight);
 		EncoderRightSpeed = EncoderRight.AngularVelocity;
+		EncoderRightPidValue = PID_Compute(&EncoderPid, MeasuredVelocity, SetVelocity);
 
-		//calculating pid values
-		EncoderRightPidValue = PID_Compute(&EncoderPid, EncoderRightSpeed, SetVelocity);
-
-		uint8_t direction;
-		float pwmInput = 0;
-		//checking sign of pid value
-		if (EncoderRightPidValue >= 0)
-		{
-			direction = 1; //Forward
-			pwmInput = EncoderRightPidValue;
-		}
-		else
-		{
-			direction = 0; //Backwards
-			pwmInput = -EncoderRightPidValue;
-		}
-
-		//RMP to pwm percent
-		float PidValueForMotorPercent = MapValues(EncoderMaxValue, EncoderRightPidValue);
-
-		Motor_SetRideParameters(&Motor, PidValueForMotorPercent, direction);
-		Motor_Ride(&Motor);
-
-		EncoderCallbackFlag = 1;
 	}
-}
-float MapValues(float MaxValue, float InputValue)
-{
-    // Obliczamy procent mocy (wartość bezwzględna, bo PWM jest zawsze dodatni)
-    float pwmPercent = (fabsf(InputValue) * 100.0f) / MaxValue;
-
-    // Zabezpieczenie przed przekroczeniem 100%
-    if(pwmPercent > 100.0f) return 100.0f;
-    return pwmPercent;
 }
 /* USER CODE END 4 */
 

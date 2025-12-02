@@ -1,4 +1,4 @@
-17:02:27 **** Incremental Build of configuration Debug for project EncoderPins ****
+17:58:18 **** Incremental Build of configuration Debug for project EncoderPins ****
 make -j12 all 
 arm-none-eabi-size  EncoderPins.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  EncoderPins.elf
 Finished building: default.size.stdout
  
 
-17:02:27 Build Finished. 0 errors, 0 warnings. (took 510ms)
+17:58:19 Build Finished. 0 errors, 0 warnings. (took 523ms)
 

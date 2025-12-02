@@ -221,7 +221,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		EncoderRightPidValue = PID_Compute(&EncoderPid, EncoderRightSpeed, SetVelocity);
 
 		uint8_t direction;
-		float pwmInput = 0;
+
 		//checking sign of pid value
 		if (EncoderRightPidValue >= 0)
 		{
