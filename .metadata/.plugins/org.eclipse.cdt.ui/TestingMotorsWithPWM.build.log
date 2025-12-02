@@ -1,17 +1,61 @@
-23:08:05 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+10:29:56 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/motor_simple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/motor_simple.d" -MT"Core/Src/motor_simple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/motor_simple.o"
-arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: TestingMotorsWithPWM.elf
- 
-arm-none-eabi-size  TestingMotorsWithPWM.elf 
-arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
-   text	   data	    bss	    dec	    hex	filename
-  17436	     12	   1820	  19268	   4b44	TestingMotorsWithPWM.elf
-Finished building: default.size.stdout
- 
-Finished building: TestingMotorsWithPWM.list
- 
+arm-none-eabi-gcc "../Core/Src/Encoder.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Encoder.d" -MT"Core/Src/Encoder.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Encoder.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc "../Core/Src/tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/tim.d" -MT"Core/Src/tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/tim.o"
+../Core/Src/Encoder.c: In function 'Encoder_Init':
+../Core/Src/Encoder.c:13:16: error: 'Encoder_t' has no member named 'Resolution'
+   13 |         Encoder->Resolution = EncoderResolution;
+      |                ^~
+../Core/Src/Encoder.c:16:16: error: 'Encoder_t' has no member named 'Delta'
+   16 |         Encoder->Delta = 0;
+      |                ^~
+../Core/Src/Encoder.c:17:16: error: 'Encoder_t' has no member named 'LastValue'
+   17 |         Encoder->LastValue = 0;
+      |                ^~
+../Core/Src/Encoder.c: In function 'Encoder_AngularVelocity':
+../Core/Src/Encoder.c:26:17: error: 'Encoder_t' has no member named 'Delta'
+   26 |         (Encoder->Delta) = CurrentValue - (Encoder->LastValue);
+      |                 ^~
+../Core/Src/Encoder.c:26:51: error: 'Encoder_t' has no member named 'LastValue'
+   26 |         (Encoder->Delta) = CurrentValue - (Encoder->LastValue);
+      |                                                   ^~
+../Core/Src/Encoder.c:27:20: error: 'Encoder_t' has no member named 'Delta'
+   27 |         if((Encoder->Delta) > (Encoder->Resolution) / 2)
+      |                    ^~
+../Core/Src/Encoder.c:27:39: error: 'Encoder_t' has no member named 'Resolution'
+   27 |         if((Encoder->Delta) > (Encoder->Resolution) / 2)
+      |                                       ^~
+../Core/Src/Encoder.c:29:25: error: 'Encoder_t' has no member named 'Delta'
+   29 |                 (Encoder->Delta) -=  (Encoder->Resolution);
+      |                         ^~
+../Core/Src/Encoder.c:29:46: error: 'Encoder_t' has no member named 'Resolution'
+   29 |                 (Encoder->Delta) -=  (Encoder->Resolution);
+      |                                              ^~
+../Core/Src/Encoder.c:31:25: error: 'Encoder_t' has no member named 'Delta'
+   31 |         else if((Encoder->Delta) < -(Encoder->Resolution) / 2)
+      |                         ^~
+../Core/Src/Encoder.c:31:45: error: 'Encoder_t' has no member named 'Resolution'
+   31 |         else if((Encoder->Delta) < -(Encoder->Resolution) / 2)
+      |                                             ^~
+../Core/Src/Encoder.c:33:25: error: 'Encoder_t' has no member named 'Delta'
+   33 |                 (Encoder->Delta) += (Encoder->Resolution);
+      |                         ^~
+../Core/Src/Encoder.c:33:45: error: 'Encoder_t' has no member named 'Resolution'
+   33 |                 (Encoder->Delta) += (Encoder->Resolution);
+      |                                             ^~
+../Core/Src/Encoder.c:36:42: error: 'Encoder_t' has no member named 'Delta'
+   36 |         *EncoderAngle = (360.0 * (Encoder->Delta)) / (Encoder->Resolution);
+      |                                          ^~
+../Core/Src/Encoder.c:36:62: error: 'Encoder_t' has no member named 'Resolution'
+   36 |         *EncoderAngle = (360.0 * (Encoder->Delta)) / (Encoder->Resolution);
+      |                                                              ^~
+../Core/Src/Encoder.c:38:17: error: 'Encoder_t' has no member named 'LastValue'
+   38 |         (Encoder->LastValue) = CurrentValue;
+      |                 ^~
+make: *** [Core/Src/subdir.mk:52: Core/Src/Encoder.o] Error 1
+make: *** Waiting for unfinished jobs....
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
 
-23:08:07 Build Finished. 0 errors, 0 warnings. (took 2s.338ms)
+10:29:58 Build Failed. 18 errors, 0 warnings. (took 1s.378ms)
 
