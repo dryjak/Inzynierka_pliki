@@ -1,4 +1,4 @@
-17:58:21 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+18:54:59 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
 make -j12 all 
 arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  Serwomotor_V2_StepAG.elf
 Finished building: default.size.stdout
  
 
-17:58:22 Build Finished. 0 errors, 0 warnings. (took 676ms)
+18:54:59 Build Finished. 0 errors, 0 warnings. (took 611ms)
 

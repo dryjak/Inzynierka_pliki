@@ -27,6 +27,8 @@
 #include "motor_simple.h"
 #include "Encoder.h"
 #include "PID.h"
+#include <stdio.h>
+#include <string.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,19 +62,24 @@ float EncoderRightSpeed = 0.0f;
 //PID S
 PID_t EncoderPid;
 
-float EncoderP = 1.0;
-float EncoderI = 0.0;
+float EncoderP = 7.0;
+float EncoderI = 5.0;
 float EncoderD = 0.0;
 
 float EncoderSampleTime = 0.01;
 
-float EncoderMaxValue = 400.0;
-float EncoderMinValue = -400.0;
+float EncoderMaxValue = 300.0;
+float EncoderMinValue = -300.0;
+
+float pwmInput = 0;
 
 volatile float EncoderRightPidValue;
 float SetVelocity = 100;
 
 volatile uint8_t EncoderCallbackFlag = 0;
+
+//printing via uart
+char Message[128];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -143,6 +150,8 @@ int main(void)
 	  {
 		  EncoderCallbackFlag = 0;
 
+		  sprintf(Message, "%.3f\n", EncoderRightSpeed);
+		  HAL_UART_Transmit(&hlpuart1,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 	  }
 
     /* USER CODE END WHILE */
@@ -221,7 +230,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		EncoderRightPidValue = PID_Compute(&EncoderPid, EncoderRightSpeed, SetVelocity);
 
 		uint8_t direction;
-		float pwmInput = 0;
+
 		//checking sign of pid value
 		if (EncoderRightPidValue >= 0)
 		{
