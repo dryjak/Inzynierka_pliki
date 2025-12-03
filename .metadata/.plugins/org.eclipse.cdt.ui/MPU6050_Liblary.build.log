@@ -1,10 +1,20 @@
-21:59:17 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+22:53:40 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/MPU6050.d" -MT"Core/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/MPU6050.o"
+../Core/Src/MPU6050.c:187:16: warning: 'Read16' defined but not used [-Wunused-function]
+  187 | static int16_t Read16(MPU6050_t *MPU6050, uint8_t Register)
+      |                ^~~~~~
+arm-none-eabi-gcc -o "MPU6050_Liblary.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\MPU6050_Liblary\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="MPU6050_Liblary.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: MPU6050_Liblary.elf
+ 
 arm-none-eabi-size  MPU6050_Liblary.elf 
+arm-none-eabi-objdump -h -S MPU6050_Liblary.elf  > "MPU6050_Liblary.list"
    text	   data	    bss	    dec	    hex	filename
-  46480	    468	   2476	  49424	   c110	MPU6050_Liblary.elf
+  46488	    468	   2476	  49432	   c118	MPU6050_Liblary.elf
 Finished building: default.size.stdout
  
+Finished building: MPU6050_Liblary.list
+ 
 
-21:59:18 Build Finished. 0 errors, 0 warnings. (took 621ms)
+22:53:42 Build Finished. 0 errors, 1 warnings. (took 2s.777ms)
 

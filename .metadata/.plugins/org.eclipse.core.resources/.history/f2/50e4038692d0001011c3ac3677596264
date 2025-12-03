@@ -194,8 +194,7 @@ static int16_t Read16(MPU6050_t *MPU6050, uint8_t Register)
 static MPU6050_STATE_t MPU6050_SetGyroRange(MPU6050_t *MPU6050)
 {
     uint8_t RegisterValue = Read8(MPU6050, GYRO_CONFIG);
-    RegisterValue &= ~( (1 << 3) | (1 << 4) );
-    RegisterValue |= (1 << 3);// ±500°/s
+    RegisterValue &= ~( (1 << 4) | (1 << 5) ); // ±250°/s
     return Write8(MPU6050, GYRO_CONFIG, RegisterValue);
 }
 
