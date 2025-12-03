@@ -55,13 +55,12 @@ MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16
         return MPU6050_ERROR;
     }
 
-    MPU6050->AccelOffset.X = ACCEL_OFFSET_X;
-    MPU6050->AccelOffset.Y = ACCEL_OFFSET_Y;
-    MPU6050->AccelOffset.Z = ACCEL_OFFSET_Z;
-
-    MPU6050->GyroOffset.X  = GYRO_OFFSET_X;
-    MPU6050->GyroOffset.Y  = GYRO_OFFSET_Y;
-    MPU6050->GyroOffset.Z  = GYRO_OFFSET_Z;
+    MPU6050->AccelOffset.X = 0.0f;
+    MPU6050->AccelOffset.Y = 0.0f;
+    MPU6050->AccelOffset.Z = 0.0f;
+    MPU6050->GyroOffset.X  = 0.0f;
+    MPU6050->GyroOffset.Y  = 0.0f;
+    MPU6050->GyroOffset.Z  = 0.0f;
 
     return MPU6050_OK;
 }

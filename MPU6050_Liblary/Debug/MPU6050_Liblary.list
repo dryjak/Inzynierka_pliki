@@ -35,17 +35,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_rnglists 00001016  00000000  00000000  00029a88  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00027d6a  00000000  00000000  0002aa9e  2**0
+ 16 .debug_macro  00027db2  00000000  00000000  0002aa9e  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00019990  00000000  00000000  00052808  2**0
+ 17 .debug_line   00019990  00000000  00000000  00052850  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00101461  00000000  00000000  0006c198  2**0
+ 18 .debug_str    001014d0  00000000  00000000  0006c1e0  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  0016d5f9  2**0
+ 19 .comment      00000043  00000000  00000000  0016d6b0  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00006d04  00000000  00000000  0016d63c  2**2
+ 20 .debug_frame  00006d04  00000000  00000000  0016d6f4  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000005d  00000000  00000000  00174340  2**0
+ 21 .debug_line_str 0000005d  00000000  00000000  001743f8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -1416,27 +1416,28 @@ MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16
  80010ce:	e018      	b.n	8001102 <MPU6050_Init+0x92>
     }
 
-    MPU6050->AccelOffset.X = 0.0f;
+    MPU6050->AccelOffset.X = ACCEL_OFFSET_X;
  80010d0:	68fb      	ldr	r3, [r7, #12]
  80010d2:	f04f 0200 	mov.w	r2, #0
  80010d6:	609a      	str	r2, [r3, #8]
-    MPU6050->AccelOffset.Y = 0.0f;
+    MPU6050->AccelOffset.Y = ACCEL_OFFSET_Y;
  80010d8:	68fb      	ldr	r3, [r7, #12]
  80010da:	f04f 0200 	mov.w	r2, #0
  80010de:	60da      	str	r2, [r3, #12]
-    MPU6050->AccelOffset.Z = 0.0f;
+    MPU6050->AccelOffset.Z = ACCEL_OFFSET_Z;
  80010e0:	68fb      	ldr	r3, [r7, #12]
  80010e2:	f04f 0200 	mov.w	r2, #0
  80010e6:	611a      	str	r2, [r3, #16]
-    MPU6050->GyroOffset.X  = 0.0f;
+
+    MPU6050->GyroOffset.X  = GYRO_OFFSET_X;
  80010e8:	68fb      	ldr	r3, [r7, #12]
  80010ea:	f04f 0200 	mov.w	r2, #0
  80010ee:	615a      	str	r2, [r3, #20]
-    MPU6050->GyroOffset.Y  = 0.0f;
+    MPU6050->GyroOffset.Y  = GYRO_OFFSET_Y;
  80010f0:	68fb      	ldr	r3, [r7, #12]
  80010f2:	f04f 0200 	mov.w	r2, #0
  80010f6:	619a      	str	r2, [r3, #24]
-    MPU6050->GyroOffset.Z  = 0.0f;
+    MPU6050->GyroOffset.Z  = GYRO_OFFSET_Z;
  80010f8:	68fb      	ldr	r3, [r7, #12]
  80010fa:	f04f 0200 	mov.w	r2, #0
  80010fe:	61da      	str	r2, [r3, #28]
