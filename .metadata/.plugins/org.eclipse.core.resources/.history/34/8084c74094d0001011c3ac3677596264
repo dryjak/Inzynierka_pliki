@@ -19,9 +19,11 @@ static MPU6050_STATE_t MPU6050_SetAccelerationRange(MPU6050_t *MPU6050);
 
 static MPU6050_STATE_t MPU6050_ReadAccelerationRaw(MPU6050_t *MPU6050, DataRaw_t *AccelRaw);
 static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Accelerations);
+static MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050);
 
 static MPU6050_STATE_t MPU6050_ReadGyroRaw(MPU6050_t *MPU6050, DataRaw_t *GyroRaw);
 static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculated);
+static MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050);
 
 
 static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel);
@@ -233,7 +235,7 @@ static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Acce
     return MPU6050_OK;
 }
 
-MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050)
+static MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050)
 {
     DataRaw_t Accelerations;
     int64_t SumX = 0, SumY = 0, SumZ = 0;
@@ -295,7 +297,7 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
     return MPU6050_OK;
 }
 
-MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050)
+static MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050)
 {
     DataRaw_t Gyro;
     int64_t SumX = 0, SumY = 0, SumZ = 0;
