@@ -103,6 +103,18 @@ MPU6050_STATE_t MPU6050_DegFromGyro(MPU6050_t *MPU6050, float *RollG, float *Pit
     Data_t Gyro;
     MPU6050_ReadGyro(MPU6050, &Gyro);
 
+    static uint32_t LastTick = 0;
+    uint32_t TimeNow = HAL_GetTick();
+
+    if(LastTick == 0)
+    {
+    	//init
+    	LastTick = TimeNow;
+    	return MPU6050_OK;
+    }
+
+    LastTick = TimeNow;
+
     *RollG  += (Gyro.X) * DT;
     *PitchG += (Gyro.Y) * DT;
     *YawG   += (Gyro.Z) * DT;
