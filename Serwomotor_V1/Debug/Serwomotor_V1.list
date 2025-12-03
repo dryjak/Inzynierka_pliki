@@ -1828,7 +1828,7 @@ MPU6050_STATE_t MPU6050_DegFromGyro(MPU6050_t *MPU6050, float *RollG, float *Pit
  8001492:	2300      	movs	r3, #0
  8001494:	e03b      	b.n	800150e <MPU6050_DegFromGyro+0xaa>
     }
-
+///////////////////////////////////////////////////////////////
     float dt = (float)(TimeNow - LastTick) / 1000;	//ms -> s
  8001496:	4b20      	ldr	r3, [pc, #128]	@ (8001518 <MPU6050_DegFromGyro+0xb4>)
  8001498:	681b      	ldr	r3, [r3, #0]

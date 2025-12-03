@@ -23,10 +23,6 @@
 
 #define MPU6050_TIMEOUT 	500
 
-//depends on your interrupt frequency
-//it is used to calculate angle from gyro
-#define DT					0.01
-
 typedef struct
 {
 	float X;

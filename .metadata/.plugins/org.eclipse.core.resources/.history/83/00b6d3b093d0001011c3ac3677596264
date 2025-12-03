@@ -120,6 +120,7 @@ MPU6050_STATE_t MPU6050_DegFromGyro(MPU6050_t *MPU6050, float *RollG, float *Pit
     	return MPU6050_OK;
     }
 
+    float dt = DT;
     LastTick = TimeNow;
 
     *RollG  += (Gyro.X) * DT;
