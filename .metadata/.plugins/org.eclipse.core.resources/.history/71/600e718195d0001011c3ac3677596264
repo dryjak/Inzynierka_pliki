@@ -62,6 +62,9 @@ MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16
     MPU6050->GyroOffset.Y  = 0.0f;
     MPU6050->GyroOffset.Z  = 0.0f;
 
+    //level device and take first measurement
+    //MPU6050_DegFromAccel(MPU6050, &MPU6050->FirstMeasure.X, &MPU6050->FirstMeasure.Y);
+
     return MPU6050_OK;
 }
 

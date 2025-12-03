@@ -62,6 +62,12 @@ MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16
     MPU6050->GyroOffset.Y  = 0.0f;
     MPU6050->GyroOffset.Z  = 0.0f;
 
+    MPU6050_CalibrateAccel(MPU6050);		//Getting data to calibrate accel
+    MPU6050_CalibrateGyro(MPU6050);			//Getting data to calibrate gyro
+
+    //level device and take first measurement
+    //MPU6050_DegFromAccel(MPU6050, &MPU6050->FirstMeasure.X, &MPU6050->FirstMeasure.Y);
+
     return MPU6050_OK;
 }
 
@@ -227,7 +233,7 @@ static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Acce
     return MPU6050_OK;
 }
 
-MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050, Data_t *AccelCalibratedValues)
+MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050)
 {
     DataRaw_t Accelerations;
     int64_t SumX = 0, SumY = 0, SumZ = 0;
@@ -251,11 +257,6 @@ MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050, Data_t *AccelCalibrat
     MPU6050->AccelOffset.Y = (float)SumY / Samples;
     // ustawiamy offset tak, aby po (raw - offset)/ScaleFactor = +1g dla Z
     MPU6050->AccelOffset.Z = ((float)SumZ / Samples) - ScaleFactor;
-
-    //Data used to hard CodeValues of Accel CalibratedValues
-    AccelCalibratedValues->X = (float)SumX / Samples;
-    AccelCalibratedValues->Y = (float)SumY / Samples;
-    AccelCalibratedValues->Z = ((float)SumZ / Samples) - ScaleFactor;
 
     return MPU6050_OK;
 }
@@ -294,7 +295,7 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
     return MPU6050_OK;
 }
 
-MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050, Data_t *GyroCalibratedValues)
+MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050)
 {
     DataRaw_t Gyro;
     int64_t SumX = 0, SumY = 0, SumZ = 0;
@@ -315,11 +316,6 @@ MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050, Data_t *GyroCalibrated
     MPU6050->GyroOffset.X = (float)SumX / Samples;
     MPU6050->GyroOffset.Y = (float)SumY / Samples;
     MPU6050->GyroOffset.Z = (float)SumZ / Samples;
-
-    //Data used to hard CodeValues of Gyro CalibratedValues
-    GyroCalibratedValues->X = (float)SumX / Samples;
-    GyroCalibratedValues->Y = (float)SumY / Samples;
-    GyroCalibratedValues->Z = (float)SumZ / Samples;
 
     return MPU6050_OK;
 }
