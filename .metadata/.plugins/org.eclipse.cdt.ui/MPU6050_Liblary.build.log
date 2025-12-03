@@ -1,6 +1,7 @@
-22:53:40 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+22:56:34 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/MPU6050.d" -MT"Core/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/MPU6050.o"
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
 ../Core/Src/MPU6050.c:187:16: warning: 'Read16' defined but not used [-Wunused-function]
   187 | static int16_t Read16(MPU6050_t *MPU6050, uint8_t Register)
       |                ^~~~~~
@@ -16,5 +17,5 @@ Finished building: default.size.stdout
 Finished building: MPU6050_Liblary.list
  
 
-22:53:42 Build Finished. 0 errors, 1 warnings. (took 2s.777ms)
+22:56:36 Build Finished. 0 errors, 1 warnings. (took 2s.132ms)
 

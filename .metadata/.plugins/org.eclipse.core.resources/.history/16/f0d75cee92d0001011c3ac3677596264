@@ -44,6 +44,8 @@ typedef struct
 	Data_t AccelOffset;
 	Data_t GyroOffset;
 
+
+
 }MPU6050_t;
 
 typedef enum
