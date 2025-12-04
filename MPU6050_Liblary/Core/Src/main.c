@@ -59,6 +59,11 @@ volatile uint8_t InterruptFlag;
 
 char Message[128];
 
+Data_t CalibrateAccel;
+Data_t CalibrateGyro;
+
+uint8_t Flag =0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -118,16 +123,18 @@ int main(void)
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
+
   while (1)
   {
-	  if(InterruptFlag == 1)
+	  /*
+	  if(Flag == 0)
 	  {
-		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  InterruptFlag = 0;
-		  sprintf(Message, "Roll: %.3f, Pitch: %.3f\n", Roll, Pitch);
-		  HAL_UART_Transmit(&hlpuart1,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
-
+		  Flag = 1;
+		  MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
+		  MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 	  }
+	  */
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -201,6 +208,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM3)
 	{
+		MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		InterruptFlag = 1;
 	}
 

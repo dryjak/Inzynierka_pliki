@@ -28,13 +28,13 @@
 #define DT					0.01
 
 //Offset based on your callibration (there is function to calibrate your MPU6050
-#define ACCEL_OFFSET_X		0.0
-#define ACCEL_OFFSET_Y		0.0
-#define ACCEL_OFFSET_Z		0.0
+#define ACCEL_OFFSET_X		451.64
+#define ACCEL_OFFSET_Y		-350
+#define ACCEL_OFFSET_Z		-7393.63965
 
-#define GYRO_OFFSET_X		0.0
-#define GYRO_OFFSET_Y		0.0
-#define GYRO_OFFSET_Z		0.0
+#define GYRO_OFFSET_X		-121.98
+#define GYRO_OFFSET_Y		139.164
+#define GYRO_OFFSET_Z		-58.384
 
 typedef struct
 {
