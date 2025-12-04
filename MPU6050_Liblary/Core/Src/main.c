@@ -55,9 +55,10 @@ MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
 float RollA, PitchA, YawA;
 float RollG, PitchG, YawG;
-volatile uint8_t InterruptFlag;
+volatile uint8_t InterruptFlag = 0;
 
 char Message[128];
+uint8_t Length;
 
 Data_t CalibrateAccel;
 Data_t CalibrateGyro;
@@ -127,6 +128,7 @@ int main(void)
   while (1)
   {
 	  /*
+	  //code to calibrate gyro
 	  if(Flag == 0)
 	  {
 		  Flag = 1;
@@ -134,6 +136,15 @@ int main(void)
 		  MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 	  }
 	  */
+
+	  if(InterruptFlag)
+	  {
+		  InterruptFlag = 0;
+
+		  Length = sprintf(Message, "%.3f\n", Pitch);
+		  HAL_UART_Transmit(&hlpuart1, Message, Length,  10);
+	  }
+
 
     /* USER CODE END WHILE */
 
