@@ -12429,3 +12429,267 @@ arm-none-eabi-size  TestingMotorsWithPWM.elf
   44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
 Finished building: default.size.stdout
  
+13:29:53 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+13:29:54 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+13:29:55 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/SerwoSimple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/SerwoSimple.d" -MT"Core/Src/SerwoSimple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/SerwoSimple.o"
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  49688	    468	   2636	  52792	   ce38	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+13:29:58 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+13:29:59 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-size  StateMashine.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12412	     24	   1760	  14196	   3774	StateMashine.elf
+Finished building: default.size.stdout
+ 
+13:30:01 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+15:53:27 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+15:53:28 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+15:53:29 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/SerwoSimple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/SerwoSimple.d" -MT"Core/Src/SerwoSimple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/SerwoSimple.o"
+../Core/Src/SerwoSimple.c: In function 'My_SmartDelay':
+../Core/Src/SerwoSimple.c:23:9: warning: implicit declaration of function 'Check_And_Report' [-Wimplicit-function-declaration]
+   23 |         Check_And_Report();
+      |         ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c: At top level:
+../Core/Src/SerwoSimple.c:27:6: warning: conflicting types for 'Check_And_Report'; have 'void(void)'
+   27 | void Check_And_Report(void)
+      |      ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c:23:9: note: previous implicit declaration of 'Check_And_Report' with type 'void(void)'
+   23 |         Check_And_Report();
+      |         ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c: In function 'Check_And_Report':
+../Core/Src/SerwoSimple.c:29:9: error: 'timerFlag' undeclared (first use in this function)
+   29 |     if (timerFlag == 1)
+      |         ^~~~~~~~~
+../Core/Src/SerwoSimple.c:29:9: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/SerwoSimple.c:36:19: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   36 |         int len = sprintf(buffer, "K: %d\r\n", currentAngle);
+      |                   ^~~~~~~
+../Core/Src/SerwoSimple.c:12:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   11 | #include <math.h>
+  +++ |+#include <stdio.h>
+   12 | 
+../Core/Src/SerwoSimple.c:36:19: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   36 |         int len = sprintf(buffer, "K: %d\r\n", currentAngle);
+      |                   ^~~~~~~
+../Core/Src/SerwoSimple.c:36:19: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/SerwoSimple.c:36:48: error: 'currentAngle' undeclared (first use in this function)
+   36 |         int len = sprintf(buffer, "K: %d\r\n", currentAngle);
+      |                                                ^~~~~~~~~~~~
+../Core/Src/SerwoSimple.c:37:28: error: 'huart2' undeclared (first use in this function)
+   37 |         HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 100);
+      |                            ^~~~~~
+../Core/Src/SerwoSimple.c: In function 'Servo_MoveSlowly':
+../Core/Src/SerwoSimple.c:74:13: warning: implicit declaration of function 'SetAngle_WithGlobalUpdate' [-Wimplicit-function-declaration]
+   74 |             SetAngle_WithGlobalUpdate(pos, 1);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c:74:39: error: 'pos' undeclared (first use in this function); did you mean 'pow'?
+   74 |             SetAngle_WithGlobalUpdate(pos, 1);
+      |                                       ^~~
+      |                                       pow
+make: *** [Core/Src/subdir.mk:52: Core/Src/SerwoSimple.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+15:53:30 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+15:53:31 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-size  StateMashine.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12412	     24	   1760	  14196	   3774	StateMashine.elf
+Finished building: default.size.stdout
+ 
+15:53:32 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+15:53:51 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+15:53:52 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+15:53:53 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/SerwoSimple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/SerwoSimple.d" -MT"Core/Src/SerwoSimple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/SerwoSimple.o"
+../Core/Src/SerwoSimple.c: In function 'My_SmartDelay':
+../Core/Src/SerwoSimple.c:23:9: warning: implicit declaration of function 'Check_And_Report' [-Wimplicit-function-declaration]
+   23 |         Check_And_Report();
+      |         ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c: At top level:
+../Core/Src/SerwoSimple.c:27:6: warning: conflicting types for 'Check_And_Report'; have 'void(void)'
+   27 | void Check_And_Report(void)
+      |      ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c:23:9: note: previous implicit declaration of 'Check_And_Report' with type 'void(void)'
+   23 |         Check_And_Report();
+      |         ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c: In function 'Check_And_Report':
+../Core/Src/SerwoSimple.c:29:9: error: 'timerFlag' undeclared (first use in this function)
+   29 |     if (timerFlag == 1)
+      |         ^~~~~~~~~
+../Core/Src/SerwoSimple.c:29:9: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/SerwoSimple.c:36:19: warning: implicit declaration of function 'sprintf' [-Wimplicit-function-declaration]
+   36 |         int len = sprintf(buffer, "K: %d\r\n", currentAngle);
+      |                   ^~~~~~~
+../Core/Src/SerwoSimple.c:12:1: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+   11 | #include <math.h>
+  +++ |+#include <stdio.h>
+   12 | 
+../Core/Src/SerwoSimple.c:36:19: warning: incompatible implicit declaration of built-in function 'sprintf' [-Wbuiltin-declaration-mismatch]
+   36 |         int len = sprintf(buffer, "K: %d\r\n", currentAngle);
+      |                   ^~~~~~~
+../Core/Src/SerwoSimple.c:36:19: note: include '<stdio.h>' or provide a declaration of 'sprintf'
+../Core/Src/SerwoSimple.c:36:48: error: 'currentAngle' undeclared (first use in this function)
+   36 |         int len = sprintf(buffer, "K: %d\r\n", currentAngle);
+      |                                                ^~~~~~~~~~~~
+../Core/Src/SerwoSimple.c:37:28: error: 'huart2' undeclared (first use in this function)
+   37 |         HAL_UART_Transmit(&huart2, (uint8_t*)buffer, len, 100);
+      |                            ^~~~~~
+../Core/Src/SerwoSimple.c: In function 'Servo_MoveSlowly':
+../Core/Src/SerwoSimple.c:74:13: warning: implicit declaration of function 'SetAngle_WithGlobalUpdate' [-Wimplicit-function-declaration]
+   74 |             SetAngle_WithGlobalUpdate(i, 1);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:52: Core/Src/SerwoSimple.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+15:53:54 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+15:53:55 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-size  StateMashine.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12412	     24	   1760	  14196	   3774	StateMashine.elf
+Finished building: default.size.stdout
+ 
+15:53:56 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+15:54:46 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+15:54:47 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+15:54:47 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/SerwoSimple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/SerwoSimple.d" -MT"Core/Src/SerwoSimple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/SerwoSimple.o"
+../Core/Src/SerwoSimple.c: In function 'My_SmartDelay':
+../Core/Src/SerwoSimple.c:23:9: warning: implicit declaration of function 'Check_And_Report' [-Wimplicit-function-declaration]
+   23 |         Check_And_Report();
+      |         ^~~~~~~~~~~~~~~~
+../Core/Src/SerwoSimple.c: In function 'Servo_MoveSlowly':
+../Core/Src/SerwoSimple.c:62:13: warning: implicit declaration of function 'SetAngle_WithGlobalUpdate' [-Wimplicit-function-declaration]
+   62 |             SetAngle_WithGlobalUpdate(i, 1);
+      |             ^~~~~~~~~~~~~~~~~~~~~~~~~
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
+arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  49688	    468	   2636	  52792	   ce38	Serwomotor_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: Serwomotor_V1.list
+ 
+15:54:50 **** Incremental Build of configuration Debug for project Serwomotor_V2_StepAG ****
+make -j12 all 
+arm-none-eabi-size  Serwomotor_V2_StepAG.elf 
+   text	   data	    bss	    dec	    hex	filename
+  49120	    468	   2564	  52152	   cbb8	Serwomotor_V2_StepAG.elf
+Finished building: default.size.stdout
+ 
+15:54:51 **** Incremental Build of configuration Debug for project StateMashine ****
+make -j12 all 
+arm-none-eabi-size  StateMashine.elf 
+   text	   data	    bss	    dec	    hex	filename
+  12412	     24	   1760	  14196	   3774	StateMashine.elf
+Finished building: default.size.stdout
+ 
+15:54:52 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 

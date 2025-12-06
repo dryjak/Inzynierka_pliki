@@ -1,2 +1,4 @@
-../Core/Src/SerwoSimple.c:12:6:SetAngle	24	static
-../Core/Src/SerwoSimple.c:37:6:Servo_MoveSlowly	24	static
+../Core/Src/SerwoSimple.c:15:6:My_SmartDelay	24	static
+../Core/Src/SerwoSimple.c:29:6:SetAngle	24	static
+../Core/Src/SerwoSimple.c:54:6:Servo_MoveSlowly	24	static
+../Core/Src/SerwoSimple.c:76:6:Motion_SineHalf	32	static

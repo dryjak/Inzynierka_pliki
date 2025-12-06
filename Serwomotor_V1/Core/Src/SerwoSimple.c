@@ -8,6 +8,24 @@
 
 #include "SerwoSimple.h"
 #include "tim.h"
+#include <math.h>
+
+#define PI 3.14159265
+
+void My_SmartDelay(uint32_t delay_ms)
+{
+    uint32_t startTick = HAL_GetTick(); // Pobierz aktualny czas
+
+    // Pętla wykonuje się dopóki nie minie zadany czas
+    while ((HAL_GetTick() - startTick) < delay_ms)
+    {
+        // W czasie czekania sprawdzamy, czy trzeba coś wysłać!
+        Check_And_Report();
+    }
+}
+
+
+
 
 void SetAngle(uint16_t Angle, uint8_t Mode)
 {
@@ -42,7 +60,7 @@ void Servo_MoveSlowly(uint16_t startAngle, uint16_t endAngle, uint8_t speedDelay
         for (uint16_t i = startAngle; i <= endAngle; i++)
         {
             SetAngle(i, 1);       // Ustaw mały krok
-            HAL_Delay(speedDelay); // Czekaj (im dłużej, tym wolniejszy ruch)
+            SetAngle_WithGlobalUpdate(i, 1);
         }
     }
     else
@@ -51,8 +69,26 @@ void Servo_MoveSlowly(uint16_t startAngle, uint16_t endAngle, uint8_t speedDelay
         for (uint16_t i = startAngle; i >= endAngle; i--)
         {
             SetAngle(i, 1);
-            HAL_Delay(speedDelay);
+            SetAngle_WithGlobalUpdate(i, 1);
         }
     }
 }
+// --- 2. Sinusoida ---
+void Motion_SineHalf(uint8_t speedDelay) {
+    float x;
+    uint16_t amplitude = 300;
 
+    for(x = 0; x <= 3.14; x += 0.05) {
+        float sinVal = sin(x);
+        uint16_t pos = (uint16_t)(sinVal * amplitude);
+
+        SetAngle_WithGlobalUpdate(pos, 1);
+
+        // Tutaj też używamy SmartDelay, żeby nie gubić próbek
+        // przy wolnym ruchu
+        My_SmartDelay(speedDelay);
+    }
+
+    SetAngle_WithGlobalUpdate(0, 1);
+    My_SmartDelay(500);
+}

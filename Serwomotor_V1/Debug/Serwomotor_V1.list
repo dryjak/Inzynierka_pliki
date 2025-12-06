@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000e1d4  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00018f44  00000000  00000000  0000e204  2**0
+ 12 .debug_info   00019082  00000000  00000000  0000e204  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000033e2  00000000  00000000  00027148  2**0
+ 13 .debug_abbrev 00003457  00000000  00000000  00027286  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000014e8  00000000  00000000  0002a530  2**3
+ 14 .debug_aranges 000014f8  00000000  00000000  0002a6e0  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00001051  00000000  00000000  0002ba18  2**0
+ 15 .debug_rnglists 0000105e  00000000  00000000  0002bbd8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00028abe  00000000  00000000  0002ca69  2**0
+ 16 .debug_macro  00028b6f  00000000  00000000  0002cc36  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001a365  00000000  00000000  00055527  2**0
+ 17 .debug_line   0001a538  00000000  00000000  000557a5  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00101604  00000000  00000000  0006f88c  2**0
+ 18 .debug_str    0010167f  00000000  00000000  0006fcdd  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00170e90  2**0
+ 19 .comment      00000043  00000000  00000000  0017135c  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00006e54  00000000  00000000  00170ed4  2**2
+ 20 .debug_frame  00006e9c  00000000  00000000  001713a0  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 0000005b  00000000  00000000  00177d28  2**0
+ 21 .debug_line_str 0000005b  00000000  00000000  0017823c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2729,9 +2729,9 @@ static MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050)
  8001bb8:	e8bd 8fb0 	ldmia.w	sp!, {r4, r5, r7, r8, r9, sl, fp, pc}
 
 08001bbc <SetAngle>:
+}
 
-#include "SerwoSimple.h"
-#include "tim.h"
+
 
 void SetAngle(uint16_t Angle, uint8_t Mode)
 {

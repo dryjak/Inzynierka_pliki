@@ -59,7 +59,7 @@ float RollG, PitchG, YawG;
 //volatile int16_t ServoValue = 0;
 //volatile int8_t Dir = 1;
 //uint16_t Tmp = 0;
-
+/*
 static int ServoValue = 0;
 static int Dir = 1;  // 1 = ruch do 45, -1 = ruch do 0, 0 = postój
 static int Tmp = 0;
@@ -85,7 +85,9 @@ static float phase = 0.0f;
 // 0.05 → wolno i płynnie
 // 0.1  → dwa razy szybciej
 #define PHASE_STEP 0.01f
-
+*/
+volatile uint8_t timerFlag = 0;      // Flaga ustawiana przez timer (co 0.1s)
+volatile uint16_t currentAngle = 0;  // Aktualna pozycja serwa (do wysłania)
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -289,7 +291,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	}
 	//kod odpowiadający za wymuszenie do 45 stopni w 5 sekundzie
 	//zmienić tim20 counter period na 9999 (1hz)
-
+/*
 	if(htim->Instance == TIM20)
 	{
 		HAL_GPIO_TogglePin(LD2_GPIO_Port, LD2_Pin);
@@ -419,6 +421,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		}
 	}
 */
+/*
 	if(htim->Instance == TIM8)
 	{
 		StartTheServo ++;
@@ -428,7 +431,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 			ServoInterrupt = 1;
 		}
 	}
+	*/
+	void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
+	{
+	    currentAngle = Angle; // Zapisz dla UART
+	    SetAngle(Angle, Mode); // Wykonaj ruch (Twoja oryginalna funkcja)
+	}
 
+}
+
+void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
+{
+    currentAngle = Angle; // Zapisz dla UART
+    SetAngle(Angle, Mode); // Wykonaj ruch (Twoja oryginalna funkcja)
 }
 /* USER CODE END 4 */
 
