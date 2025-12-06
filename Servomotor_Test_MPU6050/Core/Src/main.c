@@ -24,7 +24,10 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "SerwoSimple.h"
+#include <math.h>
+#include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -34,7 +37,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-
+#define PI 3.14159265
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -45,12 +48,19 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+volatile uint8_t InterruptFlag = 0;
+uint16_t CurrentAngle = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
+static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
+void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode);
+void My_SmartDelay(uint32_t delay_ms);
+
+void Motion_SineHalf(uint8_t speedDelay);
+void Servo_MoveSlowly(uint16_t startAngle, uint16_t endAngle, uint8_t speedDelay);
 
 /* USER CODE END PFP */
 
@@ -90,14 +100,20 @@ int main(void)
   MX_GPIO_Init();
   MX_LPUART1_UART_Init();
   MX_TIM2_Init();
-  /* USER CODE BEGIN 2 */
+  MX_TIM1_Init();
 
+  /* Initialize interrupts */
+  MX_NVIC_Init();
+  /* USER CODE BEGIN 2 */
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);	//Servo
+  HAL_TIM_Base_Start_IT(&htim1);				//Zegar 0.1s
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -151,7 +167,103 @@ void SystemClock_Config(void)
   }
 }
 
+/**
+  * @brief NVIC Configuration.
+  * @retval None
+  */
+static void MX_NVIC_Init(void)
+{
+  /* TIM1_UP_TIM16_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM1_UP_TIM16_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM1_UP_TIM16_IRQn);
+  /* TIM2_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(TIM2_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(TIM2_IRQn);
+}
+
 /* USER CODE BEGIN 4 */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+	if(htim->Instance == TIM1)
+	{
+		InterruptFlag = 1;
+	}
+}
+
+// 1. Sprawdza flagę i wysyła UART (wywoływane w pętli czekania)
+void Check_And_Report(void)
+{
+    if (InterruptFlag == 1)
+    {
+        InterruptFlag = 0; // Kasujemy flagę
+
+        char buffer[32];
+        // Wysyłamy kąt (dzielimy przez 10, zeby miec stopnie, np. 30.0)
+        int len = sprintf(buffer, "Angle: %.1f\r\n", CurrentAngle / 10.0f);
+        HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, len, 100);
+    }
+}
+
+// 2. Inteligentne czekanie (nie blokuje UARTu)
+void My_SmartDelay(uint32_t delay_ms)
+{
+    uint32_t startTick = HAL_GetTick();
+    while ((HAL_GetTick() - startTick) < delay_ms)
+    {
+        Check_And_Report(); // Sprawdzaj UART w czasie czekania
+    }
+}
+
+// 3. Wrapper ustawiający kąt i aktualizujący zmienną globalną
+void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
+{
+    CurrentAngle = Angle;
+    SetAngle(Angle, Mode); // Wywołanie z biblioteki SerwoSimple
+}
+
+// --- FUNKCJE RUCHU ---
+
+void Motion_StepResponse(void)
+{
+    // Skok do 30 stopni (wartość 300)
+    SetAngle_WithGlobalUpdate(300, 1);
+    My_SmartDelay(4000); // Czekaj 4s (i raportuj)
+
+    // Powrót do 0
+    SetAngle_WithGlobalUpdate(0, 1);
+    My_SmartDelay(1000);
+}
+
+void Motion_Triangle(uint8_t speedDelay)
+{
+    // Narastanie
+    for(uint16_t i = 0; i <= 300; i+=5) {
+        SetAngle_WithGlobalUpdate(i, 1);
+        My_SmartDelay(speedDelay);
+    }
+    // Opadanie
+    for(uint16_t i = 300; i > 0; i-=5) {
+        SetAngle_WithGlobalUpdate(i, 1);
+        My_SmartDelay(speedDelay);
+    }
+    SetAngle_WithGlobalUpdate(0, 1);
+}
+
+void Motion_SineHalf(uint8_t speedDelay)
+{
+    float x;
+    uint16_t amplitude = 300; // 30 stopni
+
+    for(x = 0; x <= 3.14; x += 0.05) {
+        float sinVal = sin(x); // 0 -> 1 -> 0
+        uint16_t pos = (uint16_t)(sinVal * amplitude);
+
+        SetAngle_WithGlobalUpdate(pos, 1);
+        My_SmartDelay(speedDelay);
+    }
+    SetAngle_WithGlobalUpdate(0, 1);
+    My_SmartDelay(1000);
+}
 
 /* USER CODE END 4 */
 

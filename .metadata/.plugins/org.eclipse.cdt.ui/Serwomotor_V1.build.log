@@ -1,25 +1,33 @@
-15:54:47 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+16:14:36 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/SerwoSimple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/SerwoSimple.d" -MT"Core/Src/SerwoSimple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/SerwoSimple.o"
-../Core/Src/SerwoSimple.c: In function 'My_SmartDelay':
-../Core/Src/SerwoSimple.c:23:9: warning: implicit declaration of function 'Check_And_Report' [-Wimplicit-function-declaration]
-   23 |         Check_And_Report();
-      |         ^~~~~~~~~~~~~~~~
-../Core/Src/SerwoSimple.c: In function 'Servo_MoveSlowly':
-../Core/Src/SerwoSimple.c:62:13: warning: implicit declaration of function 'SetAngle_WithGlobalUpdate' [-Wimplicit-function-declaration]
-   62 |             SetAngle_WithGlobalUpdate(i, 1);
-      |             ^~~~~~~~~~~~~~~~~~~~~~~~~
-arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Serwomotor_V1.elf
- 
-arm-none-eabi-size  Serwomotor_V1.elf 
-arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
-   text	   data	    bss	    dec	    hex	filename
-  49688	    468	   2636	  52792	   ce38	Serwomotor_V1.elf
-Finished building: default.size.stdout
- 
-Finished building: Serwomotor_V1.list
- 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:157:3: error: 'StartTheServo' undeclared (first use in this function)
+  157 |   StartTheServo = 1;
+      |   ^~~~~~~~~~~~~
+../Core/Src/main.c:157:3: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c:195:14: error: 'InterruptFlag' undeclared (first use in this function)
+  195 |           if(InterruptFlag == 1)
+      |              ^~~~~~~~~~~~~
+../Core/Src/main.c:209:27: error: 'Message' undeclared (first use in this function)
+  209 |                   sprintf(Message, "%.3f %.3f %d\r", Roll, Pitch, ServoValue);
+      |                           ^~~~~~~
+../Core/Src/main.c:209:67: error: 'ServoValue' undeclared (first use in this function)
+  209 |                   sprintf(Message, "%.3f %.3f %d\r", Roll, Pitch, ServoValue);
+      |                                                                   ^~~~~~~~~~
+../Core/Src/main.c: In function 'HAL_TIM_PeriodElapsedCallback':
+../Core/Src/main.c:290:17: error: 'InterruptFlag' undeclared (first use in this function)
+  290 |                 InterruptFlag = 1;
+      |                 ^~~~~~~~~~~~~
+../Core/Src/main.c:313:1: warning: "/*" within comment [-Wcomment]
+  313 | /*
+      |  
+../Core/Src/main.c: At top level:
+../Core/Src/main.c:435:14: warning: 'SetAngle_WithGlobalUpdate' defined but not used [-Wunused-function]
+  435 |         void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
+      |              ^~~~~~~~~~~~~~~~~~~~~~~~~
+make: *** [Core/Src/subdir.mk:52: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
 
-15:54:50 Build Finished. 0 errors, 2 warnings. (took 2s.435ms)
+16:14:37 Build Failed. 6 errors, 2 warnings. (took 1s.74ms)
 
