@@ -1,16 +1,10 @@
-16:40:45 **** Incremental Build of configuration Debug for project Servomotor_Test_MPU6050 ****
+20:14:27 **** Incremental Build of configuration Debug for project Servomotor_Test_MPU6050 ****
 make -j12 all 
-arm-none-eabi-gcc -o "Servomotor_Test_MPU6050.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Servomotor_Test_MPU6050\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Servomotor_Test_MPU6050.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Servomotor_Test_MPU6050.elf
- 
 arm-none-eabi-size  Servomotor_Test_MPU6050.elf 
-arm-none-eabi-objdump -h -S Servomotor_Test_MPU6050.elf  > "Servomotor_Test_MPU6050.list"
    text	   data	    bss	    dec	    hex	filename
-  41576	    468	   2212	  44256	   ace0	Servomotor_Test_MPU6050.elf
+  47736	    468	   2340	  50544	   c570	Servomotor_Test_MPU6050.elf
 Finished building: default.size.stdout
  
-Finished building: Servomotor_Test_MPU6050.list
- 
 
-16:40:47 Build Finished. 0 errors, 0 warnings. (took 1s.322ms)
+20:14:28 Build Finished. 0 errors, 0 warnings. (took 683ms)
 

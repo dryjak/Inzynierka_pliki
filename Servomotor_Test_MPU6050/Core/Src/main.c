@@ -18,6 +18,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
+#include "i2c.h"
 #include "usart.h"
 #include "tim.h"
 #include "gpio.h"
@@ -28,6 +29,7 @@
 #include <math.h>
 #include <string.h>
 #include <stdio.h>
+#include <MPU6050.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -50,6 +52,14 @@
 /* USER CODE BEGIN PV */
 volatile uint8_t InterruptFlag = 0;
 uint16_t CurrentAngle = 0;
+
+//MPU6050
+MPU6050_t MPU6050;
+float Roll, Pitch, Yaw;
+Data_t AccelCalibrate;
+Data_t GyroCalibrate;
+uint8_t TMP = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -58,9 +68,12 @@ static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode);
 void My_SmartDelay(uint32_t delay_ms);
-
-void Motion_SineHalf(uint8_t speedDelay);
 void Servo_MoveSlowly(uint16_t startAngle, uint16_t endAngle, uint8_t speedDelay);
+void Check_And_Report(void);
+
+void Motion_StepResponse(void);
+void Motion_Triangle(uint8_t speedDelay);
+void Motion_SineHalf(uint8_t speedDelay);
 
 /* USER CODE END PFP */
 
@@ -101,19 +114,52 @@ int main(void)
   MX_LPUART1_UART_Init();
   MX_TIM2_Init();
   MX_TIM1_Init();
+  MX_I2C1_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);	//Servo
+  MPU6050_Init(&MPU6050, &hi2c1, 0x68);
+
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);		//Servo
   HAL_TIM_Base_Start_IT(&htim1);				//Zegar 0.1s
+
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  /*
+	  //calibrate accel and gyro
+	  if(TMP == 0)
+	  {
+		  TMP = 1;
+		  MPU6050_CalibrateAccel(&MPU6050, &AccelCalibrate);
+		  MPU6050_CalibrateGyro(&MPU6050, &GyroCalibrate);
+	  }
+	  */
 
+	  // --- Wykonujemy sekwencję ruchów ---
+
+	// 1. Skok (Step Response)
+	//Motion_StepResponse();
+
+	// 2. Trójkąt
+	//Motion_Triangle(10); // 10ms opóźnienia na krok
+	//My_SmartDelay(1000);
+
+	// 3. Sinusoida
+	//Motion_SineHalf(15); // 15ms opóźnienia na krok
+
+		// Pętla się powtarza
+
+	 if(InterruptFlag)
+	 {
+		 MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+
+	 }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -188,6 +234,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		InterruptFlag = 1;
 	}
+
 }
 
 // 1. Sprawdza flagę i wysyła UART (wywoływane w pętli czekania)
@@ -199,7 +246,7 @@ void Check_And_Report(void)
 
         char buffer[32];
         // Wysyłamy kąt (dzielimy przez 10, zeby miec stopnie, np. 30.0)
-        int len = sprintf(buffer, "Angle: %.1f\r\n", CurrentAngle / 10.0f);
+        int len = sprintf(buffer, "%.3f\r\n", CurrentAngle / 10.0f);
         HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, len, 100);
     }
 }
@@ -227,7 +274,7 @@ void Motion_StepResponse(void)
 {
     // Skok do 30 stopni (wartość 300)
     SetAngle_WithGlobalUpdate(300, 1);
-    My_SmartDelay(4000); // Czekaj 4s (i raportuj)
+    My_SmartDelay(3000); // Czekaj 4s (i raportuj)
 
     // Powrót do 0
     SetAngle_WithGlobalUpdate(0, 1);
@@ -254,7 +301,7 @@ void Motion_SineHalf(uint8_t speedDelay)
     float x;
     uint16_t amplitude = 300; // 30 stopni
 
-    for(x = 0; x <= 3.14; x += 0.05) {
+    for(x = 0; x <= 3.14; x += 0.03) {
         float sinVal = sin(x); // 0 -> 1 -> 0
         uint16_t pos = (uint16_t)(sinVal * amplitude);
 
