@@ -1,10 +1,17 @@
-22:35:20 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
+13:20:38 **** Incremental Build of configuration Debug for project Serwomotor_V1 ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/SerwoSimple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/SerwoSimple.d" -MT"Core/Src/SerwoSimple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/SerwoSimple.o"
+arm-none-eabi-gcc -o "Serwomotor_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\Serwomotor_V1\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Serwomotor_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Serwomotor_V1.elf
+ 
 arm-none-eabi-size  Serwomotor_V1.elf 
+arm-none-eabi-objdump -h -S Serwomotor_V1.elf  > "Serwomotor_V1.list"
    text	   data	    bss	    dec	    hex	filename
   49688	    468	   2636	  52792	   ce38	Serwomotor_V1.elf
 Finished building: default.size.stdout
  
+Finished building: Serwomotor_V1.list
+ 
 
-22:35:20 Build Finished. 0 errors, 0 warnings. (took 609ms)
+13:20:41 Build Finished. 0 errors, 0 warnings. (took 3s.215ms)
 

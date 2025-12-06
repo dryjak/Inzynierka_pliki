@@ -28,7 +28,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
 	}
 	else
 	{
-		Tmp = (PWM_Min - ((Angle - AngleMin) * STEP) / 1000);
+		Tmp = (PWM_Max - ((Angle - AngleMin) * STEP) / 1000);
 	}
 
 	__HAL_TIM_SET_COMPARE(&WhichTimer, TimerChannel,Tmp);

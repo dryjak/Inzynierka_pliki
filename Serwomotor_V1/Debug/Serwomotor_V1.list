@@ -2779,7 +2779,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
 	}
 	else
 	{
-		Tmp = (PWM_Min - ((Angle - AngleMin) * STEP) / 1000);
+		Tmp = (PWM_Max - ((Angle - AngleMin) * STEP) / 1000);
  8001c00:	88fb      	ldrh	r3, [r7, #6]
  8001c02:	f240 4257 	movw	r2, #1111	@ 0x457
  8001c06:	fb02 f303 	mul.w	r3, r2, r3
@@ -2789,7 +2789,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
  8001c12:	17db      	asrs	r3, r3, #31
  8001c14:	1a9b      	subs	r3, r3, r2
  8001c16:	b29b      	uxth	r3, r3
- 8001c18:	f503 7361 	add.w	r3, r3, #900	@ 0x384
+ 8001c18:	f203 736c 	addw	r3, r3, #1900	@ 0x76c
  8001c1c:	81fb      	strh	r3, [r7, #14]
 	}
 
