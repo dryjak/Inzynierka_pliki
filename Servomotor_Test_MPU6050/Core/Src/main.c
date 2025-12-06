@@ -144,22 +144,23 @@ int main(void)
 	  // --- Wykonujemy sekwencję ruchów ---
 
 	// 1. Skok (Step Response)
-	//Motion_StepResponse();
+	Motion_StepResponse();
 
 	// 2. Trójkąt
-	//Motion_Triangle(10); // 10ms opóźnienia na krok
-	//My_SmartDelay(1000);
+	Motion_Triangle(10); // 10ms opóźnienia na krok
+	My_SmartDelay(1000);
 
 	// 3. Sinusoida
-	//Motion_SineHalf(15); // 15ms opóźnienia na krok
+	Motion_SineHalf(15); // 15ms opóźnienia na krok
 
 		// Pętla się powtarza
-
+/*
 	 if(InterruptFlag)
 	 {
 		 MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 
 	 }
+*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -243,10 +244,10 @@ void Check_And_Report(void)
     if (InterruptFlag == 1)
     {
         InterruptFlag = 0; // Kasujemy flagę
-
+		 MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
         char buffer[32];
         // Wysyłamy kąt (dzielimy przez 10, zeby miec stopnie, np. 30.0)
-        int len = sprintf(buffer, "%.3f\r\n", CurrentAngle / 10.0f);
+        int len = sprintf(buffer, "%.3f, %.3f\r\n", CurrentAngle / 10.0f, Roll);
         HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, len, 100);
     }
 }

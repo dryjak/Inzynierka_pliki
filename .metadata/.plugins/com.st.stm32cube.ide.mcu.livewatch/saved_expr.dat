@@ -6,3 +6,5 @@ CalibrateGyro
 Roll
 Pitch
 Yaw
+AccelCalibrate
+GyroCalibrate

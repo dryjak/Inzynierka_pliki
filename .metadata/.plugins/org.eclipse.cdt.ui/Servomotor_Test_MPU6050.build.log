@@ -1,10 +1,10 @@
-20:14:27 **** Incremental Build of configuration Debug for project Servomotor_Test_MPU6050 ****
+20:50:29 **** Incremental Build of configuration Debug for project Servomotor_Test_MPU6050 ****
 make -j12 all 
 arm-none-eabi-size  Servomotor_Test_MPU6050.elf 
    text	   data	    bss	    dec	    hex	filename
-  47736	    468	   2340	  50544	   c570	Servomotor_Test_MPU6050.elf
+  53400	    468	   2340	  56208	   db90	Servomotor_Test_MPU6050.elf
 Finished building: default.size.stdout
  
 
-20:14:28 Build Finished. 0 errors, 0 warnings. (took 683ms)
+20:50:29 Build Finished. 0 errors, 0 warnings. (took 623ms)
 
