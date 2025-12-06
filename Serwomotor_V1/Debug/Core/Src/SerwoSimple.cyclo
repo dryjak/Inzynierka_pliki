@@ -1,1 +1,2 @@
 ../Core/Src/SerwoSimple.c:12:6:SetAngle	3
+../Core/Src/SerwoSimple.c:37:6:Servo_MoveSlowly	4
