@@ -26,7 +26,6 @@
 /* USER CODE BEGIN Includes */
 #include "motor_simple.h"
 #include "Encoder.h"
-#include "PID.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -55,20 +54,6 @@ uint8_t MotorA_Dir, MotorB_Dir;
 
 //initializing encoders
 Encoder_t EncoderA, EncoderB;
-float EncoderA_Speed, EncoderB_Speed;
-
-//PID regulator for steering motors speed
-PID_t PidEncoderA, PidEncoderB;
-
-float EncoderP = 3.7;
-float EncoderI = 40.36;
-float EncoderD = 0.0;
-
-float EncoderMaxValue = 300.0;
-float EncoderMinValue = -300.0;
-
-
-
 
 /* USER CODE END PV */
 
@@ -131,6 +116,7 @@ int main(void)
 
   Encoder_Init(&EncoderA, &htim5, ENCODER_PULSES_PER_REV, ENCODER_DT);
   Encoder_Init(&EncoderB, &htim2, ENCODER_PULSES_PER_REV, ENCODER_DT);
+
 
   /* USER CODE END 2 */
 
