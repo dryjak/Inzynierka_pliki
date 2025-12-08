@@ -2272,3 +2272,36 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-12-06 16:02:21.652
 !MESSAGE Indexed 'Servomotor_Test_MPU6050' (19 sources, 81 headers) in 5.12 sec: 4,951 declarations; 21,288 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0076%)
+!SESSION 2025-12-07 23:54:05.411 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-07 23:54:47.363
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-07 23:54:47.365
+!MESSAGE Log4j2 initialized with config file D:\GithubRepo\Inzynierka_pliki\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-07 23:54:59.097
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-12-08 16:28:12.169 -----------------------------------------------
+eclipse.buildId=Version 1.19.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=pl_PL
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-08 16:28:25.654
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-08 16:28:25.657
+!MESSAGE Log4j2 initialized with config file D:\GithubRepo\Inzynierka_pliki\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-08 16:28:37.175
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-12-08 16:30:18.580
+!MESSAGE Indexed 'BallancingRobot_V1' (19 sources, 81 headers) in 3.87 sec: 4,314 declarations; 18,192 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0089%)
