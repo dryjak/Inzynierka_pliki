@@ -61,16 +61,22 @@ void Error_Handler(void);
 #define EncoderA_SigA_GPIO_Port GPIOA
 #define EncoderA_SigB_Pin GPIO_PIN_1
 #define EncoderA_SigB_GPIO_Port GPIOA
-#define MotorADir2_Pin GPIO_PIN_15
-#define MotorADir2_GPIO_Port GPIOB
+#define EncoderB_SigA_Pin GPIO_PIN_5
+#define EncoderB_SigA_GPIO_Port GPIOA
+#define MotorA_Dir1_Pin GPIO_PIN_14
+#define MotorA_Dir1_GPIO_Port GPIOB
+#define MotorA_Dir2_Pin GPIO_PIN_15
+#define MotorA_Dir2_GPIO_Port GPIOB
 #define MotorA_PWM_Pin GPIO_PIN_8
 #define MotorA_PWM_GPIO_Port GPIOA
 #define MotorB_PWM_Pin GPIO_PIN_9
 #define MotorB_PWM_GPIO_Port GPIOA
-#define MotorBDir2_Pin GPIO_PIN_10
-#define MotorBDir2_GPIO_Port GPIOA
-#define MotorBDir1_Pin GPIO_PIN_11
-#define MotorBDir1_GPIO_Port GPIOA
+#define MotorB_Dir2_Pin GPIO_PIN_10
+#define MotorB_Dir2_GPIO_Port GPIOA
+#define MotorB_Dir1_Pin GPIO_PIN_11
+#define MotorB_Dir1_GPIO_Port GPIOA
+#define EncoderB_SigB_Pin GPIO_PIN_3
+#define EncoderB_SigB_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 
