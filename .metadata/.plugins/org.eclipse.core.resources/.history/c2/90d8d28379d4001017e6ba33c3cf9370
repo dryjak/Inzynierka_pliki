@@ -111,8 +111,8 @@ int main(void)
   Motor_Init(&MotorB, &htim1, TIM_CHANNEL_2, MotorB_PWM, MotorB_Dir1_GPIO_Port, MotorB_Dir1_Pin, MotorB_Dir2_GPIO_Port, MotorB_Dir2_Pin);
 
   //initializing encoders
-  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
-  HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
+  HAL_TIM_Encoder_Start(&htim2, ALL_CHANNELS);
+  HAL_TIM_Encoder_Start(&htim5, ALL_CHANNELS);
 
   Encoder_Init(&EncoderA, &htim5, ENCODER_PULSES_PER_REV, ENCODER_DT);
   Encoder_Init(&EncoderB, &htim2, ENCODER_PULSES_PER_REV, ENCODER_DT);

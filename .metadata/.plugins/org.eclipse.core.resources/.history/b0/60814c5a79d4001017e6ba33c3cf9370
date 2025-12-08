@@ -25,7 +25,6 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "motor_simple.h"
-#include "Encoder.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,8 +34,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define ENCODER_PULSES_PER_REV 1320
-#define ENCODER_DT  0.01f  // 10ms = 0.01s
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -51,9 +49,6 @@
 Motor_t MotorA, MotorB;
 uint8_t MotorA_PWM, MotorB_PWM;
 uint8_t MotorA_Dir, MotorB_Dir;
-
-//initializing encoders
-Encoder_t EncoderA, EncoderB;
 
 /* USER CODE END PV */
 
@@ -103,19 +98,13 @@ int main(void)
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
   //initializing motors
-  //__HAL_TIM_MOE_ENABLE(&htim1);
+  __HAL_TIM_MOE_ENABLE(&htim1);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); //for motor A
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); //for motor B
 
   Motor_Init(&MotorA, &htim1, TIM_CHANNEL_1, MotorA_PWM, MotorA_Dir1_GPIO_Port, MotorA_Dir1_Pin, MotorA_Dir2_GPIO_Port, MotorA_Dir2_Pin);
   Motor_Init(&MotorB, &htim1, TIM_CHANNEL_2, MotorB_PWM, MotorB_Dir1_GPIO_Port, MotorB_Dir1_Pin, MotorB_Dir2_GPIO_Port, MotorB_Dir2_Pin);
 
-  //initializing encoders
-  HAL_TIM_Encoder_Start(&htim2, TIM_CHANNEL_ALL);
-  HAL_TIM_Encoder_Start(&htim5, TIM_CHANNEL_ALL);
-
-  Encoder_Init(&EncoderA, &htim5, ENCODER_PULSES_PER_REV, ENCODER_DT);
-  Encoder_Init(&EncoderB, &htim2, ENCODER_PULSES_PER_REV, ENCODER_DT);
 
 
   /* USER CODE END 2 */

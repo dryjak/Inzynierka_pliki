@@ -63,10 +63,10 @@ void Error_Handler(void);
 #define EncoderA_SigB_GPIO_Port GPIOA
 #define EncoderB_SigA_Pin GPIO_PIN_5
 #define EncoderB_SigA_GPIO_Port GPIOA
-#define MotorA_Dir1_Pin GPIO_PIN_14
-#define MotorA_Dir1_GPIO_Port GPIOB
-#define MotorA_Dir2_Pin GPIO_PIN_15
+#define MotorA_Dir2_Pin GPIO_PIN_14
 #define MotorA_Dir2_GPIO_Port GPIOB
+#define MotorA_Dir1_Pin GPIO_PIN_15
+#define MotorA_Dir1_GPIO_Port GPIOB
 #define MotorA_PWM_Pin GPIO_PIN_8
 #define MotorA_PWM_GPIO_Port GPIOA
 #define MotorB_PWM_Pin GPIO_PIN_9

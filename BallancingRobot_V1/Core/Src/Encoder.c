@@ -1,0 +1,43 @@
+/*
+ * Encoder.c
+ *
+ *  Created on: Oct 4, 2025
+ *      Author: jakub
+ */
+
+#include "Encoder.h"
+
+void Encoder_Init(Encoder_t *Encoder, TIM_HandleTypeDef *Tim, uint16_t PulsesPerRevolution, float SampleTime)
+{
+	Encoder->Tim = Tim;
+	Encoder->PulsesPerRevolution = PulsesPerRevolution;
+	Encoder->SampleTime = SampleTime;
+
+	Encoder->LastCounterValue = 0;
+
+	Encoder->TotalPulses = 0;
+	Encoder->AngularVelocity = 0.0;
+	Encoder->Angle = 0.0;
+
+	__HAL_TIM_SET_COUNTER(Encoder->Tim, 0);		//reset counter value
+	HAL_TIM_Encoder_Start(Encoder->Tim, TIM_CHANNEL_ALL);
+}
+
+void Encoder_Update(Encoder_t *Encoder)
+{
+	//get current value from counter
+	int32_t CurrentCounterValue = (int32_t)__HAL_TIM_GetCounter(Encoder->Tim);
+
+	int32_t Delta = (int32_t)CurrentCounterValue - Encoder->LastCounterValue;
+
+	Encoder->TotalPulses += Delta;
+
+	//(Impulses / ImpulsesPerRevolution) / Time * 60s
+	float InstantVelocity = ((float)Delta / (float)Encoder->PulsesPerRevolution) / Encoder->SampleTime * 60.0f;
+
+	//Low pass filter
+	float a = 0.7f;
+	Encoder->AngularVelocity = (Encoder->AngularVelocity * a) + (InstantVelocity * (1 - a));
+
+	Encoder->LastCounterValue = CurrentCounterValue;
+}
