@@ -24,7 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "motor_simple.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -45,6 +45,10 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+//initializing motors
+Motor_t MotorA, MotorB;
+uint8_t MotorA_PWM, MotorB_PWM;
+uint8_t MotorA_Dir, MotorB_Dir;
 
 /* USER CODE END PV */
 
@@ -93,6 +97,15 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM2_Init();
   /* USER CODE BEGIN 2 */
+  //initializing motors
+  __HAL_TIM_MOE_ENABLE(&htim1);
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); //for motor A
+  HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); //for motor B
+
+  Motor_Init(&MotorA, &htim1, TIM_CHANNEL_1, MotorA_PWM, MotorA_Dir1_GPIO_Port, MotorA_Dir1_Pin, MotorA_Dir2_GPIO_Port, MotorA_Dir2_Pin);
+  Motor_Init(&MotorB, &htim1, TIM_CHANNEL_2, MotorB_PWM, MotorB_Dir1_GPIO_Port, MotorB_Dir1_Pin, MotorB_Dir2_GPIO_Port, MotorB_Dir2_Pin);
+
+
 
   /* USER CODE END 2 */
 
@@ -100,6 +113,12 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  MotorA_PWM = 50;
+	  MotorA_Dir = 1;
+	  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
+	  Motor_Ride(&MotorA);
+	  HAL_Delay(4000);
+
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

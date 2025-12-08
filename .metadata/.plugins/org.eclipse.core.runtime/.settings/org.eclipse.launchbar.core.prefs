@@ -1,8 +1,9 @@
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/arch=x86_64
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/name=Local
 LaunchTargetManager/org.eclipse.launchbar.core.launchTargetType.local,Local/os=win32
-configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Serwomotor_V2_StepAG Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:StateMashine Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:TestingMotorsWithPWM Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPU6050_Liblary Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Servomotor_Test_MPU6050 Debug
+configDescList=org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Serwomotor_V2_StepAG Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:StateMashine Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:TestingMotorsWithPWM Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPU6050_Liblary Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Servomotor_Test_MPU6050 Debug,org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BallancingRobot_V1 Debug
 eclipse.preferences.version=1
+org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:BallancingRobot_V1\ Debug/activeLaunchMode=run
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPU6050_Liblary\ Debug/activeLaunchMode=debug
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:MPU6050_Liblary\ Debug/activeLaunchTarget=null\:---
 org.eclipse.cdt.dsf.gdb.gdbRemotedescriptorType\:Serwomotor_V1\ Debug/activeLaunchMode=debug
