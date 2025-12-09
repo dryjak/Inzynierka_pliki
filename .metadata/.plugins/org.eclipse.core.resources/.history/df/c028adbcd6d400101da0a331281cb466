@@ -156,7 +156,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /*
 	  MotorA_PWM = 50;
 	  MotorA_Dir = 1;
 	  MotorB_PWM = 50;
@@ -166,10 +165,7 @@ int main(void)
 	  Motor_Ride(&MotorA);
 	  Motor_Ride(&MotorB);
 	  HAL_Delay(1000);
-*/
-	  VelocityA = 100;
-	  VelocityB = 100;
-	  HAL_Delay(1000);
+
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -256,27 +252,27 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		uint8_t DirA = 0, DirB = 0;
 
 		//checking sign of pid value
-		if(PidMotorAPidValue > 0)
+		if(PidMotorA > 0)
 		{
 			DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
-			PwmInputA = PidMotorAPidValue;
+			PwmInputA = -PidMotorA;
 		}
 		else
 		{
 			DirA = 1;	//kierunek do Przodu
-			PwmInputA = PidMotorAPidValue;
+			PwmInputA = -PidMotorA;
 
 		}
 
-		if(PidMotorBPidValue > 0)
+		if(PidMotorB > 0)
 		{
 			DirB = 1;	//kierunek do przodu
-			PwmInputB = PidMotorBPidValue;
+			PwmInputB = PidMotorB;
 		}
 		else
 		{
 			DirB = 0;	//kierunek do tyłu
-			PwmInputB = PidMotorBPidValue;
+			PwmInputB = -PidMotorB;
 		}
 
 		//RPM to PWM

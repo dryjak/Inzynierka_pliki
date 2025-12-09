@@ -246,7 +246,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		Encoder_Update(&EncoderA);
 		Encoder_Update(&EncoderB);
 
-		EncoderA_Speed = EncoderA.AngularVelocity;
+		EncoderA_Speed = (-1.0f) * EncoderA.AngularVelocity;
 		EncoderB_Speed = EncoderB.AngularVelocity;
 
 		PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);

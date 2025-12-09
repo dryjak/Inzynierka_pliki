@@ -259,7 +259,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		if(PidMotorAPidValue > 0)
 		{
 			DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
-			PwmInputA = PidMotorAPidValue;
+			PwmInputA = -PidMotorAPidValue;
 		}
 		else
 		{

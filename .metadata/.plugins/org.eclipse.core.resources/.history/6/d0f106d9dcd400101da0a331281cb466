@@ -167,8 +167,8 @@ int main(void)
 	  Motor_Ride(&MotorB);
 	  HAL_Delay(1000);
 */
-	  VelocityA = 100;
-	  VelocityB = 100;
+	  //VelocityA = 100;
+	  //VelocityB = 100;
 	  HAL_Delay(1000);
 	  if (EncoderCallback == 1)
 	  {
@@ -248,7 +248,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		EncoderA_Speed = EncoderA.AngularVelocity;
 		EncoderB_Speed = EncoderB.AngularVelocity;
-
+/*
 		PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);
 		PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, VelocityB);
 
@@ -287,7 +287,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
 		Motor_Ride(&MotorA);
 		Motor_Ride(&MotorB);
-
+*/
 		EncoderCallback = 1;
 	}
 }

@@ -167,8 +167,8 @@ int main(void)
 	  Motor_Ride(&MotorB);
 	  HAL_Delay(1000);
 */
-	  VelocityA = 100;
-	  VelocityB = 100;
+	  //VelocityA = 100;
+	  //VelocityB = 100;
 	  HAL_Delay(1000);
 	  if (EncoderCallback == 1)
 	  {

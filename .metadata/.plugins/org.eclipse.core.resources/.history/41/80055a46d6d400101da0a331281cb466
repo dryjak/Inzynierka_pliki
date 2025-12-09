@@ -71,7 +71,6 @@ uint8_t EncoderCallback = 0;
 
 float VelocityA, VelocityB;
 float PwmInputA, PwmInputB;
-float PidMotorAPidValue, PidMotorBPidValue;
 
 
 
@@ -81,7 +80,6 @@ float PidMotorAPidValue, PidMotorBPidValue;
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
-float MapValues(float MaxValue, float InputValue);
 
 /* USER CODE END PFP */
 
@@ -156,7 +154,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /*
 	  MotorA_PWM = 50;
 	  MotorA_Dir = 1;
 	  MotorB_PWM = 50;
@@ -166,10 +163,7 @@ int main(void)
 	  Motor_Ride(&MotorA);
 	  Motor_Ride(&MotorB);
 	  HAL_Delay(1000);
-*/
-	  VelocityA = 100;
-	  VelocityB = 100;
-	  HAL_Delay(1000);
+
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -249,34 +243,34 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		EncoderA_Speed = EncoderA.AngularVelocity;
 		EncoderB_Speed = EncoderB.AngularVelocity;
 
-		PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);
-		PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, VelocityB);
+		PidMotorA = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);
+		PidMotorB = PID_Compute(&PidMotorB, EncoderB_Speed, VelocityB);
 
 
 		uint8_t DirA = 0, DirB = 0;
 
 		//checking sign of pid value
-		if(PidMotorAPidValue > 0)
+		if(PidMotorA > 0)
 		{
 			DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
-			PwmInputA = PidMotorAPidValue;
+			PwmInputA = -PidMotorA;
 		}
 		else
 		{
 			DirA = 1;	//kierunek do Przodu
-			PwmInputA = PidMotorAPidValue;
+			PwmInputA = -PidMotorA;
 
 		}
 
-		if(PidMotorBPidValue > 0)
+		if(PidMotorB > 0)
 		{
 			DirB = 1;	//kierunek do przodu
-			PwmInputB = PidMotorBPidValue;
+			PwmInputB = PidMotorB;
 		}
 		else
 		{
 			DirB = 0;	//kierunek do tyłu
-			PwmInputB = PidMotorBPidValue;
+			PwmInputB = -PidMotorB;
 		}
 
 		//RPM to PWM

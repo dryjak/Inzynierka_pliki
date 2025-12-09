@@ -58,7 +58,7 @@ Encoder_t EncoderA, EncoderB;
 float EncoderA_Speed, EncoderB_Speed;
 
 //PID regulator for steering motors speed
-PID_t PidMotorA, PidMotorB;
+PID_t PidEncoderA, PidEncoderB;
 
 float EncoderP = 3.7;
 float EncoderI = 40.36;
@@ -69,10 +69,6 @@ float EncoderMinValue = -300.0;
 
 uint8_t EncoderCallback = 0;
 
-float VelocityA, VelocityB;
-float PwmInputA, PwmInputB;
-float PidMotorAPidValue, PidMotorBPidValue;
-
 
 
 /* USER CODE END PV */
@@ -81,7 +77,6 @@ float PidMotorAPidValue, PidMotorBPidValue;
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
-float MapValues(float MaxValue, float InputValue);
 
 /* USER CODE END PFP */
 
@@ -143,11 +138,6 @@ int main(void)
   Encoder_Init(&EncoderA, &htim5, ENCODER_PULSES_PER_REV, ENCODER_DT);
   Encoder_Init(&EncoderB, &htim2, ENCODER_PULSES_PER_REV, ENCODER_DT);
 
-  //initializing PID for encoders and motors
-  PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-  PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-
-
   HAL_TIM_Base_Start_IT(&htim4);
 
   /* USER CODE END 2 */
@@ -156,7 +146,6 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /*
 	  MotorA_PWM = 50;
 	  MotorA_Dir = 1;
 	  MotorB_PWM = 50;
@@ -166,10 +155,7 @@ int main(void)
 	  Motor_Ride(&MotorA);
 	  Motor_Ride(&MotorB);
 	  HAL_Delay(1000);
-*/
-	  VelocityA = 100;
-	  VelocityB = 100;
-	  HAL_Delay(1000);
+
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -245,61 +231,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		Encoder_Update(&EncoderA);
 		Encoder_Update(&EncoderB);
+		EncoderCallback = 1;
 
 		EncoderA_Speed = EncoderA.AngularVelocity;
 		EncoderB_Speed = EncoderB.AngularVelocity;
-
-		PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);
-		PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, VelocityB);
-
-
-		uint8_t DirA = 0, DirB = 0;
-
-		//checking sign of pid value
-		if(PidMotorAPidValue > 0)
-		{
-			DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
-			PwmInputA = PidMotorAPidValue;
-		}
-		else
-		{
-			DirA = 1;	//kierunek do Przodu
-			PwmInputA = PidMotorAPidValue;
-
-		}
-
-		if(PidMotorBPidValue > 0)
-		{
-			DirB = 1;	//kierunek do przodu
-			PwmInputB = PidMotorBPidValue;
-		}
-		else
-		{
-			DirB = 0;	//kierunek do tyłu
-			PwmInputB = PidMotorBPidValue;
-		}
-
-		//RPM to PWM
-		float PwmMotorA = MapValues(EncoderMaxValue, PwmInputA);
-		float PwmMotorB = MapValues(EncoderMaxValue, PwmInputB);
-
-		Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
-		Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
-		Motor_Ride(&MotorA);
-		Motor_Ride(&MotorB);
-
-		EncoderCallback = 1;
 	}
-}
-
-float MapValues(float MaxValue, float InputValue)
-{
-    // Obliczamy procent mocy (wartość bezwzględna, bo PWM jest zawsze dodatni)
-    float pwmPercent = (fabsf(InputValue) * 100.0f) / MaxValue;
-
-    // Zabezpieczenie przed przekroczeniem 100%
-    if(pwmPercent > 100.0f) return 100.0f;
-    return pwmPercent;
 }
 /* USER CODE END 4 */
 
