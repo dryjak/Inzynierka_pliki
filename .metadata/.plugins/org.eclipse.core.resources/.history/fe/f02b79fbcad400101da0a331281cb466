@@ -67,7 +67,6 @@ float EncoderD = 0.0;
 float EncoderMaxValue = 300.0;
 float EncoderMinValue = -300.0;
 
-uint8_t EncoderCallback = 0;
 
 
 
@@ -138,8 +137,6 @@ int main(void)
   Encoder_Init(&EncoderA, &htim5, ENCODER_PULSES_PER_REV, ENCODER_DT);
   Encoder_Init(&EncoderB, &htim2, ENCODER_PULSES_PER_REV, ENCODER_DT);
 
-  HAL_TIM_Base_Start_IT(&htim4);
-
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -150,11 +147,7 @@ int main(void)
 	  MotorA_Dir = 1;
 	  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
 	  Motor_Ride(&MotorA);
-	  HAL_Delay(1000);
-	  if (EncoderCallback == 1)
-	  {
-		  EncoderCallback = 0;
-	  }
+	  HAL_Delay(4000);
 
     /* USER CODE END WHILE */
 
@@ -220,16 +213,7 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
-{
-	if(htim->Instance == TIM4)	//0.01s
-	{
-		Encoder_Update(&EncoderA);
-		EncoderCallback = 1;
 
-		EncoderA_Speed = EncoderA.AngularVelocity;
-	}
-}
 /* USER CODE END 4 */
 
 /**

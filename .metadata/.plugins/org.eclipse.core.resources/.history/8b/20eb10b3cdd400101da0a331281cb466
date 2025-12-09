@@ -150,7 +150,7 @@ int main(void)
 	  MotorA_Dir = 1;
 	  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
 	  Motor_Ride(&MotorA);
-	  HAL_Delay(1000);
+	  HAL_Delay(4000);
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -227,7 +227,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		Encoder_Update(&EncoderA);
 		EncoderCallback = 1;
 
-		EncoderA_Speed = EncoderA.AngularVelocity;
+		//EncoderA_Speed = EncoderA.AngularVelocity;
 	}
 }
 /* USER CODE END 4 */
