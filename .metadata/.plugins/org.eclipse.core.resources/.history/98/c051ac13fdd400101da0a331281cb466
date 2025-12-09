@@ -27,7 +27,6 @@
 #include "motor_simple.h"
 #include "Encoder.h"
 #include "PID.h"
-#include "MPU6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,7 +73,6 @@ float VelocityA, VelocityB;
 float PwmInputA, PwmInputB;
 float PidMotorAPidValue, PidMotorBPidValue;
 
-//initialize MPU6050
 
 
 /* USER CODE END PV */
@@ -169,7 +167,9 @@ int main(void)
 	  Motor_Ride(&MotorB);
 	  HAL_Delay(1000);
 */
-
+	  VelocityA = 100;
+	  VelocityB = 100;
+	  HAL_Delay(3000);
 	  VelocityA = 50;
 	  VelocityB = 50;
 	  HAL_Delay(3000);

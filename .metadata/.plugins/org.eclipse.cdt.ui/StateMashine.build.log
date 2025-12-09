@@ -1,4 +1,4 @@
-09:55:50 **** Incremental Build of configuration Debug for project StateMashine ****
+14:02:39 **** Incremental Build of configuration Debug for project StateMashine ****
 make -j12 all 
 arm-none-eabi-size  StateMashine.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  StateMashine.elf
 Finished building: default.size.stdout
  
 
-09:55:50 Build Finished. 0 errors, 0 warnings. (took 577ms)
+14:02:40 Build Finished. 0 errors, 0 warnings. (took 813ms)
 

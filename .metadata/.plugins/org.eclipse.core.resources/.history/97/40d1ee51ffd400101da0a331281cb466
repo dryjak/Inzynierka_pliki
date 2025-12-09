@@ -27,7 +27,6 @@
 #include "motor_simple.h"
 #include "Encoder.h"
 #include "PID.h"
-#include "MPU6050.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -74,7 +73,6 @@ float VelocityA, VelocityB;
 float PwmInputA, PwmInputB;
 float PidMotorAPidValue, PidMotorBPidValue;
 
-//initialize MPU6050
 
 
 /* USER CODE END PV */
