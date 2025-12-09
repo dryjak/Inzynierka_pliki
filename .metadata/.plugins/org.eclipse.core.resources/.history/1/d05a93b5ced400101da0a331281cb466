@@ -148,14 +148,10 @@ int main(void)
   {
 	  MotorA_PWM = 50;
 	  MotorA_Dir = 1;
-	  MotorB_PWM = 50;
-	  MotorB_Dir = 1;
 	  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
-	  Motor_SetRideParameters(&MotorB, MotorB_PWM, MotorB_Dir);
 	  Motor_Ride(&MotorA);
-	  Motor_Ride(&MotorB);
-	  HAL_Delay(1000);
 
+	  HAL_Delay(1000);
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -230,11 +226,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM4)	//0.01s
 	{
 		Encoder_Update(&EncoderA);
-		Encoder_Update(&EncoderB);
 		EncoderCallback = 1;
 
 		EncoderA_Speed = EncoderA.AngularVelocity;
-		EncoderB_Speed = EncoderB.AngularVelocity;
 	}
 }
 /* USER CODE END 4 */
