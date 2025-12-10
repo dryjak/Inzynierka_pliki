@@ -75,17 +75,8 @@ float PwmInputA, PwmInputB;
 float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
-PID_t PidAngle;
-float AngleP = 0;
-float AngleI = 0;
-float AngleD = 0;
-
-float AngleMaxValue = 30.0f;
-float AngleMinValue = -30.0f;
-
 MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
-
 
 /* USER CODE END PV */
 
@@ -162,8 +153,6 @@ int main(void)
   //initializing mpu6050 module
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
-  //initializing PID for angle
-  PID_Init(&PidAngle, );
 
   HAL_TIM_Base_Start_IT(&htim4);
 

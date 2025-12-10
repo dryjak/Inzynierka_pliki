@@ -83,4 +83,7 @@ MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050, Data_t *AccelCalibrat
 MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050, Data_t *GyroCalibratedValues);
 
 
+
+
+
 #endif /* INC_MPU6050_H_ */
