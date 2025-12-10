@@ -39,7 +39,6 @@
 /* USER CODE BEGIN PD */
 #define ENCODER_PULSES_PER_REV 1320
 #define ENCODER_DT  0.01f  // 10ms = 0.01s
-#define Angle_DT    0.01f	//same as encoderDt
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -164,7 +163,7 @@ int main(void)
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
   //initializing PID for angle
-  PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, AngleMaxValue, AngleMinValue);
+  PID_Init(&PidAngle, );
 
   HAL_TIM_Base_Start_IT(&htim4);
 
@@ -190,28 +189,6 @@ int main(void)
 	  {
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  if ( Pitch > 5.0)
-		  {
-			  MotorA_PWM = 50;
-			  MotorA_Dir = 1;
-			  MotorB_PWM = 50;
-			  MotorB_Dir = 1;
-			  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
-			  Motor_SetRideParameters(&MotorB, MotorB_PWM, MotorB_Dir);
-			  Motor_Ride(&MotorA);
-			  Motor_Ride(&MotorB);
-		  }
-		  else if(Pitch < -5.0)
-		  {
-			  MotorA_PWM = 50;
-			  MotorA_Dir = 0;
-			  MotorB_PWM = 50;
-			  MotorB_Dir = 0;
-			  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
-			  Motor_SetRideParameters(&MotorB, MotorB_PWM, MotorB_Dir);
-			  Motor_Ride(&MotorA);
-			  Motor_Ride(&MotorB);
-		  }
 	  }
 
     /* USER CODE END WHILE */
@@ -282,14 +259,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM4)	//0.01s
 	{
-		//PID for angle
-		//take angle Pitch
-		//calclate error - value set i value measured
-		//pid regulator
-
-
-
-		//PID for encoders
 		Encoder_Update(&EncoderA);
 		Encoder_Update(&EncoderB);
 

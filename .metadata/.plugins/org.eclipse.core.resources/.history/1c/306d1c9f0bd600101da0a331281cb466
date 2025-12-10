@@ -283,11 +283,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM4)	//0.01s
 	{
 		//PID for angle
-		//take angle Pitch
-		//calclate error - value set i value measured
-		//pid regulator
-
-
 
 		//PID for encoders
 		Encoder_Update(&EncoderA);
