@@ -86,20 +86,7 @@ float AngleMinValue = -30.0f;
 
 MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
-float TargetAngle = 0;
 
-typedef struct{
-	float AnglePitch;		//measured robot tilt angle
-	float SpeedCurrent;		//aktualna prędkośc - srednia z dwuch kół
-
-	float TargetAngle;		//target angle of the robot - you can use it later to change speed
-	float SteeringTurn;		//steering angle
-
-	float SpeedTarget;		//Speed of the robot
-	float PwmBallance;		//PWM calculated with PI regulator of the robot
-}RobotState_t;
-
-volatile RobotState_t RobotState;
 
 /* USER CODE END PV */
 
@@ -360,11 +347,6 @@ float MapValues(float MaxValue, float InputValue)
     // Zabezpieczenie przed przekroczeniem 100%
     if(pwmPercent > 100.0f) return 100.0f;
     return pwmPercent;
-}
-
-void RobotUpdateControl(void)
-{
-
 }
 /* USER CODE END 4 */
 
