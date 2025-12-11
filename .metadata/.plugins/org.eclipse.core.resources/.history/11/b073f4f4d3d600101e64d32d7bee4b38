@@ -301,7 +301,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//calclate error - value set i value measured
 		//pid regulator
 
-		MoveMotors();
+		void MoveMotors(void);
+
+
+
 
 		EncoderCallback = 1;
 	}
@@ -319,6 +322,8 @@ float MapValues(float MaxValue, float InputValue)
 
 void MoveMotors(void)
 {
+	//PID for encoders
+
 	//read velocity from encoders
 	Encoder_Update(&EncoderA);
 	Encoder_Update(&EncoderB);
