@@ -301,10 +301,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//calclate error - value set i value measured
 		//pid regulator
 
-
 		MoveMotors();
-		EncoderCallback = 1;
 
+		EncoderCallback = 1;
 	}
 }
 
@@ -327,8 +326,8 @@ void MoveMotors(void)
 	EncoderA_Speed = EncoderA.AngularVelocity;
 	EncoderB_Speed = EncoderB.AngularVelocity;
 
-	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, RobotState.SpeedTarget);
-	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, RobotState.SpeedTarget);
+	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);
+	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, VelocityB);
 
 	uint8_t DirA = 0, DirB = 0;
 
@@ -363,25 +362,6 @@ void MoveMotors(void)
 	Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
-}
-void MeasureTilt(void)
-{
-	//take angle Yaw
-	RobotState.AnglePitch = Pitch;
-	RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
-	RobotState.TargetAngle = 0.0f;
-
-	if(fabs(RobotState.AnglePitch) > 30.0)
-	{
-		Motor_SetRideParameters(&MotorA, 0, 1);
-		Motor_SetRideParameters(&MotorB, 0, 1);
-		Motor_Ride(&MotorA);
-		Motor_Ride(&MotorB);
-		return;
-	}
-
-	RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
-
 }
 /* USER CODE END 4 */
 
