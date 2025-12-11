@@ -108,7 +108,6 @@ void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 float MapValues(float MaxValue, float InputValue);
-void MeasureTilt(void);
 
 /* USER CODE END PFP */
 void MoveMotors(void);
@@ -302,8 +301,9 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//calclate error - value set i value measured
 		//pid regulator
 
-		MeasureTilt();
+
 		MoveMotors();
+		MeasureTilt();
 
 		EncoderCallback = 1;
 
@@ -382,7 +382,8 @@ void MeasureTilt(void)
 		return;
 	}
 
-	RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
+	float SpeedCalculated = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
+	RobotState.SpeedTarget = MapValues(200, SpeedCalculated); //max value needs to be checked with motor for instance 200
 }
 /* USER CODE END 4 */
 
