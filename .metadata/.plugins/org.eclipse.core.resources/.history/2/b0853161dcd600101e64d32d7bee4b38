@@ -303,8 +303,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 
 		MoveMotors();
-		MeasureTilt();
-
 		EncoderCallback = 1;
 
 	}
@@ -382,8 +380,8 @@ void MeasureTilt(void)
 		return;
 	}
 
-	float SpeedCalculated = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
-	RobotState.SpeedTarget = MapValues(200, SpeedCalculated); //max value needs to be checked with motor for instance 200
+	RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
+
 }
 /* USER CODE END 4 */
 
