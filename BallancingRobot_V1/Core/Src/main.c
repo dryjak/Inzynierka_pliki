@@ -203,6 +203,7 @@ int main(void)
 
 	  //todo: check code without pid angle, just while funct
 	  //todo:2 ceck Pid angle
+
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
