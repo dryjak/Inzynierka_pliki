@@ -110,7 +110,7 @@ static void MX_NVIC_Init(void);
 float MapValues(float MaxValue, float InputValue);
 
 /* USER CODE END PFP */
-void MoveMotors(void);
+void MoveMotors(void)
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */

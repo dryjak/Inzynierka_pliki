@@ -110,7 +110,6 @@ static void MX_NVIC_Init(void);
 float MapValues(float MaxValue, float InputValue);
 
 /* USER CODE END PFP */
-void MoveMotors(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -301,7 +300,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//calclate error - value set i value measured
 		//pid regulator
 
-		void MoveMotors(void);
 
 
 
@@ -323,8 +321,6 @@ float MapValues(float MaxValue, float InputValue)
 void MoveMotors(void)
 {
 	//PID for encoders
-
-	//read velocity from encoders
 	Encoder_Update(&EncoderA);
 	Encoder_Update(&EncoderB);
 
@@ -333,6 +329,7 @@ void MoveMotors(void)
 
 	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, VelocityA);
 	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, VelocityB);
+
 
 	uint8_t DirA = 0, DirB = 0;
 
@@ -346,6 +343,7 @@ void MoveMotors(void)
 	{
 		DirA = 1;	//kierunek do Przodu
 		PwmInputA = PidMotorAPidValue;
+
 	}
 
 	if(PidMotorBPidValue > 0)

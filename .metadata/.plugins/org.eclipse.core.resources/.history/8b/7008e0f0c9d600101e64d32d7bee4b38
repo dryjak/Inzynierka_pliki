@@ -110,7 +110,6 @@ static void MX_NVIC_Init(void);
 float MapValues(float MaxValue, float InputValue);
 
 /* USER CODE END PFP */
-void MoveMotors(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -301,7 +300,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//calclate error - value set i value measured
 		//pid regulator
 
-		void MoveMotors(void);
+		void MoveMotors(void)
 
 
 

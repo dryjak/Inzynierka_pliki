@@ -8,3 +8,5 @@ Pitch
 Yaw
 AccelCalibrate
 GyroCalibrate
+EncoderA_Speed
+EncoderB_Speed
