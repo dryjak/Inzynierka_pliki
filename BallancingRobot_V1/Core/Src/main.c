@@ -203,7 +203,7 @@ int main(void)
 
 	  //todo: check code without pid angle, just while funct
 	  //todo:2 ceck Pid angle
-
+	  /*
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -231,6 +231,12 @@ int main(void)
 			  Motor_Ride(&MotorB);
 		  }
 	  }
+*/
+	  if (EncoderCallback == 1)
+	  	  {
+		  EncoderCallback = 0;
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+	  	  }
 
     /* USER CODE END WHILE */
 
