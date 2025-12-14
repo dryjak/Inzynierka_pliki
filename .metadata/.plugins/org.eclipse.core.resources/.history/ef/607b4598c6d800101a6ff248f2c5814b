@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 0.5f;
-float AngleI = 0.0f;
-float AngleD = 0.0f;
+float AngleP = 1;
+float AngleI = 0;
+float AngleD = 0;
 
 float AngleMaxValue = 30.0f;
 float AngleMinValue = -30.0f;
@@ -218,7 +218,7 @@ int main(void)
 
 	  //todo: check code without pid angle, just while funct
 	  //todo:2 ceck Pid angle
-/*
+
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -257,8 +257,8 @@ int main(void)
 			 Motor_Ride(&MotorB);
 		  }
 	  }
-*/
 
+	  /*
 	  if (EncoderCallback == 1)
 	  	  {
 
@@ -268,7 +268,7 @@ int main(void)
 		  MoveMotors();
 
 	  	  }
-
+	  	 */
 
     /* USER CODE END WHILE */
 
@@ -373,23 +373,23 @@ void MoveMotors(void)
 	//checking sign of pid value
 	if(PidMotorAPidValue > 0)
 	{
-		DirA = 1;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
+		DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
 		PwmInputA = PidMotorAPidValue;
 	}
 	else
 	{
-		DirA = 0;	//kierunek do Przodu
+		DirA = 1;	//kierunek do Przodu
 		PwmInputA = PidMotorAPidValue;
 	}
 
 	if(PidMotorBPidValue > 0)
 	{
-		DirB = 0;	//kierunek do przodu
+		DirB = 1;	//kierunek do przodu
 		PwmInputB = PidMotorBPidValue;
 	}
 	else
 	{
-		DirB = 1;	//kierunek do tyłu
+		DirB = 0;	//kierunek do tyłu
 		PwmInputB = PidMotorBPidValue;
 	}
 

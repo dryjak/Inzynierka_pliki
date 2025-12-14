@@ -373,23 +373,23 @@ void MoveMotors(void)
 	//checking sign of pid value
 	if(PidMotorAPidValue > 0)
 	{
-		DirA = 1;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
+		DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
 		PwmInputA = PidMotorAPidValue;
 	}
 	else
 	{
-		DirA = 0;	//kierunek do Przodu
+		DirA = 1;	//kierunek do Przodu
 		PwmInputA = PidMotorAPidValue;
 	}
 
 	if(PidMotorBPidValue > 0)
 	{
-		DirB = 0;	//kierunek do przodu
+		DirB = 1;	//kierunek do przodu
 		PwmInputB = PidMotorBPidValue;
 	}
 	else
 	{
-		DirB = 1;	//kierunek do tyłu
+		DirB = 0;	//kierunek do tyłu
 		PwmInputB = PidMotorBPidValue;
 	}
 
