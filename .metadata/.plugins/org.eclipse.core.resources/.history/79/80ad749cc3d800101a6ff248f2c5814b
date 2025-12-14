@@ -88,9 +88,6 @@ MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
 float TargetAngle = 0;
 
-Data_t CalibrateAccel;
-Data_t CalibrateGyro;
-
 typedef struct{
 	float AnglePitch;		//measured robot tilt angle
 	float SpeedCurrent;		//aktualna prędkośc - srednia z dwuch kół
@@ -240,14 +237,10 @@ int main(void)
 */
 	  if (EncoderCallback == 1)
 	  	  {
-		  /*
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  MeasureTilt();
 		  MoveMotors();
-		  */
-		  MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
-		  MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 	  	  }
 
     /* USER CODE END WHILE */
