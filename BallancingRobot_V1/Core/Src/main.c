@@ -264,8 +264,9 @@ int main(void)
 
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MeasureTilt();
 		  MoveMotors();
+		  MeasureTilt();
+
 
 	  	  }
 
@@ -408,9 +409,9 @@ void MeasureTilt(void)
 	RobotState.AnglePitch = Pitch;
 	RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
 
-	if(fabs(RobotState.AnglePitch) > 30.0)
+	if(fabs(RobotState.AnglePitch) > AngleMaxValue)
 	{
-		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, AngleMaxValue, AngleMinValue);
+		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
 		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
 		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
 
