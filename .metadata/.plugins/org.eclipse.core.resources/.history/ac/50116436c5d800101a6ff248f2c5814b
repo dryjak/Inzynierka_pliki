@@ -77,7 +77,7 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 1;
+float AngleP = 0;
 float AngleI = 0;
 float AngleD = 0;
 
@@ -218,7 +218,7 @@ int main(void)
 
 	  //todo: check code without pid angle, just while funct
 	  //todo:2 ceck Pid angle
-
+	  /*
 	  if (EncoderCallback == 1)
 	  {
 		  EncoderCallback = 0;
@@ -226,7 +226,7 @@ int main(void)
 		  if ( Pitch > 5.0)
 		  {
 			  MotorA_PWM = 50;
-			  MotorA_Dir = 0;
+			  MotorA_Dir = 1;
 			  MotorB_PWM = 50;
 			  MotorB_Dir = 1;
 			  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
@@ -237,7 +237,7 @@ int main(void)
 		  else if(Pitch < -5.0)
 		  {
 			  MotorA_PWM = 50;
-			  MotorA_Dir = 1;
+			  MotorA_Dir = 0;
 			  MotorB_PWM = 50;
 			  MotorB_Dir = 0;
 			  Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
@@ -245,20 +245,8 @@ int main(void)
 			  Motor_Ride(&MotorA);
 			  Motor_Ride(&MotorB);
 		  }
-		  else if(Pitch > -5.0 && Pitch < 5.0)
-		  {
-			 MotorA_PWM = 0;
-			 MotorA_Dir = 1;
-			 MotorB_PWM = 0;
-			 MotorB_Dir = 0;
-			 Motor_SetRideParameters(&MotorA, MotorA_PWM, MotorA_Dir);
-			 Motor_SetRideParameters(&MotorB, MotorB_PWM, MotorB_Dir);
-			 Motor_Ride(&MotorA);
-			 Motor_Ride(&MotorB);
-		  }
 	  }
-
-	  /*
+*/
 	  if (EncoderCallback == 1)
 	  	  {
 
@@ -268,7 +256,6 @@ int main(void)
 		  MoveMotors();
 
 	  	  }
-	  	 */
 
     /* USER CODE END WHILE */
 
