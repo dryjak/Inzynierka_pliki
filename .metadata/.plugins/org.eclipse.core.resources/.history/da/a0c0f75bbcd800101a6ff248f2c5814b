@@ -183,9 +183,6 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
-
-
-	RobotState.TargetAngle = 0.0f;
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -239,8 +236,6 @@ int main(void)
 	  	  {
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MeasureTilt();
-		  MoveMotors();
 	  	  }
 
     /* USER CODE END WHILE */
@@ -315,7 +310,12 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 		//take angle Pitch
 		//calclate error - value set i value measured
 		//pid regulator
+
+		MeasureTilt();
+		MoveMotors();
+
 		EncoderCallback = 1;
+
 	}
 }
 
@@ -380,19 +380,14 @@ void MeasureTilt(void)
 	//take angle Yaw
 	RobotState.AnglePitch = Pitch;
 	RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
+	RobotState.TargetAngle = 0.0f;
 
 	if(fabs(RobotState.AnglePitch) > 30.0)
 	{
-		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, AngleMaxValue, AngleMinValue);
-		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-
 		Motor_SetRideParameters(&MotorA, 0, 1);
 		Motor_SetRideParameters(&MotorB, 0, 1);
 		Motor_Ride(&MotorA);
 		Motor_Ride(&MotorB);
-
-		RobotState.SpeedTarget = 0.0f;
 		return;
 	}
 

@@ -383,16 +383,10 @@ void MeasureTilt(void)
 
 	if(fabs(RobotState.AnglePitch) > 30.0)
 	{
-		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, AngleMaxValue, AngleMinValue);
-		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-
 		Motor_SetRideParameters(&MotorA, 0, 1);
 		Motor_SetRideParameters(&MotorB, 0, 1);
 		Motor_Ride(&MotorA);
 		Motor_Ride(&MotorB);
-
-		RobotState.SpeedTarget = 0.0f;
 		return;
 	}
 
