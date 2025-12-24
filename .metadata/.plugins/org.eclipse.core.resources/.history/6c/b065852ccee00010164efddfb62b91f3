@@ -381,12 +381,12 @@ void MoveMotors(void)
 
 	if(PidMotorBPidValue > 0)
 	{
-		DirB = 1;	//kierunek do przodu
+		DirB = 0;	//kierunek do przodu
 		PwmInputB = PidMotorBPidValue;
 	}
 	else
 	{
-		DirB = 0;	//kierunek do tyłu
+		DirB = 1;	//kierunek do tyłu
 		PwmInputB = PidMotorBPidValue;
 	}
 

@@ -2873,7 +2873,7 @@ int main(void)
  8001a68:	f7ff f9f8 	bl	8000e5c <MPU6050_Init>
 
   //initializing PID for angle
-  PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
+  PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMinValue);
  8001a6c:	4b30      	ldr	r3, [pc, #192]	@ (8001b30 <main+0x1fc>)
  8001a6e:	edd3 7a00 	vldr	s15, [r3]
  8001a72:	4b30      	ldr	r3, [pc, #192]	@ (8001b34 <main+0x200>)
@@ -2882,7 +2882,7 @@ int main(void)
  8001a7a:	edd3 6a00 	vldr	s13, [r3]
  8001a7e:	4b26      	ldr	r3, [pc, #152]	@ (8001b18 <main+0x1e4>)
  8001a80:	ed93 6a00 	vldr	s12, [r3]
- 8001a84:	4b24      	ldr	r3, [pc, #144]	@ (8001b18 <main+0x1e4>)
+ 8001a84:	4b25      	ldr	r3, [pc, #148]	@ (8001b1c <main+0x1e8>)
  8001a86:	edd3 5a00 	vldr	s11, [r3]
  8001a8a:	eef0 2a65 	vmov.f32	s5, s11
  8001a8e:	eeb0 2a46 	vmov.f32	s4, s12
@@ -3282,8 +3282,8 @@ void MoveMotors(void)
  8001d6e:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8001d72:	dd06      	ble.n	8001d82 <MoveMotors+0xba>
 	{
-		DirB = 0;	//kierunek do przodu
- 8001d74:	2300      	movs	r3, #0
+		DirB = 1;	//kierunek do przodu
+ 8001d74:	2301      	movs	r3, #1
  8001d76:	75bb      	strb	r3, [r7, #22]
 		PwmInputB = PidMotorBPidValue;
  8001d78:	4b2d      	ldr	r3, [pc, #180]	@ (8001e30 <MoveMotors+0x168>)
@@ -3294,8 +3294,8 @@ void MoveMotors(void)
 	}
 	else
 	{
-		DirB = 1;	//kierunek do tyłu
- 8001d82:	2301      	movs	r3, #1
+		DirB = 0;	//kierunek do tyłu
+ 8001d82:	2300      	movs	r3, #0
  8001d84:	75bb      	strb	r3, [r7, #22]
 		PwmInputB = PidMotorBPidValue;
  8001d86:	4b2a      	ldr	r3, [pc, #168]	@ (8001e30 <MoveMotors+0x168>)

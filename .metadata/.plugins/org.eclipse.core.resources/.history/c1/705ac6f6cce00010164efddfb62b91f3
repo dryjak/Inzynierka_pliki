@@ -66,8 +66,8 @@ float EncoderP = 3.7;
 float EncoderI = 40.36;
 float EncoderD = 0.0;
 
-float EncoderMaxValue = 200.0;
-float EncoderMinValue = -200.0;
+float EncoderMaxValue = 300.0;
+float EncoderMinValue = -300.0;
 
 uint8_t EncoderCallback = 0;
 
@@ -77,7 +77,7 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 1.0f;
+float AngleP = 0.1f;
 float AngleI = 0.0f;
 float AngleD = 0.0f;
 
@@ -381,12 +381,12 @@ void MoveMotors(void)
 
 	if(PidMotorBPidValue > 0)
 	{
-		DirB = 1;	//kierunek do przodu
+		DirB = 0;	//kierunek do przodu
 		PwmInputB = PidMotorBPidValue;
 	}
 	else
 	{
-		DirB = 0;	//kierunek do tyłu
+		DirB = 1;	//kierunek do tyłu
 		PwmInputB = PidMotorBPidValue;
 	}
 
