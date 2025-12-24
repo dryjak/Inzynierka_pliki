@@ -85,7 +85,7 @@ float AngleMaxValue = 30.0f;
 float AngleMinValue = -30.0f;
 
 MPU6050_t MPU6050;
-volatile float Roll, Pitch, Yaw;
+float Roll, Pitch, Yaw;
 float TargetAngle = 0;
 
 Data_t CalibrateAccel;
@@ -266,6 +266,8 @@ int main(void)
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  MeasureTilt();
 		  MoveMotors();
+
+
 	  	  }
 
 

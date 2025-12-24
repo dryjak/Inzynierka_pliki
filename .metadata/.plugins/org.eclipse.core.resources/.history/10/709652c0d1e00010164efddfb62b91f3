@@ -204,23 +204,10 @@ static MPU6050_STATE_t MPU6050_ReadAccelerationRaw(MPU6050_t *MPU6050, DataRaw_t
 
 static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Accelerations)
 {
-    DataRaw_t Raw = {0};
+    DataRaw_t Raw;
     MPU6050_ReadAccelerationRaw(MPU6050, &Raw);
 
-    // POPRAWKA: Sprawdzamy wynik odczytu RAW
-    if(MPU6050_ReadAccelerationRaw(MPU6050, &Raw) != MPU6050_OK)
-    {
-       // Jeśli błąd, zwracamy błąd i nie liczymy bzdur
-        return MPU6050_ERROR;
-    }
-
     const float ScaleFactor = 16384.0f; // ±2g
-
-    if(MPU6050_ReadAccelerationRaw(MPU6050, &Raw) != MPU6050_OK)
-    {
-        // Jeśli błąd, zwracamy błąd i nie liczymy bzdur
-        return MPU6050_ERROR;
-    }
 
     Accelerations->X = (float)(Raw.X - MPU6050->AccelOffset.X) / ScaleFactor;
     Accelerations->Y = (float)(Raw.Y - MPU6050->AccelOffset.Y) / ScaleFactor;
@@ -281,7 +268,6 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
 {
     DataRaw_t Raw;
     MPU6050_ReadGyroRaw(MPU6050, &Raw);
-
 
     const float ScaleFactor = 65.5f; // ±250°/s
 

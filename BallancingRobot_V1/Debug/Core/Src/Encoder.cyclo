@@ -1,2 +1,2 @@
 ../Core/Src/Encoder.c:10:6:Encoder_Init	1
-../Core/Src/Encoder.c:26:6:Encoder_Update	1
+../Core/Src/Encoder.c:25:6:Encoder_Update	2
