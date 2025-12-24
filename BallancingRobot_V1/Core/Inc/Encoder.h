@@ -12,15 +12,15 @@
 
 typedef struct
 {
-	TIM_HandleTypeDef *Tim;
+	TIM_HandleTypeDef *Tim;			//pointer to Timer
 	uint16_t PulsesPerRevolution;	//number of pulses per one motor revolution
 	float SampleTime;				//e.g. 0.01 for 100hz
 
-	uint32_t LastCounterValue;
+	uint32_t LastCounterValue;		//Encoder value in previous iteration
 
-	volatile int64_t TotalPulses;
-	float AngularVelocity;
-	float Angle;
+	volatile int64_t TotalPulses;	//Sum of all the impulses
+	float AngularVelocity;			//Calculated Angular Velocity
+	float Angle;					//Calculated angle
 
 }Encoder_t;
 

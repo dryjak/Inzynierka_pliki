@@ -2925,10 +2925,10 @@ int main(void)
  8001ac8:	4922      	ldr	r1, [pc, #136]	@ (8001b54 <main+0x220>)
  8001aca:	4818      	ldr	r0, [pc, #96]	@ (8001b2c <main+0x1f8>)
  8001acc:	f7ff fb28 	bl	8001120 <MPU6050_Angle>
-		  MoveMotors();
- 8001ad0:	f000 f8fa 	bl	8001cc8 <MoveMotors>
 		  MeasureTilt();
- 8001ad4:	f000 f9b8 	bl	8001e48 <MeasureTilt>
+ 8001ad0:	f000 f9ba 	bl	8001e48 <MeasureTilt>
+		  MoveMotors();
+ 8001ad4:	f000 f8f8 	bl	8001cc8 <MoveMotors>
 	  if (EncoderCallback == 1)
  8001ad8:	e7ed      	b.n	8001ab6 <main+0x182>
  8001ada:	bf00      	nop
@@ -4591,8 +4591,8 @@ void MX_TIM5_Init(void)
   sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
  8002532:	2300      	movs	r3, #0
  8002534:	61bb      	str	r3, [r7, #24]
-  sConfig.IC1Filter = 0;
- 8002536:	2300      	movs	r3, #0
+  sConfig.IC1Filter = 10;
+ 8002536:	230a      	movs	r3, #10
  8002538:	61fb      	str	r3, [r7, #28]
   sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
  800253a:	2300      	movs	r3, #0

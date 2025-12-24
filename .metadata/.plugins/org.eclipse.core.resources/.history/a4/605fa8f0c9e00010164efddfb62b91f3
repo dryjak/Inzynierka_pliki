@@ -264,9 +264,8 @@ int main(void)
 
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MeasureTilt();
 		  MoveMotors();
-
+		  MeasureTilt();
 
 	  	  }
 

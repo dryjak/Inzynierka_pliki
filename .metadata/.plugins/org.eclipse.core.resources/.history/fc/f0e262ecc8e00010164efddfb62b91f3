@@ -113,7 +113,6 @@ static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 float MapValues(float MaxValue, float InputValue);
 void MeasureTilt(void);
-void MoveMotors(void);
 
 /* USER CODE END PFP */
 
@@ -264,9 +263,8 @@ int main(void)
 
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MeasureTilt();
 		  MoveMotors();
-
+		  MeasureTilt();
 
 	  	  }
 
