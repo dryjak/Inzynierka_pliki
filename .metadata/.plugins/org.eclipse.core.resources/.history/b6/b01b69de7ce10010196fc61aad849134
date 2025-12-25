@@ -117,9 +117,7 @@ float MapValues(float MaxValue, float InputValue);
 void MeasureTilt(void);
 void MoveMotors(void);
 void TestMotorAndEncoderB(void);
-void TestMotorAndEncoderA(void);
-void TestPidAngleB(void);
-
+void TestMotorAndEncoderA(void)
 
 
 
@@ -453,7 +451,7 @@ void TestMotorAndEncoderB(void)
 	Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);	//set proper PWM value to remain on target speed
 	Motor_Ride(&MotorB);
 }
-void TestPidAngleB(void)
+void TestPidAngle(void)
 {
 	RobotState.AnglePitch = Pitch;
 
