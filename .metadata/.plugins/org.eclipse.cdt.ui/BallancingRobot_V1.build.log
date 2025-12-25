@@ -1,10 +1,21 @@
-12:21:26 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+23:33:47 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
 make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'MoveMotor':
+../Core/Src/main.c:382:17: warning: unused variable 'DirA' [-Wunused-variable]
+  382 |         uint8_t DirA, DirB;
+      |                 ^~~~
+arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BallancingRobot_V1.elf
+ 
 arm-none-eabi-size  BallancingRobot_V1.elf 
+arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
    text	   data	    bss	    dec	    hex	filename
   24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
 Finished building: default.size.stdout
  
+Finished building: BallancingRobot_V1.list
+ 
 
-12:21:27 Build Finished. 0 errors, 0 warnings. (took 699ms)
+23:33:49 Build Finished. 0 errors, 1 warnings. (took 1s.783ms)
 

@@ -20808,3 +20808,265 @@ arm-none-eabi-size  BallancingRobot_V1.elf
   24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
 Finished building: default.size.stdout
  
+23:31:42 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:122:6: error: 'PidAngle' redeclared as different kind of symbol
+  122 | void PidAngle(void);
+      |      ^~~~~~~~
+../Core/Src/main.c:79:7: note: previous declaration of 'PidAngle' with type 'PID_t'
+   79 | PID_t PidAngle;
+      |       ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:196:12: warning: passing argument 1 of 'PID_Init' from incompatible pointer type [-Wincompatible-pointer-types]
+  196 |   PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMinValue);
+      |            ^~~~~~~~~
+      |            |
+      |            void (*)(void)
+In file included from ../Core/Src/main.c:29:
+../Core/Inc/PID.h:31:22: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   31 | void PID_Init(PID_t *Pid, float P, float I, float D, float SampleTime, float MaxValue, float MinValue);
+      |               ~~~~~~~^~~
+../Core/Src/main.c: In function 'MoveMotors':
+../Core/Src/main.c:382:17: warning: unused variable 'DirA' [-Wunused-variable]
+  382 |         uint8_t DirA, DirB;
+      |                 ^~~~
+../Core/Src/main.c: In function 'MeasureTilt':
+../Core/Src/main.c:423:26: warning: passing argument 1 of 'PID_Init' from incompatible pointer type [-Wincompatible-pointer-types]
+  423 |                 PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
+      |                          ^~~~~~~~~
+      |                          |
+      |                          void (*)(void)
+../Core/Inc/PID.h:31:22: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   31 | void PID_Init(PID_t *Pid, float P, float I, float D, float SampleTime, float MaxValue, float MinValue);
+      |               ~~~~~~~^~~
+../Core/Src/main.c:436:46: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  436 |         RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle );
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+../Core/Src/main.c: In function 'TestPidAngleB':
+../Core/Src/main.c:477:52: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  477 |         RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);   //-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+      |                                                    ^~~~~~~~~
+      |                                                    |
+      |                                                    void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+../Core/Src/main.c: In function 'MoveMotor':
+../Core/Src/main.c:523:17: error: 'DirB' undeclared (first use in this function); did you mean 'DirA'?
+  523 |                 DirB = 0;       //MotorB - kierunek do przodu
+      |                 ^~~~
+      |                 DirA
+../Core/Src/main.c:523:17: note: each undeclared identifier is reported only once for each function it appears in
+../Core/Src/main.c: In function 'PidAngle':
+../Core/Src/main.c:560:52: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  560 |         RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);   //-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+      |                                                    ^~~~~~~~~
+      |                                                    |
+      |                                                    void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+../Core/Src/main.c:561:52: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  561 |         RobotState.SpeedTargetA = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);   //-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+      |                                                    ^~~~~~~~~
+      |                                                    |
+      |                                                    void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+make: *** [Core/Src/subdir.mk:55: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+23:31:43 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+23:31:44 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+23:31:45 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+23:32:07 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c:122:6: error: 'PidAngle' redeclared as different kind of symbol
+  122 | void PidAngle(void);
+      |      ^~~~~~~~
+../Core/Src/main.c:79:7: note: previous declaration of 'PidAngle' with type 'PID_t'
+   79 | PID_t PidAngle;
+      |       ^~~~~~~~
+../Core/Src/main.c: In function 'main':
+../Core/Src/main.c:196:12: warning: passing argument 1 of 'PID_Init' from incompatible pointer type [-Wincompatible-pointer-types]
+  196 |   PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMinValue);
+      |            ^~~~~~~~~
+      |            |
+      |            void (*)(void)
+In file included from ../Core/Src/main.c:29:
+../Core/Inc/PID.h:31:22: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   31 | void PID_Init(PID_t *Pid, float P, float I, float D, float SampleTime, float MaxValue, float MinValue);
+      |               ~~~~~~~^~~
+../Core/Src/main.c: In function 'MoveMotors':
+../Core/Src/main.c:382:17: warning: unused variable 'DirA' [-Wunused-variable]
+  382 |         uint8_t DirA, DirB;
+      |                 ^~~~
+../Core/Src/main.c: In function 'MeasureTilt':
+../Core/Src/main.c:423:26: warning: passing argument 1 of 'PID_Init' from incompatible pointer type [-Wincompatible-pointer-types]
+  423 |                 PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
+      |                          ^~~~~~~~~
+      |                          |
+      |                          void (*)(void)
+../Core/Inc/PID.h:31:22: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   31 | void PID_Init(PID_t *Pid, float P, float I, float D, float SampleTime, float MaxValue, float MinValue);
+      |               ~~~~~~~^~~
+../Core/Src/main.c:436:46: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  436 |         RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle );
+      |                                              ^~~~~~~~~
+      |                                              |
+      |                                              void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+../Core/Src/main.c: In function 'TestPidAngleB':
+../Core/Src/main.c:477:52: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  477 |         RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);   //-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+      |                                                    ^~~~~~~~~
+      |                                                    |
+      |                                                    void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+../Core/Src/main.c: In function 'PidAngle':
+../Core/Src/main.c:560:52: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  560 |         RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);   //-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+      |                                                    ^~~~~~~~~
+      |                                                    |
+      |                                                    void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+../Core/Src/main.c:561:52: warning: passing argument 1 of 'PID_Compute' from incompatible pointer type [-Wincompatible-pointer-types]
+  561 |         RobotState.SpeedTargetA = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);   //-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+      |                                                    ^~~~~~~~~
+      |                                                    |
+      |                                                    void (*)(void)
+../Core/Inc/PID.h:32:26: note: expected 'PID_t *' but argument is of type 'void (*)(void)'
+   32 | float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
+      |                   ~~~~~~~^~~
+make: *** [Core/Src/subdir.mk:55: Core/Src/main.o] Error 1
+"make -j12 all" terminated with exit code 2. Build might be incomplete.
+23:32:08 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+23:32:09 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+23:32:10 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+23:32:54 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'MoveMotors':
+../Core/Src/main.c:382:17: warning: unused variable 'DirA' [-Wunused-variable]
+  382 |         uint8_t DirA, DirB;
+      |                 ^~~~
+arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BallancingRobot_V1.elf
+ 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: BallancingRobot_V1.list
+ 
+23:32:57 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+23:32:57 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+23:32:58 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+23:33:47 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'MoveMotor':
+../Core/Src/main.c:382:17: warning: unused variable 'DirA' [-Wunused-variable]
+  382 |         uint8_t DirA, DirB;
+      |                 ^~~~
+arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BallancingRobot_V1.elf
+ 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: BallancingRobot_V1.list
+ 
+23:33:49 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+23:33:49 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+23:33:50 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 

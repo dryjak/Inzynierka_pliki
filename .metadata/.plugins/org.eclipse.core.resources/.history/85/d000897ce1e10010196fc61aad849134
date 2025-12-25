@@ -119,8 +119,6 @@ void MoveMotors(void);
 void TestMotorAndEncoderB(void);
 void TestMotorAndEncoderA(void);
 void TestPidAngleB(void);
-void SteeringValueForMotors(void);
-void MoveMotor(void);
 
 
 
@@ -369,7 +367,7 @@ float MapValues(float MaxValue, float InputValue)
     return pwmPercent;
 }
 
-void MoveMotor(void)
+void MoveMotors(void)
 {
 	//read velocity from encoders
 	//Encoder_Update(&EncoderA);
@@ -477,11 +475,11 @@ void TestPidAngleB(void)
 	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
 
 }
-void MotorAndEncoderA(void)
+void TestMotorAndEncoderA(void)
 {
 	Encoder_Update(&EncoderA);	//obliczam ilość pulsów enkodera
 
-	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA.AngularVelocity, 50);	//obliczam wartość regulatora do uzyskania zadanej prędkości
+	PidMotorBPidValue = PID_Compute(&PidMotorA, EncoderA.AngularVelocity, 50);	//obliczam wartość regulatora do uzyskania zadanej prędkości
 
 	uint8_t DirA = 0;
 
@@ -499,67 +497,6 @@ void MotorAndEncoderA(void)
 
 	Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);	//set proper PWM value to remain on target speed
 	Motor_Ride(&MotorA);
-}
-void MoveMotors(void)
-{
-	Encoder_Update(&EncoderA);	//obliczam ilość pulsów enkodera
-	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
-
-	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA.AngularVelocity, RobotState.SpeedTargetA);	//obliczam wartość regulatora do uzyskania zadanej prędkości
-	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, RobotState.SpeedTargetB);	//obliczam wartość regulatora do uzyskania zadanej prędkości
-
-	uint8_t DirA, DirB;
-
-	if(PidMotorAPidValue > 0)	//dobór kierunku
-	{
-		DirA = 0;	//MotorA - ?kierunek do przodu
-	}
-	else
-	{
-		DirA = 1;	//MotorA - ?kierunek do tylu
-	}
-	if(PidMotorBPidValue > 0)	//dobór kierunku
-	{
-		DirB = 0;	//MotorB - kierunek do przodu
-	}
-	else
-	{
-		DirB = 1;	//MotorB - kierunek do tylu
-	}
-
-	//RMP to pwm percent
-	float PwmMotorA = MapValues(EncoderMaxValue, PidMotorAPidValue);	//przeskalowanie wartości regulatora do PWM
-	float PwmMotorB = MapValues(EncoderMaxValue, PidMotorBPidValue);
-
-
-	Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);	//set proper PWM value to remain on target speed
-	Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
-
-	Motor_Ride(&MotorA);
-	Motor_Ride(&MotorB);
-
-}
-
-void SteeringValueForMotors(void)
-{
-	RobotState.AnglePitch = Pitch;
-
-	if(fabs(RobotState.AnglePitch) > 30.0f)
-	{
-		Motor_SetRideParameters(&MotorA, 0, 1);
-		Motor_SetRideParameters(&MotorB, 0, 1);
-		Motor_Ride(&MotorA);
-		Motor_Ride(&MotorB);
-
-		RobotState.SpeedTargetB = 0.0f;
-		RobotState.SpeedTargetA = 0.0f;
-
-		return;
-	}
-
-	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
-	RobotState.SpeedTargetA = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
-
 }
 /* USER CODE END 4 */
 

@@ -369,7 +369,7 @@ float MapValues(float MaxValue, float InputValue)
     return pwmPercent;
 }
 
-void MoveMotor(void)
+void MoveMotors(void)
 {
 	//read velocity from encoders
 	//Encoder_Update(&EncoderA);
@@ -500,7 +500,7 @@ void MotorAndEncoderA(void)
 	Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);	//set proper PWM value to remain on target speed
 	Motor_Ride(&MotorA);
 }
-void MoveMotors(void)
+void MoveMotor(void)
 {
 	Encoder_Update(&EncoderA);	//obliczam ilość pulsów enkodera
 	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
