@@ -264,8 +264,10 @@ int main(void)
 
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MeasureTilt();
+		  //MeasureTilt();
 		  MoveMotors();
+		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
+
 	  	  }
 
 
@@ -360,8 +362,11 @@ void MoveMotors(void)
 	EncoderA_Speed = EncoderA.AngularVelocity;
 	EncoderB_Speed = EncoderB.AngularVelocity;
 
-	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, RobotState.SpeedTarget);
-	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, RobotState.SpeedTarget);
+	//PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, RobotState.SpeedTarget);
+	//PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, RobotState.SpeedTarget);
+
+	//PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, 50);
+	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, 50);
 
 	uint8_t DirA = 0, DirB = 0;
 
@@ -415,10 +420,34 @@ void MeasureTilt(void)
 		Motor_Ride(&MotorB);
 
 		RobotState.SpeedTarget = 0.0f;
+
 		return;
 	}
 
-	RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
+}
+
+void TestMotorAndEncoder()
+{
+	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
+
+	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, 50);	//obliczam wartość regulatora do uzyskania zadanej prędkości
+
+	uint8_t DirB = 0;
+
+	if(PidMotorBPidValue > 0)	//dobór kierunku
+	{
+		DirB = 1;
+	}
+	else
+	{
+		DirB = 0;
+	}
+
+	//RMP to pwm percent
+	float PwmMotorB = MapValues(EncoderMaxValue, PidMotorBPidValue);	//przeskalowanie wartości regulatora do PWM
+
+	Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);	//set proper PWM value to remain on target speed
+	Motor_Ride(&MotorB);
 }
 /* USER CODE END 4 */
 

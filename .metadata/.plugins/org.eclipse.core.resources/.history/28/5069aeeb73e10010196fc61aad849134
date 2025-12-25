@@ -66,8 +66,8 @@ float EncoderP = 3.7;
 float EncoderI = 40.36;
 float EncoderD = 0.0;
 
-float EncoderMaxValue = 300.0;
-float EncoderMinValue = -300.0;
+float EncoderMaxValue = 200.0;
+float EncoderMinValue = -200.0;
 
 uint8_t EncoderCallback = 0;
 
@@ -77,7 +77,7 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 0.5f;
+float AngleP = 1.0f;
 float AngleI = 0.0f;
 float AngleD = 0.0f;
 
@@ -85,7 +85,7 @@ float AngleMaxValue = 30.0f;
 float AngleMinValue = -30.0f;
 
 MPU6050_t MPU6050;
-float Roll, Pitch, Yaw;
+volatile float Roll, Pitch, Yaw;
 float TargetAngle = 0;
 
 Data_t CalibrateAccel;
@@ -113,9 +113,9 @@ static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
 float MapValues(float MaxValue, float InputValue);
 void MeasureTilt(void);
+void MoveMotors(void);
 
 /* USER CODE END PFP */
-void MoveMotors(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
@@ -183,7 +183,7 @@ int main(void)
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
   //initializing PID for angle
-  PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, AngleMaxValue, AngleMinValue);
+  PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMinValue);
 
   HAL_TIM_Base_Start_IT(&htim4);
 
@@ -264,8 +264,9 @@ int main(void)
 
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-		  MeasureTilt();
+		  //MeasureTilt();
 		  MoveMotors();
+		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
 
 	  	  }
 
@@ -338,10 +339,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
 	if(htim->Instance == TIM4)	//0.01s
 	{
-		//PID for angle
-		//take angle Pitch
-		//calclate error - value set i value measured
-		//pid regulator
 		EncoderCallback = 1;
 	}
 }
@@ -365,20 +362,23 @@ void MoveMotors(void)
 	EncoderA_Speed = EncoderA.AngularVelocity;
 	EncoderB_Speed = EncoderB.AngularVelocity;
 
-	PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, RobotState.SpeedTarget);
-	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, RobotState.SpeedTarget);
+	//PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, RobotState.SpeedTarget);
+	//PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, RobotState.SpeedTarget);
+
+	//PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA_Speed, 50);
+	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB_Speed, 50);
 
 	uint8_t DirA = 0, DirB = 0;
 
 	//checking sign of pid value
 	if(PidMotorAPidValue > 0)
 	{
-		DirA = 0;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
+		DirA = 1;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
 		PwmInputA = PidMotorAPidValue;
 	}
 	else
 	{
-		DirA = 1;	//kierunek do Przodu
+		DirA = 0;	//kierunek do Przodu
 		PwmInputA = PidMotorAPidValue;
 	}
 
@@ -408,9 +408,9 @@ void MeasureTilt(void)
 	RobotState.AnglePitch = Pitch;
 	RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
 
-	if(fabs(RobotState.AnglePitch) > 30.0)
+	if(fabs(RobotState.AnglePitch) > AngleMaxValue)
 	{
-		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, AngleMaxValue, AngleMinValue);
+		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
 		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
 		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
 
