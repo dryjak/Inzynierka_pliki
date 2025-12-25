@@ -198,7 +198,6 @@ int main(void)
 
 
   RobotState.TargetAngle = 0.0f;
-  HAL_Delay(1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -468,11 +467,11 @@ void TestPidAngleB(void)
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
 
-	RobotState.SpeedTargetB = 0.0f;
+	RobotState.SpeedTarget = 0.0f;
 
 	return;
 	}
-	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+	RobotState.SpeedTargetB = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
 
 }
 void TestMotorAndEncoderA(void)

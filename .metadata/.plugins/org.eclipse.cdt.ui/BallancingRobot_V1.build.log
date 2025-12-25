@@ -1,10 +1,10 @@
-11:38:25 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+11:58:35 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
 make -j12 all 
 arm-none-eabi-size  BallancingRobot_V1.elf 
    text	   data	    bss	    dec	    hex	filename
-  23916	    112	   2592	  26620	   67fc	BallancingRobot_V1.elf
+  24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
 Finished building: default.size.stdout
  
 
-11:38:26 Build Finished. 0 errors, 0 warnings. (took 622ms)
+11:58:36 Build Finished. 0 errors, 0 warnings. (took 568ms)
 
