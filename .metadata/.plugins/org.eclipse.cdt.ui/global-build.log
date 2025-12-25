@@ -20801,3 +20801,10 @@ arm-none-eabi-size  BallancingRobot_V1.elf
   24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
 Finished building: default.size.stdout
  
+12:21:26 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24004	    112	   2592	  26708	   6854	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
