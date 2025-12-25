@@ -276,9 +276,6 @@ int main(void)
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
 		  //void TestMotorAndEncoderA(void);
-
-		  TestPidAngleB();
-		  TestMotorAndEncoderB();
 	  	  }
 
 
@@ -437,7 +434,7 @@ void TestMotorAndEncoderB(void)
 {
 	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
 
-	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, RobotState.SpeedTargetB);	//obliczam wartość regulatora do uzyskania zadanej prędkości
+	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, 50);	//obliczam wartość regulatora do uzyskania zadanej prędkości
 
 	uint8_t DirB = 0;
 

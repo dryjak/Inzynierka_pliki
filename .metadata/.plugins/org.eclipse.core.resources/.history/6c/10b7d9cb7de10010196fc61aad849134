@@ -276,9 +276,6 @@ int main(void)
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
 		  //void TestMotorAndEncoderA(void);
-
-		  TestPidAngleB();
-		  TestMotorAndEncoderB();
 	  	  }
 
 
