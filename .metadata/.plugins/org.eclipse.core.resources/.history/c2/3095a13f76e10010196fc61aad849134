@@ -66,8 +66,8 @@ float EncoderP = 3.7;
 float EncoderI = 40.36;
 float EncoderD = 0.0;
 
-float EncoderMaxValue = 300.0;
-float EncoderMinValue = -300.0;
+float EncoderMaxValue = 200.0;
+float EncoderMinValue = -200.0;
 
 uint8_t EncoderCallback = 0;
 
@@ -85,7 +85,7 @@ float AngleMaxValue = 30.0f;
 float AngleMinValue = -30.0f;
 
 MPU6050_t MPU6050;
-float Roll, Pitch, Yaw;
+volatile float Roll, Pitch, Yaw;
 float TargetAngle = 0;
 
 Data_t CalibrateAccel;
@@ -114,8 +114,6 @@ static void MX_NVIC_Init(void);
 float MapValues(float MaxValue, float InputValue);
 void MeasureTilt(void);
 void MoveMotors(void);
-void TestMotorAndEncoder(void);
-
 
 /* USER CODE END PFP */
 
@@ -267,8 +265,9 @@ int main(void)
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MeasureTilt();
-		  //MoveMotors();
+		  MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
+
 	  	  }
 
 
@@ -341,8 +340,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if(htim->Instance == TIM4)	//0.01s
 	{
 		EncoderCallback = 1;
-		TestMotorAndEncoder();
-
 	}
 }
 
@@ -429,7 +426,7 @@ void MeasureTilt(void)
 
 }
 
-void TestMotorAndEncoder(void)
+void TestMotorAndEncoder()
 {
 	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
 
@@ -439,11 +436,11 @@ void TestMotorAndEncoder(void)
 
 	if(PidMotorBPidValue > 0)	//dobór kierunku
 	{
-		DirB = 0;
+		DirB = 1;
 	}
 	else
 	{
-		DirB = 1;
+		DirB = 0;
 	}
 
 	//RMP to pwm percent

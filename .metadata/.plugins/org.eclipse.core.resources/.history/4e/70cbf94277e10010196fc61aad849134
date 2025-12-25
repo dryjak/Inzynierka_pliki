@@ -85,7 +85,7 @@ float AngleMaxValue = 30.0f;
 float AngleMinValue = -30.0f;
 
 MPU6050_t MPU6050;
-float Roll, Pitch, Yaw;
+volatile float Roll, Pitch, Yaw;
 float TargetAngle = 0;
 
 Data_t CalibrateAccel;
@@ -439,11 +439,11 @@ void TestMotorAndEncoder(void)
 
 	if(PidMotorBPidValue > 0)	//dobór kierunku
 	{
-		DirB = 0;
+		DirB = 1;
 	}
 	else
 	{
-		DirB = 1;
+		DirB = 0;
 	}
 
 	//RMP to pwm percent

@@ -439,11 +439,11 @@ void TestMotorAndEncoder(void)
 
 	if(PidMotorBPidValue > 0)	//dobór kierunku
 	{
-		DirB = 0;
+		DirB = 1;
 	}
 	else
 	{
-		DirB = 1;
+		DirB = 0;
 	}
 
 	//RMP to pwm percent
