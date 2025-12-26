@@ -280,8 +280,8 @@ int main(void)
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
 		  //void TestMotorAndEncoderA(void);
 
-		  TestPidAngleB();
-		  TestMotorAndEncoderA();
+		  //TestPidAngleB();
+		  MotorAndEncoderA();
 		  //TestMotorAndEncoderB();
 	  	  }
 
@@ -472,13 +472,12 @@ void TestPidAngleB(void)
 	Motor_Ride(&MotorB);
 
 	RobotState.SpeedTargetB = 0.0f;
-	RobotState.SpeedTargetA = 0.0f;
+
 	return;
 	}
 	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
-	RobotState.SpeedTargetB = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
-}
 
+}
 void TestMotorAndEncoderA(void)
 {
 	Encoder_Update(&EncoderA);	//obliczam ilość pulsów enkodera
@@ -489,11 +488,11 @@ void TestMotorAndEncoderA(void)
 
 	if(PidMotorAPidValue > 0)	//dobór kierunku
 	{
-		DirA = 1;	//MotorA - kierunek do przodu
+		DirA = 0;	//MotorA - ?kierunek do przodu
 	}
 	else
 	{
-		DirA = 0;	//MotorA - kierunek do tylu
+		DirA = 1;	//MotorA - ?kierunek do tylu
 	}
 
 	//RMP to pwm percent

@@ -1,12 +1,7 @@
 Roll
 Pitch
 Yaw
-EncoderA_Speed
-EncoderB_Speed
 RobotState
 PidAngle
-MotorB
-VelocityB
-VelocityA
-EncoderA
 EncoderB
+RobotState
