@@ -274,7 +274,7 @@ int main(void)
 	  	  {
 
 		  EncoderCallback = 0;
-//		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MeasureTilt();
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
@@ -284,11 +284,8 @@ int main(void)
 		  //TestMotorAndEncoderA();
 		  //TestMotorAndEncoderB();
 
-//		  SteeringValueForMotors();
-//		  MoveMotors();
-
-		  MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
-		  MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
+		  SteeringValueForMotors();
+		  MoveMotors();
 
 	  	  }
 
