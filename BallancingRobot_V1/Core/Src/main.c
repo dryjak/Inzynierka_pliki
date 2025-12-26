@@ -64,7 +64,7 @@ PID_t PidMotorA, PidMotorB;
 
 float EncoderP = 3.7;
 float EncoderI = 40.36;
-float EncoderD = 0.1;
+float EncoderD = 0.0;
 
 float EncoderMaxValue = 300.0;
 float EncoderMinValue = -300.0;
@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 14.0f;
+float AngleP = 10.3f;
 float AngleI = 0.0f;
-float AngleD = 0.0f;
+float AngleD = 0.16f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -199,7 +199,7 @@ int main(void)
 
 
 
-  RobotState.TargetAngle = 0.0f;
+  RobotState.TargetAngle = -2.8f;
   HAL_Delay(1000);
   /* USER CODE END 2 */
 
@@ -274,7 +274,7 @@ int main(void)
 	  	  {
 
 		  EncoderCallback = 0;
-//		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MeasureTilt();
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
@@ -284,11 +284,11 @@ int main(void)
 		  //TestMotorAndEncoderA();
 		  //TestMotorAndEncoderB();
 
-//		  SteeringValueForMotors();
-//		  MoveMotors();
+		  SteeringValueForMotors();
+		  MoveMotors();
 
-		  MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
-		  MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
+		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
+		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 	  	  }
 
