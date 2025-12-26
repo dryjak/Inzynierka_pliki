@@ -21383,3 +21383,116 @@ Finished building: default.size.stdout
  
 Finished building: BallancingRobot_V1.list
  
+11:47:17 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'MoveMotor':
+../Core/Src/main.c:383:17: warning: unused variable 'DirA' [-Wunused-variable]
+  383 |         uint8_t DirA, DirB;
+      |                 ^~~~
+arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BallancingRobot_V1.elf
+ 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  24052	    112	   2592	  26756	   6884	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: BallancingRobot_V1.list
+ 
+11:49:52 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+../Core/Src/main.c: In function 'MoveMotor':
+../Core/Src/main.c:387:17: warning: unused variable 'DirA' [-Wunused-variable]
+  387 |         uint8_t DirA, DirB;
+      |                 ^~~~
+arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BallancingRobot_V1.elf
+ 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  24192	    112	   2592	  26896	   6910	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: BallancingRobot_V1.list
+ 
+11:49:53 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+11:49:54 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+11:49:55 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+11:50:18 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24192	    112	   2592	  26896	   6910	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+11:55:06 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: BallancingRobot_V1.elf
+ 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
+   text	   data	    bss	    dec	    hex	filename
+  24192	    112	   2592	  26896	   6910	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+Finished building: BallancingRobot_V1.list
+ 
+11:55:09 **** Incremental Build of configuration Debug for project EncoderPins ****
+make -j12 all 
+arm-none-eabi-size  EncoderPins.elf 
+   text	   data	    bss	    dec	    hex	filename
+   4748	     12	   1572	   6332	   18bc	EncoderPins.elf
+Finished building: default.size.stdout
+ 
+11:55:09 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+make -j12 all 
+arm-none-eabi-size  MPU6050_Liblary.elf 
+   text	   data	    bss	    dec	    hex	filename
+  45256	    468	   2476	  48200	   bc48	MPU6050_Liblary.elf
+Finished building: default.size.stdout
+ 
+11:55:10 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+11:55:25 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24192	    112	   2592	  26896	   6910	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 
+11:57:21 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+make -j12 all 
+arm-none-eabi-size  BallancingRobot_V1.elf 
+   text	   data	    bss	    dec	    hex	filename
+  24192	    112	   2592	  26896	   6910	BallancingRobot_V1.elf
+Finished building: default.size.stdout
+ 

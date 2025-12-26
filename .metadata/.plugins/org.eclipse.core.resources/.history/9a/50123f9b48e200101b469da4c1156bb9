@@ -280,13 +280,9 @@ int main(void)
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
 		  //void TestMotorAndEncoderA(void);
 
-		  //TestPidAngleB();
-		  //TestMotorAndEncoderA();
+		  TestPidAngleB();
+		  TestMotorAndEncoderA();
 		  //TestMotorAndEncoderB();
-
-		  SteeringValueForMotors();
-		  MoveMotors();
-
 	  	  }
 
 
@@ -374,6 +370,49 @@ float MapValues(float MaxValue, float InputValue)
     return pwmPercent;
 }
 
+void MoveMotor(void)
+{
+	//read velocity from encoders
+	//Encoder_Update(&EncoderA);
+	Encoder_Update(&EncoderB);
+
+	//calculate PID value to remain at target speed
+	//PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA.AngularVelocity, RobotState.SpeedTarget);
+	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, RobotState.SpeedTarget);
+
+	uint8_t DirA, DirB;
+
+	//checking sign of pid value
+/*
+	if(PidMotorAPidValue > 0)
+	{
+		DirA = 1;	//kierunek do Tyłu (odwrotnie połączone niż motorB)
+		PwmInputA = PidMotorAPidValue;
+	}
+	else
+	{
+		DirA = 0;	//kierunek do Przodu
+		PwmInputA = PidMotorAPidValue;
+	}
+*/
+	if(PidMotorBPidValue > 0)
+	{
+		DirB = 0;	//kierunek do przodu
+	}
+	else
+	{
+		DirB = 1;	//kierunek do tyłu
+	}
+
+	//RPM to PWM
+	//float PwmMotorA = MapValues(EncoderMaxValue, PwmInputA);
+	float PwmMotorB = MapValues(EncoderMaxValue, PidMotorBPidValue);
+
+	//Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
+	Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
+	//Motor_Ride(&MotorA);
+	Motor_Ride(&MotorB);
+}
 void MeasureTilt(void)
 {
 	//take angle Yaw
@@ -475,11 +514,11 @@ void MoveMotors(void)
 
 	if(PidMotorAPidValue > 0)	//dobór kierunku
 	{
-		DirA = 1;	//MotorA - kierunek do przodu
+		DirA = 0;	//MotorA - ?kierunek do przodu
 	}
 	else
 	{
-		DirA = 0;	//MotorA - kierunek do tylu
+		DirA = 1;	//MotorA - ?kierunek do tylu
 	}
 	if(PidMotorBPidValue > 0)	//dobór kierunku
 	{
@@ -494,11 +533,13 @@ void MoveMotors(void)
 	float PwmMotorA = MapValues(EncoderMaxValue, PidMotorAPidValue);	//przeskalowanie wartości regulatora do PWM
 	float PwmMotorB = MapValues(EncoderMaxValue, PidMotorBPidValue);
 
+
 	Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);	//set proper PWM value to remain on target speed
 	Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
 
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
+
 }
 
 void SteeringValueForMotors(void)
