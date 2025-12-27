@@ -3,10 +3,9 @@
 ../Core/Src/main.c:352:13:MX_NVIC_Init	8	static
 ../Core/Src/main.c:360:6:HAL_TIM_PeriodElapsedCallback	16	static
 ../Core/Src/main.c:370:7:MapValues	24	static
-../Core/Src/main.c:380:6:MeasureTilt	8	static
-../Core/Src/main.c:404:6:TestMotorAndEncoderB	24	static
-../Core/Src/main.c:427:6:TestPidAngleB	8	static
-../Core/Src/main.c:446:6:TestMotorAndEncoderA	24	static
-../Core/Src/main.c:469:6:MoveMotors	32	static
-../Core/Src/main.c:507:6:SteeringValueForMotors	8	static
-../Core/Src/main.c:534:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:380:6:TestMotorAndEncoderB	24	static
+../Core/Src/main.c:403:6:TestPidAngleB	8	static
+../Core/Src/main.c:421:6:TestMotorAndEncoderA	24	static
+../Core/Src/main.c:444:6:MoveMotors	32	static
+../Core/Src/main.c:482:6:SteeringValueForMotors	16	static
+../Core/Src/main.c:512:6:Error_Handler	4	static,ignoring_inline_asm

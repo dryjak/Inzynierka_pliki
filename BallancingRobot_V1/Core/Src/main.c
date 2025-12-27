@@ -66,8 +66,8 @@ float EncoderP = 3.7;
 float EncoderI = 40.36;
 float EncoderD = 0.0;
 
-float EncoderMaxValue = 300.0;
-float EncoderMinValue = -300.0;
+float EncoderMaxValue = 360.0;
+float EncoderMinValue = -360.0;
 
 uint8_t EncoderCallback = 0;
 
@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 10.3f;
+float AngleP = 22.0f;
 float AngleI = 0.0f;
-float AngleD = 0.16f;
+float AngleD = 0.17f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -199,7 +199,7 @@ int main(void)
 
 
 
-  RobotState.TargetAngle = -2.8f;
+  RobotState.TargetAngle = -2.39f;
   HAL_Delay(1000);
   /* USER CODE END 2 */
 
@@ -377,30 +377,6 @@ float MapValues(float MaxValue, float InputValue)
     return pwmPercent;
 }
 
-void MeasureTilt(void)
-{
-	//take angle Yaw
-	RobotState.AnglePitch = Pitch;
-	RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
-
-	if(fabs(RobotState.AnglePitch) > AngleMaxValue)
-	{
-		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
-		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-
-		Motor_SetRideParameters(&MotorA, 0, 1);
-		Motor_SetRideParameters(&MotorB, 0, 1);
-		Motor_Ride(&MotorA);
-		Motor_Ride(&MotorB);
-
-		RobotState.SpeedTarget = 0.0f;
-
-		return;
-	}
-	RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle );
-}
-
 void TestMotorAndEncoderB(void)
 {
 	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
@@ -440,7 +416,6 @@ void TestPidAngleB(void)
 	return;
 	}
 	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
-	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
 }
 
 void TestMotorAndEncoderA(void)
@@ -521,9 +496,12 @@ void SteeringValueForMotors(void)
 		return;
 	}
 
-	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
-	RobotState.SpeedTargetA = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
+	// Obliczamy RAZ
+	float BalanceOutput = -1.0f * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
 
+	// Przypisujemy wynik do obu kół
+	RobotState.SpeedTargetA = BalanceOutput;
+	RobotState.SpeedTargetB = BalanceOutput;
 }
 /* USER CODE END 4 */
 

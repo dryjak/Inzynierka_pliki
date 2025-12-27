@@ -146,7 +146,7 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
 //filter functions
 static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel)
 {
-    const float alpha = 0.97f;
+    const float alpha = 0.98f;
     *roll  = alpha * (*roll)  + (1.0f - alpha) * roll_accel;
     *pitch = alpha * (*pitch) + (1.0f - alpha) * pitch_accel;
 }
