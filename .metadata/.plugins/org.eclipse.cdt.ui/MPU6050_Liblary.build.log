@@ -1,4 +1,4 @@
-16:59:18 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
+17:06:40 **** Incremental Build of configuration Debug for project MPU6050_Liblary ****
 make -j12 all 
 arm-none-eabi-size  MPU6050_Liblary.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  MPU6050_Liblary.elf
 Finished building: default.size.stdout
  
 
-16:59:19 Build Finished. 0 errors, 0 warnings. (took 605ms)
+17:06:41 Build Finished. 0 errors, 0 warnings. (took 605ms)
 

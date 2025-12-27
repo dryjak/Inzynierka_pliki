@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 17.0f;
+float AngleP = 22.0f;
 float AngleI = 0.0f;
-float AngleD = 0.12f;
+float AngleD = 0.17f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -109,7 +109,7 @@ volatile RobotState_t RobotState;
 
 
 
-float Test_PWM_Value = 1.0f; // Zmienna do testów
+float Test_PWM_Value = 25.0f; // Zmienna do testów
 
 /* USER CODE END PV */
 
@@ -278,7 +278,7 @@ int main(void)
 	  	  {
 
 		  EncoderCallback = 0;
-		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+//		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MeasureTilt();
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
@@ -288,14 +288,13 @@ int main(void)
 		  //TestMotorAndEncoderA();
 		  //TestMotorAndEncoderB();
 
-		  SteeringValueForMotors();
-		  MoveMotors();
+//		  SteeringValueForMotors();
+//		  MoveMotors();
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 	  	  }
-/*
 	  // Mapujemy Twoją wartość testową na % PWM
 	     float PwmPercent = MapValues(EncoderMaxValue, Test_PWM_Value);
 
@@ -308,7 +307,7 @@ int main(void)
 
 	     HAL_Delay(100);
 	     // -------------------
-*/
+
 
     /* USER CODE END WHILE */
 
@@ -508,7 +507,7 @@ void MoveMotors(void)
     // --- DODAJ TO: KOMPENSACJA DEADZONE ---
     // Musisz dobrać eksperymentalnie. Zazwyczaj od 20.0 do 40.0 (zależnie od napięcia i silników)
     // To jest wartość PID/PWM, przy której koła położone na ziemi zaczynają się kręcić.
-    float MIN_PWM = 20.0f;
+    float MIN_PWM = 35.0f;
 
     // Dla silnika A
     if (PidMotorAPidValue > 0.1f)       PidMotorAPidValue += MIN_PWM;

@@ -4,7 +4,6 @@ Yaw
 RobotState
 PidAngle
 EncoderB
-RobotState
 EncoderA
 CalibrateAccel
 CalibrateGyro
