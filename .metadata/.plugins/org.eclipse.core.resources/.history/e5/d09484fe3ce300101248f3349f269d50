@@ -107,10 +107,6 @@ typedef struct{
 
 volatile RobotState_t RobotState;
 
-
-
-float Test_PWM_Value = 0.0f; // Zmienna do testów
-
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -278,7 +274,7 @@ int main(void)
 	  	  {
 
 		  EncoderCallback = 0;
-//		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MeasureTilt();
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
@@ -288,25 +284,13 @@ int main(void)
 		  //TestMotorAndEncoderA();
 		  //TestMotorAndEncoderB();
 
-//		  SteeringValueForMotors();
-//		  MoveMotors();
+		  SteeringValueForMotors();
+		  MoveMotors();
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 	  	  }
-	  // Mapujemy Twoją wartość testową na % PWM
-	     float PwmPercent = MapValues(EncoderMaxValue, Test_PWM_Value);
-
-	     // Ustawiamy silniki w jednym kierunku (np. do przodu - Dir=0)
-	     Motor_SetRideParameters(&MotorA, PwmPercent, 0);
-	     Motor_SetRideParameters(&MotorB, PwmPercent, 0); // Sprawdź czy 0 to ten sam kierunek co w A
-
-	     Motor_Ride(&MotorA);
-	     Motor_Ride(&MotorB);
-
-	     HAL_Delay(100);
-	     // -------------------
 
 
     /* USER CODE END WHILE */
