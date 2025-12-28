@@ -62,9 +62,9 @@ float EncoderA_Speed, EncoderB_Speed;
 //PID regulator for steering motors speed
 PID_t PidMotorA, PidMotorB;
 
-float EncoderP = 2.8;
-float EncoderI = 28.0;
-float EncoderD = 0.04;
+float EncoderP = 3.7;
+float EncoderI = 40.36;
+float EncoderD = 0.0;
 
 float EncoderMaxValue = 360.0;
 float EncoderMinValue = -360.0;
@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 12.0f;
+float AngleP = 18.5f;
 float AngleI = 0.0f;
-float AngleD = 0.15f;
+float AngleD = 0.195f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
