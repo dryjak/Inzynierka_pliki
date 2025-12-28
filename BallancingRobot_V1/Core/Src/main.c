@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 17.0f;
+float AngleP = 18.5f;
 float AngleI = 0.0f;
-float AngleD = 0.12f;
+float AngleD = 0.195f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -458,7 +458,7 @@ void TestMotorAndEncoderA(void)
 	Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);	//set proper PWM value to remain on target speed
 	Motor_Ride(&MotorA);
 }
-/*
+
 void MoveMotors(void)
 {
 	Encoder_Update(&EncoderA);	//obliczam ilość pulsów enkodera
@@ -496,7 +496,7 @@ void MoveMotors(void)
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
 }
-*/
+/*
 void MoveMotors(void)
 {
     Encoder_Update(&EncoderA);
@@ -538,6 +538,7 @@ void MoveMotors(void)
     Motor_Ride(&MotorA);
     Motor_Ride(&MotorB);
 }
+*/
 void SteeringValueForMotors(void)
 {
 	RobotState.AnglePitch = Pitch;

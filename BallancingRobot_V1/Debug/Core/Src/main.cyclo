@@ -6,6 +6,6 @@
 ../Core/Src/main.c:397:6:TestMotorAndEncoderB	2
 ../Core/Src/main.c:420:6:TestPidAngleB	2
 ../Core/Src/main.c:438:6:TestMotorAndEncoderA	2
-../Core/Src/main.c:500:6:MoveMotors	7
-../Core/Src/main.c:541:6:SteeringValueForMotors	2
-../Core/Src/main.c:578:6:Error_Handler	1
+../Core/Src/main.c:462:6:MoveMotors	3
+../Core/Src/main.c:542:6:SteeringValueForMotors	2
+../Core/Src/main.c:579:6:Error_Handler	1

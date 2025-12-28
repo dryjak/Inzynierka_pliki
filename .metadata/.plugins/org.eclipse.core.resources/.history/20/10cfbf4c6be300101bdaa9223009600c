@@ -63,7 +63,7 @@ float EncoderA_Speed, EncoderB_Speed;
 PID_t PidMotorA, PidMotorB;
 
 float EncoderP = 3.7;
-float EncoderI = 37.36;
+float EncoderI = 40.36;
 float EncoderD = 0.0;
 
 float EncoderMaxValue = 360.0;
@@ -77,9 +77,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 21.0f;
+float AngleP = 17.0f;
 float AngleI = 0.0f;
-float AngleD = 0.16f;
+float AngleD = 0.15f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -106,6 +106,10 @@ typedef struct{
 }RobotState_t;
 
 volatile RobotState_t RobotState;
+
+
+
+float Test_PWM_Value = 1.0f; // Zmienna do testów
 
 /* USER CODE END PV */
 
@@ -291,7 +295,20 @@ int main(void)
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 	  	  }
+/*
+	  // Mapujemy Twoją wartość testową na % PWM
+	     float PwmPercent = MapValues(EncoderMaxValue, Test_PWM_Value);
 
+	     // Ustawiamy silniki w jednym kierunku (np. do przodu - Dir=0)
+	     Motor_SetRideParameters(&MotorA, PwmPercent, 0);
+	     Motor_SetRideParameters(&MotorB, PwmPercent, 0); // Sprawdź czy 0 to ten sam kierunek co w A
+
+	     Motor_Ride(&MotorA);
+	     Motor_Ride(&MotorB);
+
+	     HAL_Delay(100);
+	     // -------------------
+*/
 
     /* USER CODE END WHILE */
 
@@ -377,33 +394,6 @@ float MapValues(float MaxValue, float InputValue)
     return pwmPercent;
 }
 
-void MeasureTilt(void)
-{
-	//take angle Yaw
-	RobotState.AnglePitch = Pitch;
-	RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
-
-	if(fabs(RobotState.AnglePitch) > AngleMaxValue)
-	{
-		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMaxValue);
-		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
-
-		Motor_SetRideParameters(&MotorA, 0, 1);
-		Motor_SetRideParameters(&MotorB, 0, 1);
-		Motor_Ride(&MotorA);
-		Motor_Ride(&MotorB);
-
-		RobotState.SpeedTarget = 0.0f;
-
-		return;
-	}
-	if(fabs(RobotState.AnglePitch) - fabs(RobotState.TargetAngle) > 2)
-	{
-		RobotState.SpeedTarget = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle );
-	}
-}
-
 void TestMotorAndEncoderB(void)
 {
 	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
@@ -443,7 +433,6 @@ void TestPidAngleB(void)
 	return;
 	}
 	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);	//-1 bo silniki nie naprawiają wychylenia, bardziej je zwiększają
-	RobotState.SpeedTargetB = -1 * PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
 }
 
 void TestMotorAndEncoderA(void)
@@ -469,6 +458,7 @@ void TestMotorAndEncoderA(void)
 	Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);	//set proper PWM value to remain on target speed
 	Motor_Ride(&MotorA);
 }
+
 void MoveMotors(void)
 {
 	Encoder_Update(&EncoderA);	//obliczam ilość pulsów enkodera
@@ -506,7 +496,49 @@ void MoveMotors(void)
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
 }
+/*
+void MoveMotors(void)
+{
+    Encoder_Update(&EncoderA);
+    Encoder_Update(&EncoderB);
 
+    PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA.AngularVelocity, RobotState.SpeedTargetA);
+    PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, RobotState.SpeedTargetB);
+
+    // --- DODAJ TO: KOMPENSACJA DEADZONE ---
+    // Musisz dobrać eksperymentalnie. Zazwyczaj od 20.0 do 40.0 (zależnie od napięcia i silników)
+    // To jest wartość PID/PWM, przy której koła położone na ziemi zaczynają się kręcić.
+    float MIN_PWM = 20.0f;
+
+    // Dla silnika A
+    if (PidMotorAPidValue > 0.1f)       PidMotorAPidValue += MIN_PWM;
+    else if (PidMotorAPidValue < -0.1f) PidMotorAPidValue -= MIN_PWM;
+
+    // Dla silnika B
+    if (PidMotorBPidValue > 0.1f)       PidMotorBPidValue += MIN_PWM;
+    else if (PidMotorBPidValue < -0.1f) PidMotorBPidValue -= MIN_PWM;
+    // --------------------------------------
+
+    uint8_t DirA, DirB;
+
+    // Logika kierunku (bez zmian)
+    if(PidMotorAPidValue > 0) DirA = 1;
+    else DirA = 0;
+
+    if(PidMotorBPidValue > 0) DirB = 0;
+    else DirB = 1;
+
+    // Mapowanie na PWM
+    float PwmMotorA = MapValues(EncoderMaxValue, PidMotorAPidValue);
+    float PwmMotorB = MapValues(EncoderMaxValue, PidMotorBPidValue);
+
+    Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
+    Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
+
+    Motor_Ride(&MotorA);
+    Motor_Ride(&MotorB);
+}
+*/
 void SteeringValueForMotors(void)
 {
 	RobotState.AnglePitch = Pitch;
@@ -520,6 +552,13 @@ void SteeringValueForMotors(void)
 
 		RobotState.SpeedTargetB = 0.0f;
 		RobotState.SpeedTargetA = 0.0f;
+
+		// --- DODAJ TO: RESET PID ---
+		// Zerujemy całki i błędy, żeby po podniesieniu robot startował "na czysto"
+		PID_Init(&PidAngle, AngleP, AngleI, AngleD, Angle_DT, EncoderMaxValue, EncoderMinValue);
+		PID_Init(&PidMotorA, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
+		PID_Init(&PidMotorB, EncoderP, EncoderI, EncoderD, ENCODER_DT, EncoderMaxValue, EncoderMinValue);
+		// ---------------------------
 
 		return;
 	}
