@@ -24721,3 +24721,339 @@ Finished building: default.size.stdout
  
 Finished building: TestingMotorsWithPWM.list
  
+12:48:51 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+12:49:39 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+12:53:43 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+12:56:23 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+19:19:20 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+19:20:50 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/tim.d" -MT"Core/Src/tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/tim.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+19:29:38 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+19:38:24 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+19:43:07 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:18:40 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:24:03 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:26:14 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:30:59 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:34:25 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:41:24 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:44:32 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:47:03 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:54:06 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+22:56:27 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+23:01:50 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+23:03:55 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+23:05:55 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+23:11:55 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+23:17:55 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    492	   2528	  47540	   b9b4	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
+23:22:55 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+make -j12 all 
+arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
+arm-none-eabi-gcc -o "TestingMotorsWithPWM.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\TestingMotorsWithPWM\STM32G474RETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="TestingMotorsWithPWM.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: TestingMotorsWithPWM.elf
+ 
+arm-none-eabi-size  TestingMotorsWithPWM.elf 
+arm-none-eabi-objdump -h -S TestingMotorsWithPWM.elf  > "TestingMotorsWithPWM.list"
+   text	   data	    bss	    dec	    hex	filename
+  44520	    496	   2528	  47544	   b9b8	TestingMotorsWithPWM.elf
+Finished building: default.size.stdout
+ 
+Finished building: TestingMotorsWithPWM.list
+ 
