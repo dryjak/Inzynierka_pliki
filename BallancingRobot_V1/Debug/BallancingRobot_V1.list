@@ -2946,7 +2946,7 @@ int main(void)
 
 
 
-  RobotState.TargetAngle = -2.39f;
+  RobotState.TargetAngle = -2.42f;
  8001afe:	4b26      	ldr	r3, [pc, #152]	@ (8001b98 <main+0x214>)
  8001b00:	4a26      	ldr	r2, [pc, #152]	@ (8001b9c <main+0x218>)
  8001b02:	609a      	str	r2, [r3, #8]
@@ -3013,7 +3013,7 @@ int main(void)
  8001b90:	200001c4 	.word	0x200001c4
  8001b94:	200002c8 	.word	0x200002c8
  8001b98:	20000218 	.word	0x20000218
- 8001b9c:	c018f5c3 	.word	0xc018f5c3
+ 8001b9c:	c01ae148 	.word	0xc01ae148
  8001ba0:	200001b8 	.word	0x200001b8
  8001ba4:	20000214 	.word	0x20000214
  8001ba8:	20000210 	.word	0x20000210
