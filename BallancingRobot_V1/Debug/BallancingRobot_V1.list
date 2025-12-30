@@ -35,17 +35,17 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   CONTENTS, READONLY, DEBUGGING, OCTETS
  15 .debug_rnglists 00000aed  00000000  00000000  00019478  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  000171bc  00000000  00000000  00019f65  2**0
+ 16 .debug_macro  000171fe  00000000  00000000  00019f65  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   00011ef2  00000000  00000000  00031121  2**0
+ 17 .debug_line   00011ef0  00000000  00000000  00031163  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    0008ec55  00000000  00000000  00043013  2**0
+ 18 .debug_str    0008eca0  00000000  00000000  00043053  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  000d1c68  2**0
+ 19 .comment      00000043  00000000  00000000  000d1cf3  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00003dc0  00000000  00000000  000d1cac  2**2
+ 20 .debug_frame  00003dc0  00000000  00000000  000d1d38  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000060  00000000  00000000  000d5a6c  2**0
+ 21 .debug_line_str 00000060  00000000  00000000  000d5af8  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -3564,14 +3564,13 @@ MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint8_t PWM, uint8_t Dir)
  8001fca:	70fb      	strb	r3, [r7, #3]
  8001fcc:	4613      	mov	r3, r2
  8001fce:	70bb      	strb	r3, [r7, #2]
-	//making sure PWM is in range from 0 to 100
-
-	if (PWM > 100)
+	//Make sure PWM is in range from 0 to 100
+	if (PWM > MOTOR_PWM_MAX)
  8001fd0:	78fb      	ldrb	r3, [r7, #3]
  8001fd2:	2b64      	cmp	r3, #100	@ 0x64
  8001fd4:	d903      	bls.n	8001fde <Motor_SetRideParameters+0x1e>
 	{
-		Motor->MotorPWM = 100;
+		Motor->MotorPWM = MOTOR_PWM_MAX;
  8001fd6:	687b      	ldr	r3, [r7, #4]
  8001fd8:	2264      	movs	r2, #100	@ 0x64
  8001fda:	759a      	strb	r2, [r3, #22]
@@ -3579,14 +3578,14 @@ MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint8_t PWM, uint8_t Dir)
 	}
 	else
 	{
-	Motor->MotorPWM = PWM;
+		Motor->MotorPWM = PWM;
  8001fde:	687b      	ldr	r3, [r7, #4]
  8001fe0:	78fa      	ldrb	r2, [r7, #3]
  8001fe2:	759a      	strb	r2, [r3, #22]
 	}
 
 	//setting direction
-	if (Dir == 1) 	// Przód
+	if (Dir == MOTOR_DIR_FORWARD) 	// Go forward
  8001fe4:	78bb      	ldrb	r3, [r7, #2]
  8001fe6:	2b01      	cmp	r3, #1
  8001fe8:	d110      	bne.n	800200c <Motor_SetRideParameters+0x4c>
@@ -3609,7 +3608,7 @@ MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint8_t PWM, uint8_t Dir)
  8002006:	f000 ff0f 	bl	8002e28 <HAL_GPIO_WritePin>
  800200a:	e00f      	b.n	800202c <Motor_SetRideParameters+0x6c>
 	}
-	else 			// Tył
+	else // Go backward
 	{
 		HAL_GPIO_WritePin(Motor->MotorDir1Port, Motor->MotorDir1Pin, GPIO_PIN_RESET);
  800200c:	687b      	ldr	r3, [r7, #4]
@@ -3633,10 +3632,6 @@ MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint8_t PWM, uint8_t Dir)
  800202e:	78ba      	ldrb	r2, [r7, #2]
  8002030:	75da      	strb	r2, [r3, #23]
 
-
-	//setting PWM
-	//__HAL_TIM_SET_COMPARE(Motor->htim, Motor->Channel, Motor->MotorPWM);
-
 	return MOTOR_OK;
  8002032:	2300      	movs	r3, #0
 }
@@ -3653,7 +3648,7 @@ void Motor_Ride(Motor_t *Motor)
  800203e:	b083      	sub	sp, #12
  8002040:	af00      	add	r7, sp, #0
  8002042:	6078      	str	r0, [r7, #4]
-	//setting PWM
+	// Update CCR to change duty cycle
 	__HAL_TIM_SET_COMPARE(Motor->htim, Motor->Channel, Motor->MotorPWM);
  8002044:	687b      	ldr	r3, [r7, #4]
  8002046:	685b      	ldr	r3, [r3, #4]
@@ -3731,12 +3726,14 @@ MotorStatus_t Motor_Init(Motor_t *Motor, TIM_HandleTypeDef *Timer, uint32_t Time
  80020ba:	687a      	ldr	r2, [r7, #4]
  80020bc:	605a      	str	r2, [r3, #4]
 
+	//initial speed
 	Motor->MotorPWM = PWM;
  80020be:	887b      	ldrh	r3, [r7, #2]
  80020c0:	b2da      	uxtb	r2, r3
  80020c2:	68fb      	ldr	r3, [r7, #12]
  80020c4:	759a      	strb	r2, [r3, #22]
 
+	// GPIO configuration
 	Motor->MotorDir1Port = Dir1Port;
  80020c6:	68fb      	ldr	r3, [r7, #12]
  80020c8:	69ba      	ldr	r2, [r7, #24]
