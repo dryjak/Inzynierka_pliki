@@ -2189,26 +2189,25 @@ void PID_Init(PID_t *Pid, float P, float I, float D, float SampleTime, float Max
 	Pid->MaxValue = MaxValue;
  80015a0:	69fb      	ldr	r3, [r7, #28]
  80015a2:	68ba      	ldr	r2, [r7, #8]
- 80015a4:	615a      	str	r2, [r3, #20]
+ 80015a4:	611a      	str	r2, [r3, #16]
 	Pid->MinValue = MinValue;
  80015a6:	69fb      	ldr	r3, [r7, #28]
  80015a8:	687a      	ldr	r2, [r7, #4]
- 80015aa:	619a      	str	r2, [r3, #24]
+ 80015aa:	615a      	str	r2, [r3, #20]
 
-	Pid->Integrator = 0;
+	// Reset values
+	Pid->Integrator = 0.0f;
  80015ac:	69fb      	ldr	r3, [r7, #28]
  80015ae:	f04f 0200 	mov.w	r2, #0
- 80015b2:	611a      	str	r2, [r3, #16]
-	Pid->LastError = 0.0;
+ 80015b2:	619a      	str	r2, [r3, #24]
+	Pid->LastError = 0.0f;
  80015b4:	69fb      	ldr	r3, [r7, #28]
  80015b6:	f04f 0200 	mov.w	r2, #0
  80015ba:	61da      	str	r2, [r3, #28]
-
-	Pid->LastMeasurement = 0.0;
+	Pid->LastMeasurement = 0.0f;
  80015bc:	69fb      	ldr	r3, [r7, #28]
  80015be:	f04f 0200 	mov.w	r2, #0
  80015c2:	621a      	str	r2, [r3, #32]
-
 	Pid->Clamp = 0;
  80015c4:	69fb      	ldr	r3, [r7, #28]
  80015c6:	2200      	movs	r2, #0
@@ -2236,7 +2235,7 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
  80015f0:	ee77 7a67 	vsub.f32	s15, s14, s15
  80015f4:	edc7 7a07 	vstr	s15, [r7, #28]
 
-	 //proportional value
+	//Proportional value
 	float P = Pid->P * Error;
  80015f8:	68fb      	ldr	r3, [r7, #12]
  80015fa:	edd3 7a00 	vldr	s15, [r3]
@@ -2244,7 +2243,8 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
  8001602:	ee67 7a27 	vmul.f32	s15, s14, s15
  8001606:	edc7 7a06 	vstr	s15, [r7, #24]
 
-	 //Integrator value
+	// Integral value with anti windup check
+	// If clamped, we stop adding to the integrator to prevent windup
 	if(Pid->Clamp == 0)
  800160a:	68fb      	ldr	r3, [r7, #12]
  800160c:	f893 3024 	ldrb.w	r3, [r3, #36]	@ 0x24
@@ -2253,7 +2253,7 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 	{
 	    Pid->Integrator += Pid->SampleTime * Pid->I * Error;
  8001614:	68fb      	ldr	r3, [r7, #12]
- 8001616:	ed93 7a04 	vldr	s14, [r3, #16]
+ 8001616:	ed93 7a06 	vldr	s14, [r3, #24]
  800161a:	68fb      	ldr	r3, [r7, #12]
  800161c:	edd3 6a03 	vldr	s13, [r3, #12]
  8001620:	68fb      	ldr	r3, [r7, #12]
@@ -2263,21 +2263,22 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
  800162e:	ee66 7aa7 	vmul.f32	s15, s13, s15
  8001632:	ee77 7a27 	vadd.f32	s15, s14, s15
  8001636:	68fb      	ldr	r3, [r7, #12]
- 8001638:	edc3 7a04 	vstr	s15, [r3, #16]
+ 8001638:	edc3 7a06 	vstr	s15, [r3, #24]
 	}
 
-	 //Deriative value
+	 //Derivative value
+	/* Instead of calculating (Error - LastError) we use (MeasuredValue - LastMeasurementValue)
+	   It prevents "Derivative Kick" when setpoint changes rapidly*/
 	float D = 0.0f;
  800163c:	f04f 0300 	mov.w	r3, #0
  8001640:	627b      	str	r3, [r7, #36]	@ 0x24
-	if (Pid->SampleTime > 0)
+	if (Pid->SampleTime > 0) // Prevent division by 0
  8001642:	68fb      	ldr	r3, [r7, #12]
  8001644:	edd3 7a03 	vldr	s15, [r3, #12]
  8001648:	eef5 7ac0 	vcmpe.f32	s15, #0.0
  800164c:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
  8001650:	dd14      	ble.n	800167c <PID_Compute+0xa4>
 	{
-        // Tu jest OK: liczysz zmianę pomiaru
 		D = -1.0f * ((MeasuredValue - Pid->LastMeasurement) / Pid->SampleTime) * Pid->D;
  8001652:	68fb      	ldr	r3, [r7, #12]
  8001654:	edd3 7a08 	vldr	s15, [r3, #32]
@@ -2293,9 +2294,10 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
  8001678:	edc7 7a09 	vstr	s15, [r7, #36]	@ 0x24
 	}
 
+	// Calculate total output
 	float Output = P + Pid->Integrator + D;
  800167c:	68fb      	ldr	r3, [r7, #12]
- 800167e:	ed93 7a04 	vldr	s14, [r3, #16]
+ 800167e:	ed93 7a06 	vldr	s14, [r3, #24]
  8001682:	edd7 7a06 	vldr	s15, [r7, #24]
  8001686:	ee77 7a27 	vadd.f32	s15, s14, s15
  800168a:	ed97 7a09 	vldr	s14, [r7, #36]	@ 0x24
@@ -2305,10 +2307,10 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
  8001696:	6a3b      	ldr	r3, [r7, #32]
  8001698:	617b      	str	r3, [r7, #20]
 
-	//Saturation limits
+	// Check saturation limits
 	if (Output > Pid->MaxValue)
  800169a:	68fb      	ldr	r3, [r7, #12]
- 800169c:	edd3 7a05 	vldr	s15, [r3, #20]
+ 800169c:	edd3 7a04 	vldr	s15, [r3, #16]
  80016a0:	ed97 7a08 	vldr	s14, [r7, #32]
  80016a4:	eeb4 7ae7 	vcmpe.f32	s14, s15
  80016a8:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
@@ -2316,13 +2318,13 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 	{
 		Output = Pid->MaxValue;
  80016ae:	68fb      	ldr	r3, [r7, #12]
- 80016b0:	695b      	ldr	r3, [r3, #20]
+ 80016b0:	691b      	ldr	r3, [r3, #16]
  80016b2:	623b      	str	r3, [r7, #32]
  80016b4:	e00c      	b.n	80016d0 <PID_Compute+0xf8>
 	}
 	else if (Output < Pid->MinValue)
  80016b6:	68fb      	ldr	r3, [r7, #12]
- 80016b8:	edd3 7a06 	vldr	s15, [r3, #24]
+ 80016b8:	edd3 7a05 	vldr	s15, [r3, #20]
  80016bc:	ed97 7a08 	vldr	s14, [r7, #32]
  80016c0:	eeb4 7ae7 	vcmpe.f32	s14, s15
  80016c4:	eef1 fa10 	vmrs	APSR_nzcv, fpscr
@@ -2330,12 +2332,14 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 	{
 		Output = Pid->MinValue;
  80016ca:	68fb      	ldr	r3, [r7, #12]
- 80016cc:	699b      	ldr	r3, [r3, #24]
+ 80016cc:	695b      	ldr	r3, [r3, #20]
  80016ce:	623b      	str	r3, [r7, #32]
-	}
-
-	//Antiwindup
-	uint8_t ClampigSaturationCheck = (Output != OutputLast) ? 1 : 0; // Uwaga: porównywanie floatów != bywa ryzykowne, ale tutaj może zadziałać
+	//Anti-Windup logic with clamping
+	/*
+	 If output is saturated (Output != OutputLast) and error sign is the same as output
+	 sign (meaning Error is trying to push further into saturation, then we clamp
+	*/
+	uint8_t ClampigSaturationCheck = (Output != OutputLast) ? 1 : 0;
  80016d0:	ed97 7a08 	vldr	s14, [r7, #32]
  80016d4:	edd7 7a05 	vldr	s15, [r7, #20]
  80016d8:	eeb4 7a67 	vcmp.f32	s14, s15
@@ -2366,7 +2370,7 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
  8001710:	2b01      	cmp	r3, #1
  8001712:	d104      	bne.n	800171e <PID_Compute+0x146>
 	{
-		Pid->Clamp = 1;
+		Pid->Clamp = 1;	//Stop integration
  8001714:	68fb      	ldr	r3, [r7, #12]
  8001716:	2201      	movs	r2, #1
  8001718:	f883 2024 	strb.w	r2, [r3, #36]	@ 0x24
@@ -2374,7 +2378,7 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue)
 	}
 	else
 	{
-		Pid->Clamp = 0;
+		Pid->Clamp = 0;	//Don't stop integration
  800171e:	68fb      	ldr	r3, [r7, #12]
  8001720:	2200      	movs	r2, #0
  8001722:	f883 2024 	strb.w	r2, [r3, #36]	@ 0x24
@@ -3551,8 +3555,8 @@ __STATIC_FORCEINLINE void __disable_irq(void)
 
 08001fc0 <Motor_SetRideParameters>:
 
-
-
+#include "main.h"
+#include "motor_simple.h"
 
 MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint8_t PWM, uint8_t Dir)
 {

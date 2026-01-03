@@ -10,17 +10,20 @@
 
 #include "stdint.h"
 
-//void ServoInit(TIM_HandleTypeDef *Tim, uint16_t TimChannel, uint16_t AngleMin, uint16_t AngleMax, uint16_t PWM_Min, uint16_t PWM_Max);
-
+// Timer configuration
 #define WhichTimer htim2
 #define TimerChannel TIM_CHANNEL_1
 
-#define AngleMin 0
+// Calibrated Servo Values
+// AngleMin/Max (0-900 for 0-90 degrees)
+#define AngleMin 0		//offsets
 #define AngleMax 900
 #define PWM_Min  900
 #define PWM_Max  1900
 
+// Macro mapping step (Scaling factor)
 #define STEP ((1000 * (PWM_Max - PWM_Min)) / (AngleMax - AngleMin))
+
 void SetAngle(uint16_t Angle, uint8_t Mode);
 
 #endif /* INC_SERWOSIMPLE_H_ */

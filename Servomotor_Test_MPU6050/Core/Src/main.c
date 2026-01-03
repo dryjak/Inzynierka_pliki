@@ -50,7 +50,9 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
+// Flag set by Timer Interrupt (10Hz) to trigger data transmission
 volatile uint8_t InterruptFlag = 0;
+// Current servo angle
 uint16_t CurrentAngle = 0;
 
 //MPU6050
@@ -71,6 +73,7 @@ void My_SmartDelay(uint32_t delay_ms);
 void Servo_MoveSlowly(uint16_t startAngle, uint16_t endAngle, uint8_t speedDelay);
 void Check_And_Report(void);
 
+// Servo motion
 void Motion_StepResponse(void);
 void Motion_Triangle(uint8_t speedDelay);
 void Motion_SineHalf(uint8_t speedDelay);
@@ -119,11 +122,13 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+  // Initialize MPU6050 module
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);		//Servo
-  HAL_TIM_Base_Start_IT(&htim1);				//Zegar 0.1s
-
+  // Start PWM for servo motor
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+  // Start interrupts for sampling (10Hz)
+  HAL_TIM_Base_Start_IT(&htim1);
 
   /* USER CODE END 2 */
 
@@ -131,36 +136,19 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-	  /*
-	  //calibrate accel and gyro
-	  if(TMP == 0)
-	  {
-		  TMP = 1;
-		  MPU6050_CalibrateAccel(&MPU6050, &AccelCalibrate);
-		  MPU6050_CalibrateGyro(&MPU6050, &GyroCalibrate);
-	  }
-	  */
+	// Motion Sequence
 
-	  // --- Wykonujemy sekwencję ruchów ---
-
-	// 1. Skok (Step Response)
+	// 1. Step Response (0 -> 30deg -> 0)
 	Motion_StepResponse();
 
-	// 2. Trójkąt
-	Motion_Triangle(10); // 10ms opóźnienia na krok
+	// 2. Triangle Wave
+	Motion_Triangle(10);
 	My_SmartDelay(1000);
 
-	// 3. Sinusoida
-	Motion_SineHalf(15); // 15ms opóźnienia na krok
+	// 3. Sine Wave
+	Motion_SineHalf(15);
+	//Repeat
 
-		// Pętla się powtarza
-/*
-	 if(InterruptFlag)
-	 {
-		 MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-
-	 }
-*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -235,61 +223,59 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	{
 		InterruptFlag = 1;
 	}
-
 }
 
-// 1. Sprawdza flagę i wysyła UART (wywoływane w pętli czekania)
+// 1. Sent current angle via UART
 void Check_And_Report(void)
 {
     if (InterruptFlag == 1)
     {
-        InterruptFlag = 0; // Kasujemy flagę
+        InterruptFlag = 0;
 		 MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
         char buffer[32];
-        // Wysyłamy kąt (dzielimy przez 10, zeby miec stopnie, np. 30.0)
+        // Send angle (devide 10 to get angle)
         int len = sprintf(buffer, "%.3f, %.3f\r\n", CurrentAngle / 10.0f, Roll);
         HAL_UART_Transmit(&hlpuart1, (uint8_t*)buffer, len, 100);
     }
 }
 
-// 2. Inteligentne czekanie (nie blokuje UARTu)
+// 2. Function to wait without blocking code
 void My_SmartDelay(uint32_t delay_ms)
 {
     uint32_t startTick = HAL_GetTick();
     while ((HAL_GetTick() - startTick) < delay_ms)
     {
-        Check_And_Report(); // Sprawdzaj UART w czasie czekania
+        Check_And_Report();
     }
 }
 
-// 3. Wrapper ustawiający kąt i aktualizujący zmienną globalną
+// 3. Set angle
 void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
 {
     CurrentAngle = Angle;
-    SetAngle(Angle, Mode); // Wywołanie z biblioteki SerwoSimple
+    SetAngle(Angle, Mode); //Servo liblary
 }
 
-// --- FUNKCJE RUCHU ---
-
+// Movement functions
 void Motion_StepResponse(void)
 {
-    // Skok do 30 stopni (wartość 300)
+    // Go to 30deg and wait
     SetAngle_WithGlobalUpdate(300, 1);
     My_SmartDelay(3000); // Czekaj 4s (i raportuj)
 
-    // Powrót do 0
+    // Go back to 0 deg
     SetAngle_WithGlobalUpdate(0, 1);
     My_SmartDelay(1000);
 }
 
 void Motion_Triangle(uint8_t speedDelay)
 {
-    // Narastanie
+    // Increasing angle
     for(uint16_t i = 0; i <= 300; i+=5) {
         SetAngle_WithGlobalUpdate(i, 1);
         My_SmartDelay(speedDelay);
     }
-    // Opadanie
+    // Decreasing angle
     for(uint16_t i = 300; i > 0; i-=5) {
         SetAngle_WithGlobalUpdate(i, 1);
         My_SmartDelay(speedDelay);
@@ -300,7 +286,7 @@ void Motion_Triangle(uint8_t speedDelay)
 void Motion_SineHalf(uint8_t speedDelay)
 {
     float x;
-    uint16_t amplitude = 300; // 30 stopni
+    uint16_t amplitude = 300; // 30 deg
 
     for(x = 0; x <= 3.14; x += 0.03) {
         float sinVal = sin(x); // 0 -> 1 -> 0
