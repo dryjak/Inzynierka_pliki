@@ -12,15 +12,10 @@
 
 #define PI 3.14159265
 
-/*
-	Set servo angle by changing PWM duty cycle
-	Mode: 1 - direction right, 0 - direction left
-	Angle: target angle
- */
 void SetAngle(uint16_t Angle, uint8_t Mode)
 {
 	uint16_t Tmp;
-	// Limits saturation
+
 	if(Angle < AngleMin)
 	{
 		Angle = AngleMin;
@@ -29,7 +24,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
 	{
 		Angle = AngleMax;
 	}
-	// calculate PWM duty cycle
+
 	if(Mode)
 	{
 		Tmp = (PWM_Min + ((Angle - AngleMin) * STEP) / 1000);
@@ -38,6 +33,6 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
 	{
 		Tmp = (PWM_Max - ((Angle - AngleMin) * STEP) / 1000);
 	}
-	// change duty cycle to calculated value, update CCR register
+
 	__HAL_TIM_SET_COMPARE(&WhichTimer, TimerChannel,Tmp);
 }
