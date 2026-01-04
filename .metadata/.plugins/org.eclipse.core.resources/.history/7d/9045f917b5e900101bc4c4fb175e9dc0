@@ -64,7 +64,7 @@ PID_t EncoderPid;
 
 float EncoderP = 2.8;
 float EncoderI = 28.0;
-float EncoderD = 0.03;
+float EncoderD = 0.04;
 
 float EncoderSampleTime = 0.01;
 
