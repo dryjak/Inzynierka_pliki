@@ -20,6 +20,7 @@
 #include "main.h"
 #include "i2c.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -28,6 +29,9 @@
 #include "Encoder.h"
 #include "PID.h"
 #include "MPU6050.h"
+
+#include <string.h>
+#include <stdio.h>
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -107,10 +111,12 @@ typedef struct{
 
 volatile RobotState_t RobotState;
 
-
+uint8_t Counter = 0;
 
 float Test_PWM_Value = 1.0f; // Zmienna do testów
 
+//printing via uart
+char Message[128];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -170,6 +176,7 @@ int main(void)
   MX_I2C1_Init();
   MX_TIM2_Init();
   MX_TIM4_Init();
+  MX_USART2_UART_Init();
 
   /* Initialize interrupts */
   MX_NVIC_Init();
@@ -293,6 +300,9 @@ int main(void)
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
+
+		  sprintf(Message, "%.3f\n", Roll);
+		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }
 /*
@@ -496,49 +506,7 @@ void MoveMotors(void)
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
 }
-/*
-void MoveMotors(void)
-{
-    Encoder_Update(&EncoderA);
-    Encoder_Update(&EncoderB);
 
-    PidMotorAPidValue = PID_Compute(&PidMotorA, EncoderA.AngularVelocity, RobotState.SpeedTargetA);
-    PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, RobotState.SpeedTargetB);
-
-    // --- DODAJ TO: KOMPENSACJA DEADZONE ---
-    // Musisz dobrać eksperymentalnie. Zazwyczaj od 20.0 do 40.0 (zależnie od napięcia i silników)
-    // To jest wartość PID/PWM, przy której koła położone na ziemi zaczynają się kręcić.
-    float MIN_PWM = 20.0f;
-
-    // Dla silnika A
-    if (PidMotorAPidValue > 0.1f)       PidMotorAPidValue += MIN_PWM;
-    else if (PidMotorAPidValue < -0.1f) PidMotorAPidValue -= MIN_PWM;
-
-    // Dla silnika B
-    if (PidMotorBPidValue > 0.1f)       PidMotorBPidValue += MIN_PWM;
-    else if (PidMotorBPidValue < -0.1f) PidMotorBPidValue -= MIN_PWM;
-    // --------------------------------------
-
-    uint8_t DirA, DirB;
-
-    // Logika kierunku (bez zmian)
-    if(PidMotorAPidValue > 0) DirA = 1;
-    else DirA = 0;
-
-    if(PidMotorBPidValue > 0) DirB = 0;
-    else DirB = 1;
-
-    // Mapowanie na PWM
-    float PwmMotorA = MapValues(EncoderMaxValue, PidMotorAPidValue);
-    float PwmMotorB = MapValues(EncoderMaxValue, PidMotorBPidValue);
-
-    Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
-    Motor_SetRideParameters(&MotorB, PwmMotorB, DirB);
-
-    Motor_Ride(&MotorA);
-    Motor_Ride(&MotorB);
-}
-*/
 void SteeringValueForMotors(void)
 {
 	RobotState.AnglePitch = Pitch;

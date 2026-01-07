@@ -1,4 +1,1 @@
-2026-01-04 19:16:19,812 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
-2026-01-04 19:16:19,822 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
-2026-01-04 19:16:19,823 [ERROR] ConfigurationRetriever:142 - IOException on connection: sw-center.st.com
-2026-01-04 19:16:21,179 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2026-01-08 00:15:44,550 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 

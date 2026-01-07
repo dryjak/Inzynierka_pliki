@@ -27,25 +27,25 @@ Idx Name          Size      VMA       LMA       File off  Algn
                   ALLOC
  11 .ARM.attributes 00000030  00000000  00000000  0000f1d4  2**0
                   CONTENTS, READONLY
- 12 .debug_info   00018d72  00000000  00000000  0000f204  2**0
+ 12 .debug_info   00018d69  00000000  00000000  0000f204  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 13 .debug_abbrev 000033ff  00000000  00000000  00027f76  2**0
+ 13 .debug_abbrev 00003401  00000000  00000000  00027f6d  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 14 .debug_aranges 000014f0  00000000  00000000  0002b378  2**3
+ 14 .debug_aranges 000014f0  00000000  00000000  0002b370  2**3
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 15 .debug_rnglists 00001054  00000000  00000000  0002c868  2**0
+ 15 .debug_rnglists 00001054  00000000  00000000  0002c860  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 16 .debug_macro  00028ba8  00000000  00000000  0002d8bc  2**0
+ 16 .debug_macro  00028ba8  00000000  00000000  0002d8b4  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 17 .debug_line   0001a443  00000000  00000000  00056464  2**0
+ 17 .debug_line   0001a443  00000000  00000000  0005645c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 18 .debug_str    00101683  00000000  00000000  000708a7  2**0
+ 18 .debug_str    00101683  00000000  00000000  0007089f  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 19 .comment      00000043  00000000  00000000  00171f2a  2**0
+ 19 .comment      00000043  00000000  00000000  00171f22  2**0
                   CONTENTS, READONLY
- 20 .debug_frame  00006ff4  00000000  00000000  00171f70  2**2
+ 20 .debug_frame  00006ff4  00000000  00000000  00171f68  2**2
                   CONTENTS, READONLY, DEBUGGING, OCTETS
- 21 .debug_line_str 00000065  00000000  00000000  00178f64  2**0
+ 21 .debug_line_str 00000065  00000000  00000000  00178f5c  2**0
                   CONTENTS, READONLY, DEBUGGING, OCTETS
 
 Disassembly of section .text:
@@ -2281,10 +2281,10 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
  8001754:	42830000 	.word	0x42830000
 
 08001758 <SetAngle>:
-#include <math.h>
-
-#define PI 3.14159265
-
+	Set servo angle by changing PWM duty cycle
+	Mode: 1 - direction right, 0 - direction left
+	Angle: target angle
+ */
 void SetAngle(uint16_t Angle, uint8_t Mode)
 {
  8001758:	b480      	push	{r7}
@@ -2295,7 +2295,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
  8001762:	80fb      	strh	r3, [r7, #6]
  8001764:	4613      	mov	r3, r2
  8001766:	717b      	strb	r3, [r7, #5]
-
+	// Limits saturation
 	if(Angle < AngleMin)
 	{
 		Angle = AngleMin;
@@ -2309,7 +2309,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
  8001770:	f44f 7361 	mov.w	r3, #900	@ 0x384
  8001774:	80fb      	strh	r3, [r7, #6]
 	}
-
+	// calculate PWM duty cycle
 	if(Mode)
  8001776:	797b      	ldrb	r3, [r7, #5]
  8001778:	2b00      	cmp	r3, #0
@@ -2344,7 +2344,7 @@ void SetAngle(uint16_t Angle, uint8_t Mode)
  80017b4:	f203 736c 	addw	r3, r3, #1900	@ 0x76c
  80017b8:	81fb      	strh	r3, [r7, #14]
 	}
-
+	// change duty cycle to calculated value, update CCR register
 	__HAL_TIM_SET_COMPARE(&WhichTimer, TimerChannel,Tmp);
  80017ba:	4b06      	ldr	r3, [pc, #24]	@ (80017d4 <SetAngle+0x7c>)
  80017bc:	681b      	ldr	r3, [r3, #0]
@@ -2743,37 +2743,40 @@ int main(void)
   MX_NVIC_Init();
  8001a08:	f000 f86d 	bl	8001ae6 <MX_NVIC_Init>
   /* USER CODE BEGIN 2 */
+  // Initialize MPU6050 module
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
  8001a0c:	2268      	movs	r2, #104	@ 0x68
  8001a0e:	490c      	ldr	r1, [pc, #48]	@ (8001a40 <main+0x58>)
  8001a10:	480c      	ldr	r0, [pc, #48]	@ (8001a44 <main+0x5c>)
  8001a12:	f7ff fb2d 	bl	8001070 <MPU6050_Init>
 
-  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);		//Servo
+  // Start PWM for servo motor
+  HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
  8001a16:	2100      	movs	r1, #0
  8001a18:	480b      	ldr	r0, [pc, #44]	@ (8001a48 <main+0x60>)
  8001a1a:	f003 f87f 	bl	8004b1c <HAL_TIM_PWM_Start>
-  HAL_TIM_Base_Start_IT(&htim1);				//Zegar 0.1s
+  // Start interrupts for sampling (10Hz)
+  HAL_TIM_Base_Start_IT(&htim1);
  8001a1e:	480b      	ldr	r0, [pc, #44]	@ (8001a4c <main+0x64>)
  8001a20:	f002 ff42 	bl	80048a8 <HAL_TIM_Base_Start_IT>
-	  */
+  while (1)
+  {
+	// Motion Sequence
 
-	  // --- Wykonujemy sekwencję ruchów ---
-
-	// 1. Skok (Step Response)
+	// 1. Step Response (0 -> 30deg -> 0)
 	Motion_StepResponse();
  8001a24:	f000 f906 	bl	8001c34 <Motion_StepResponse>
 
-	// 2. Trójkąt
-	Motion_Triangle(10); // 10ms opóźnienia na krok
+	// 2. Triangle Wave
+	Motion_Triangle(10);
  8001a28:	200a      	movs	r0, #10
  8001a2a:	f000 f918 	bl	8001c5e <Motion_Triangle>
 	My_SmartDelay(1000);
  8001a2e:	f44f 707a 	mov.w	r0, #1000	@ 0x3e8
  8001a32:	f000 f8cf 	bl	8001bd4 <My_SmartDelay>
 
-	// 3. Sinusoida
-	Motion_SineHalf(15); // 15ms opóźnienia na krok
+	// 3. Sine Wave
+	Motion_SineHalf(15);
  8001a36:	200f      	movs	r0, #15
  8001a38:	f000 f946 	bl	8001cc8 <Motion_SineHalf>
 	Motion_StepResponse();
@@ -2950,7 +2953,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
  8001b24:	2201      	movs	r2, #1
  8001b26:	701a      	strb	r2, [r3, #0]
 	}
-
 }
  8001b28:	bf00      	nop
  8001b2a:	370c      	adds	r7, #12
@@ -2962,7 +2964,7 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 08001b3c <Check_And_Report>:
 
-// 1. Sprawdza flagę i wysyła UART (wywoływane w pętli czekania)
+// 1. Sent current angle via UART
 void Check_And_Report(void)
 {
  8001b3c:	b5b0      	push	{r4, r5, r7, lr}
@@ -2975,7 +2977,7 @@ void Check_And_Report(void)
  8001b48:	2b01      	cmp	r3, #1
  8001b4a:	d12f      	bne.n	8001bac <Check_And_Report+0x70>
     {
-        InterruptFlag = 0; // Kasujemy flagę
+        InterruptFlag = 0;
  8001b4c:	4b19      	ldr	r3, [pc, #100]	@ (8001bb4 <Check_And_Report+0x78>)
  8001b4e:	2200      	movs	r2, #0
  8001b50:	701a      	strb	r2, [r3, #0]
@@ -2986,7 +2988,7 @@ void Check_And_Report(void)
  8001b58:	481a      	ldr	r0, [pc, #104]	@ (8001bc4 <Check_And_Report+0x88>)
  8001b5a:	f7ff fbed 	bl	8001338 <MPU6050_Angle>
         char buffer[32];
-        // Wysyłamy kąt (dzielimy przez 10, zeby miec stopnie, np. 30.0)
+        // Send angle (devide 10 to get angle)
         int len = sprintf(buffer, "%.3f, %.3f\r\n", CurrentAngle / 10.0f, Roll);
  8001b5e:	4b1a      	ldr	r3, [pc, #104]	@ (8001bc8 <Check_And_Report+0x8c>)
  8001b60:	881b      	ldrh	r3, [r3, #0]
@@ -3035,7 +3037,7 @@ void Check_And_Report(void)
 
 08001bd4 <My_SmartDelay>:
 
-// 2. Inteligentne czekanie (nie blokuje UARTu)
+// 2. Function to wait without blocking code
 void My_SmartDelay(uint32_t delay_ms)
 {
  8001bd4:	b580      	push	{r7, lr}
@@ -3048,7 +3050,7 @@ void My_SmartDelay(uint32_t delay_ms)
     while ((HAL_GetTick() - startTick) < delay_ms)
  8001be2:	e001      	b.n	8001be8 <My_SmartDelay+0x14>
     {
-        Check_And_Report(); // Sprawdzaj UART w czasie czekania
+        Check_And_Report();
  8001be4:	f7ff ffaa 	bl	8001b3c <Check_And_Report>
     while ((HAL_GetTick() - startTick) < delay_ms)
  8001be8:	f000 fcda 	bl	80025a0 <HAL_GetTick>
@@ -3069,7 +3071,7 @@ void My_SmartDelay(uint32_t delay_ms)
 
 08001c04 <SetAngle_WithGlobalUpdate>:
 
-// 3. Wrapper ustawiający kąt i aktualizujący zmienną globalną
+// 3. Set angle
 void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
 {
  8001c04:	b580      	push	{r7, lr}
@@ -3084,7 +3086,7 @@ void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
  8001c14:	4a06      	ldr	r2, [pc, #24]	@ (8001c30 <SetAngle_WithGlobalUpdate+0x2c>)
  8001c16:	88fb      	ldrh	r3, [r7, #6]
  8001c18:	8013      	strh	r3, [r2, #0]
-    SetAngle(Angle, Mode); // Wywołanie z biblioteki SerwoSimple
+    SetAngle(Angle, Mode); //Servo liblary
  8001c1a:	797a      	ldrb	r2, [r7, #5]
  8001c1c:	88fb      	ldrh	r3, [r7, #6]
  8001c1e:	4611      	mov	r1, r2
@@ -3100,13 +3102,12 @@ void SetAngle_WithGlobalUpdate(uint16_t Angle, uint8_t Mode)
 
 08001c34 <Motion_StepResponse>:
 
-// --- FUNKCJE RUCHU ---
-
+// Movement functions
 void Motion_StepResponse(void)
 {
  8001c34:	b580      	push	{r7, lr}
  8001c36:	af00      	add	r7, sp, #0
-    // Skok do 30 stopni (wartość 300)
+    // Go to 30deg and wait
     SetAngle_WithGlobalUpdate(300, 1);
  8001c38:	2101      	movs	r1, #1
  8001c3a:	f44f 7096 	mov.w	r0, #300	@ 0x12c
@@ -3115,7 +3116,7 @@ void Motion_StepResponse(void)
  8001c42:	f640 30b8 	movw	r0, #3000	@ 0xbb8
  8001c46:	f7ff ffc5 	bl	8001bd4 <My_SmartDelay>
 
-    // Powrót do 0
+    // Go back to 0 deg
     SetAngle_WithGlobalUpdate(0, 1);
  8001c4a:	2101      	movs	r1, #1
  8001c4c:	2000      	movs	r0, #0
@@ -3136,7 +3137,7 @@ void Motion_Triangle(uint8_t speedDelay)
  8001c62:	af00      	add	r7, sp, #0
  8001c64:	4603      	mov	r3, r0
  8001c66:	71fb      	strb	r3, [r7, #7]
-    // Narastanie
+    // Increasing angle
     for(uint16_t i = 0; i <= 300; i+=5) {
  8001c68:	2300      	movs	r3, #0
  8001c6a:	81fb      	strh	r3, [r7, #14]
@@ -3158,7 +3159,7 @@ void Motion_Triangle(uint8_t speedDelay)
  8001c88:	f5b3 7f96 	cmp.w	r3, #300	@ 0x12c
  8001c8c:	d9ef      	bls.n	8001c6e <Motion_Triangle+0x10>
     }
-    // Opadanie
+    // Decreasing angle
     for(uint16_t i = 300; i > 0; i-=5) {
  8001c8e:	f44f 7396 	mov.w	r3, #300	@ 0x12c
  8001c92:	81bb      	strh	r3, [r7, #12]
@@ -3202,7 +3203,7 @@ void Motion_SineHalf(uint8_t speedDelay)
  8001cce:	4603      	mov	r3, r0
  8001cd0:	71fb      	strb	r3, [r7, #7]
     float x;
-    uint16_t amplitude = 300; // 30 stopni
+    uint16_t amplitude = 300; // 30 deg
  8001cd2:	f44f 7396 	mov.w	r3, #300	@ 0x12c
  8001cd6:	827b      	strh	r3, [r7, #18]
 
