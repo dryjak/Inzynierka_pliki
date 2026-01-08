@@ -285,7 +285,7 @@ int main(void)
 	  	  {
 
 		  EncoderCallback = 0;
-		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+//		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  //MeasureTilt();
 		  //MoveMotors();
 		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
@@ -295,14 +295,14 @@ int main(void)
 		  //TestMotorAndEncoderA();
 		  //TestMotorAndEncoderB();
 
-		  SteeringValueForMotors();
-		  MoveMotors();
+//		  SteeringValueForMotors();
+//		  MoveMotors();
 
-		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
-		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
+		  MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
+		  MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
-		  sprintf(Message, "%.3f\n", Roll);
-		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
+//		  sprintf(Message, "%.3f\n", Roll);
+//		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }
 /*

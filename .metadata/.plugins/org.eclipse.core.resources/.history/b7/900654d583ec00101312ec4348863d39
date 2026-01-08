@@ -29,13 +29,13 @@
 
 // Calibration Offsets (Calculated for specific hardware)
 // There is function below to calibrate your MPU6050
-#define ACCEL_OFFSET_X		-743.359985
-#define ACCEL_OFFSET_Y		-10.5200005
-#define ACCEL_OFFSET_Z		882.660156
+#define ACCEL_OFFSET_X		-621.659973
+#define ACCEL_OFFSET_Y		-218.160004
+#define ACCEL_OFFSET_Z		866.640625
 
-#define GYRO_OFFSET_X		-92.6050034
-#define GYRO_OFFSET_Y		-54.0999985
-#define GYRO_OFFSET_Z		-288.265015
+#define GYRO_OFFSET_X		-86.4550018
+#define GYRO_OFFSET_Y		-58.5900002
+#define GYRO_OFFSET_Z		-310.559998
 
 // Structure to store floating point sensor data (X, Y, Z)
 typedef struct
