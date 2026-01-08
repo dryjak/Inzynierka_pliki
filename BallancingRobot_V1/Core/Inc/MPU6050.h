@@ -22,6 +22,7 @@
 #define ACCEL_CONFIG 		0x1C
 #define ACCEL_XOUT_H		0x3B
 #define GYRO_XOUT_H			0x43
+#define CONFIG				0x1A
 
 // Configuration Constants
 #define MPU6050_TIMEOUT 	100

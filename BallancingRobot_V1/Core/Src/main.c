@@ -81,9 +81,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 25.0f;
+float AngleP = 20.0f;
 float AngleI = 0.0f;
-float AngleD = 0.21f;
+float AngleD = 0.5f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -210,7 +210,7 @@ int main(void)
 
 
 
-  RobotState.TargetAngle = -2.42f;
+  RobotState.TargetAngle = -1.22f;
   HAL_Delay(1000);
   /* USER CODE END 2 */
 

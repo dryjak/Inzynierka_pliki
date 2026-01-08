@@ -85,7 +85,17 @@ MPU6050_STATE_t MPU6050_WakeUp(MPU6050_t *MPU6050)	//Waking up MPU6050 from slee
     Value &= ~(1 << 5);  // disable cycle
     Value |= (1 << 3);   // disable temperature sensor
 
-    return Write8(MPU6050, PWR_MGMT_1, Value);
+    Value &= ~0x07;
+    Value |= 0x01;
+
+    Write8(MPU6050, PWR_MGMT_1, Value);
+
+    Value = Read8(MPU6050, CONFIG);
+    Value &= ~((1 << 3) | (1 << 4) | (1 << 5)); // disable external sync
+    Value &= ~0x07;
+    Value |= ((1 << 1) | (1 << 0)); // set LPF to reduce noise
+
+    return Write8(MPU6050, CONFIG, Value);
 }
 
 //Calculates Roll and Pitch angles based on Accelerometer data

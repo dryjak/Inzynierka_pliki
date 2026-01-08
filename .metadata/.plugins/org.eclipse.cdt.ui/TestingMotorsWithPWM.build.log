@@ -1,4 +1,4 @@
-12:19:35 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
+14:25:07 **** Incremental Build of configuration Debug for project TestingMotorsWithPWM ****
 make -j12 all 
 arm-none-eabi-size  TestingMotorsWithPWM.elf 
    text	   data	    bss	    dec	    hex	filename
@@ -6,5 +6,5 @@ arm-none-eabi-size  TestingMotorsWithPWM.elf
 Finished building: default.size.stdout
  
 
-12:19:36 Build Finished. 0 errors, 0 warnings. (took 672ms)
+14:25:08 Build Finished. 0 errors, 0 warnings. (took 627ms)
 

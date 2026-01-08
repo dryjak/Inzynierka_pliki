@@ -1,21 +1,17 @@
-12:19:30 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+14:36:35 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
 make -j12 all 
-arm-none-eabi-gcc "../Core/Src/MPU6050.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/MPU6050.d" -MT"Core/Src/MPU6050.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/MPU6050.o"
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-../Core/Src/MPU6050.c:169:16: warning: 'Read16' defined but not used [-Wunused-function]
-  169 | static int16_t Read16(MPU6050_t *MPU6050, uint8_t Register)
-      |                ^~~~~~
 arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: BallancingRobot_V1.elf
  
 arm-none-eabi-size  BallancingRobot_V1.elf 
 arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
    text	   data	    bss	    dec	    hex	filename
-  46992	    496	   2808	  50296	   c478	BallancingRobot_V1.elf
+  47056	    496	   2808	  50360	   c4b8	BallancingRobot_V1.elf
 Finished building: default.size.stdout
  
 Finished building: BallancingRobot_V1.list
  
 
-12:19:32 Build Finished. 0 errors, 1 warnings. (took 2s.166ms)
+14:36:38 Build Finished. 0 errors, 0 warnings. (took 2s.303ms)
 
