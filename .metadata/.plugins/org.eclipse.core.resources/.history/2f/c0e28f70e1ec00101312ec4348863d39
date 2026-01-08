@@ -81,9 +81,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 28.0f;
-float AngleI = 0.3f;
-float AngleD = 0.7f;
+float AngleP = 25.0f;
+float AngleI = 0.0f;
+float AngleD = 0.65f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
