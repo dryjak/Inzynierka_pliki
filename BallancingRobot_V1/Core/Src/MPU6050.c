@@ -156,7 +156,7 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
 //Combines high-pass filtered gyro data with low-pass filtered accel data.
 static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel)
 {
-    const float alpha = 0.98f;
+    const float alpha = 0.99f;
     *roll  = alpha * (*roll)  + (1.0f - alpha) * roll_accel;
     *pitch = alpha * (*pitch) + (1.0f - alpha) * pitch_accel;
 }
@@ -216,7 +216,6 @@ static MPU6050_STATE_t MPU6050_ReadAccelerationRaw(MPU6050_t *MPU6050, DataRaw_t
 static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Accelerations)
 {
     DataRaw_t Raw = {0};
-    MPU6050_ReadAccelerationRaw(MPU6050, &Raw);
 
     if(MPU6050_ReadAccelerationRaw(MPU6050, &Raw) != MPU6050_OK)
     {

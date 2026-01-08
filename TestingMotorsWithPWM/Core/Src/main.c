@@ -231,19 +231,19 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 		uint8_t direction;
 
-		//checking sign of pid value
+		// Checking sign of pid value
 		if (EncoderRightPidValue >= 0)
 		{
-			direction = 1; //Forward
+			direction = 1; // Forward
 			pwmInput = EncoderRightPidValue;
 		}
 		else
 		{
-			direction = 0; //Backwards
+			direction = 0; // Backwards
 			pwmInput = -EncoderRightPidValue;
 		}
 
-		//RMP to pwm percent
+		// RMP to pwm percent
 		float PidValueForMotorPercent = MapValues(EncoderMaxValue, EncoderRightPidValue);
 
 		Motor_SetRideParameters(&Motor, PidValueForMotorPercent, direction);
@@ -254,10 +254,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 }
 float MapValues(float MaxValue, float InputValue)
 {
-    // Obliczamy procent mocy (wartość bezwzględna, bo PWM jest zawsze dodatni)
+    // Calculate new value
     float pwmPercent = (fabsf(InputValue) * 100.0f) / MaxValue;
 
-    // Zabezpieczenie przed przekroczeniem 100%
+    // Saturation check
     if(pwmPercent > 100.0f) return 100.0f;
     return pwmPercent;
 }

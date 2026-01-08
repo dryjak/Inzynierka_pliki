@@ -81,9 +81,9 @@ float PidMotorAPidValue, PidMotorBPidValue;
 
 //initialize MPU6050
 PID_t PidAngle;
-float AngleP = 20.0f;
-float AngleI = 0.0f;
-float AngleD = 0.5f;
+float AngleP = 32.0f;
+float AngleI = 2.0f;
+float AngleD = 0.0f;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
@@ -115,6 +115,8 @@ uint8_t Counter = 0;
 
 float Test_PWM_Value = 1.0f; // Zmienna do testów
 
+volatile float VelocityFromRegulator;
+volatile float VelocityRead;
 //printing via uart
 char Message[128];
 /* USER CODE END PV */
@@ -210,7 +212,7 @@ int main(void)
 
 
 
-  RobotState.TargetAngle = -1.22f;
+  RobotState.TargetAngle = -0.8f;
   HAL_Delay(1000);
   /* USER CODE END 2 */
 
@@ -301,7 +303,7 @@ int main(void)
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
-		  sprintf(Message, "%.3f\n", Roll);
+		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, EncoderB.AngularVelocity, RobotState.SpeedTargetB);
 		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }
@@ -409,7 +411,8 @@ void TestMotorAndEncoderB(void)
 	Encoder_Update(&EncoderB);	//obliczam ilość pulsów enkodera
 
 	PidMotorBPidValue = PID_Compute(&PidMotorB, EncoderB.AngularVelocity, RobotState.SpeedTargetB);	//obliczam wartość regulatora do uzyskania zadanej prędkości
-
+	VelocityFromRegulator = RobotState.SpeedTargetB;
+	VelocityRead = EncoderB.AngularVelocity;
 	uint8_t DirB = 0;
 
 	if(PidMotorBPidValue > 0)	//dobór kierunku
