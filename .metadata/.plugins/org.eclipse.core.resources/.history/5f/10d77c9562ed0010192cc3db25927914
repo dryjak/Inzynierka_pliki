@@ -70,12 +70,12 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-//Initializing motors
+//initializing motors
 Motor_t MotorA, MotorB;
 uint8_t MotorA_PWM, MotorB_PWM;
 uint8_t MotorA_Dir, MotorB_Dir;
 
-//Initializing encoders
+//initializing encoders
 Encoder_t EncoderA, EncoderB;
 float EncoderA_Speed, EncoderB_Speed;
 
@@ -214,15 +214,25 @@ int main(void)
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  RobotState.AnglePitch = Pitch;
-		  /*
 		  Counter++;
 		  if(Counter > 4)
 		  {
 			  Counter = 0;
 			  SpeedControl();
 		  }
-		  */
 		  AngleControl();
+		  //MeasureTilt();
+		  //MoveMotors();
+		  //Motor_SetRideParameters(&MotorA, PwmMotorA, DirA);
+		  //void TestMotorAndEncoderA(void);
+
+		  //TestPidAngleB();
+		  //TestMotorAndEncoderA();
+		  //TestMotorAndEncoderB();
+
+//		  SteeringValueForMotors();
+//		  MoveMotors();
+
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
