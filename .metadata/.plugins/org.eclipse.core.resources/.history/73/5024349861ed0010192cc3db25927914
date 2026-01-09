@@ -92,8 +92,3 @@ int8_t Signum(float Value)
 	if (Value < 0.0f) return -1;
 	return 0;
 }
-void PID_Reset(PID_t *Pid)
-{
-    Pid->Integrator = 0.0f;       // Zerowanie sumy uchybów (człon I)
-    Pid->LastError = 0.0f;   // Zerowanie poprzedniego błędu (człon D)
-}

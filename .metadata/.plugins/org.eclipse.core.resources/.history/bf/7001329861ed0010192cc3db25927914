@@ -37,6 +37,6 @@ float PID_Compute(PID_t *Pid, float MeasuredValue, float SetValue);
 
 //Helper function to determine the sign of a variable
 int8_t Signum(float Value);
-void PID_Reset(PID_t *Pid);
+
 
 #endif /* INC_PID_H_ */
