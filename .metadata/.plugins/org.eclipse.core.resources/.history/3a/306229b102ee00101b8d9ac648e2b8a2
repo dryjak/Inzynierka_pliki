@@ -43,11 +43,10 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ENCODER_PULSES_PER_REV 1320
-#define ENCODER_DT  0.01f  	// 10ms = 0.01s
+#define ENCODER_DT  0.01f  // 10ms = 0.01s
 #define ANGLE_DT    0.01f	//same as encoderDt
 
-#define MIN_PWM_A  11.0f  	// Silnik A rusza przy 11
-#define MIN_PWM_B  6.0f 	// Silnik B rusza przy 6
+
 //PID ANGLE
 #define PID_ANGLE_P 1.0f
 #define PID_ANGLE_I 0
@@ -233,8 +232,8 @@ int main(void)
 		  for( i =0; i < 15; i++)
 		  {
 
-			  Motor_SetRideParameters(&MotorA, i, 0);
-			  Motor_Ride(&MotorA);
+			  Motor_SetRideParameters(&MotorB, i, 0);
+			  Motor_Ride(&MotorB);
 			  HAL_Delay(2000);
 		  }
 
@@ -356,23 +355,6 @@ void AngleControl(void)
 	float PidPwmOutput = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
     RobotState.PwmOutput = PidPwmOutput;
 
-    //saturation defense
-    float AbsPid = fabsf(PidPwmOutput);
-    float PwmA = 0;
-    float PwmB = 0;
-
-    // Jeśli regulator w ogóle chce ruszyć silniki (jest powyżej szumu)
-    if (AbsPid > 1.0f)
-    {
-        // Dodajemy "skok startowy" do każdego silnika osobno
-        PwmA = AbsPid + MIN_PWM_A;
-        PwmB = AbsPid + MIN_PWM_B;
-
-        // Zabezpieczenie przed przekroczeniem MAX (np. 1000 lub 100%)
-        if(PwmA > PwmMaxValue) PwmA = PwmMaxValue;
-        if(PwmB > PwmMaxValue) PwmB = PwmMaxValue;
-    }
-
     uint8_t DirA, DirB;
     float PwmPercent;
 
@@ -390,8 +372,8 @@ void AngleControl(void)
     }
     PwmPercent = MapValues(PwmMaxValue, PidPwmOutput);
 
-	Motor_SetRideParameters(&MotorA, PwmA, DirA);
-	Motor_SetRideParameters(&MotorB, PwmB, DirB);
+	Motor_SetRideParameters(&MotorA, PwmPercent, DirA);
+	Motor_SetRideParameters(&MotorB, PwmPercent, DirB);
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
 }
