@@ -46,7 +46,7 @@
 #define ENCODER_DT  0.005f  	// 10ms = 0.01s
 #define ANGLE_DT    0.005f	//same as encoderDt
 
-#define MIN_PWM_A  118.0f  	// Silnik A rusza przy 11
+#define MIN_PWM_A  118f  	// Silnik A rusza przy 11
 #define MIN_PWM_B  64.5f 	// Silnik B rusza przy 6
 #define PWM_MAX_VALUE 1000.0
 //PID ANGLE

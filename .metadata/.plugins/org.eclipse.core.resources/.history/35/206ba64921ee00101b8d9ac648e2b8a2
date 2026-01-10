@@ -46,9 +46,8 @@
 #define ENCODER_DT  0.005f  	// 10ms = 0.01s
 #define ANGLE_DT    0.005f	//same as encoderDt
 
-#define MIN_PWM_A  118.0f  	// Silnik A rusza przy 11
-#define MIN_PWM_B  64.5f 	// Silnik B rusza przy 6
-#define PWM_MAX_VALUE 1000.0
+#define MIN_PWM_A  10.0f  	// Silnik A rusza przy 11
+#define MIN_PWM_B  6.0f 	// Silnik B rusza przy 6
 //PID ANGLE
 #define PID_ANGLE_P 1.0f
 #define PID_ANGLE_I 0
@@ -83,6 +82,7 @@ float EncoderA_Speed, EncoderB_Speed;
 
 //PID regulator for steering motors speed with MPU6050
 PID_t PidSpeed;
+float PwmMaxValue = 100;
 float AngleMaxFromRegulator = 5.0f;
 
 float EncoderMaxValue = 360.0;
@@ -196,7 +196,7 @@ int main(void)
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
   //initializing PID for Angle and Velociity
-  PID_Init(&PidAngle, PID_ANGLE_P, PID_ANGLE_I, PID_ANGLE_D, ANGLE_DT , PWM_MAX_VALUE, -PWM_MAX_VALUE);
+  PID_Init(&PidAngle, PID_ANGLE_P, PID_ANGLE_I, PID_ANGLE_D, ANGLE_DT , PwmMaxValue, -PwmMaxValue);
   PID_Init(&PidSpeed, PID_SPEED_P, PID_SPEED_I, PID_SPEED_D, 4 * ANGLE_DT, EncoderMaxValue, EncoderMinValue);
 
   HAL_TIM_Base_Start_IT(&htim4);
@@ -214,9 +214,9 @@ int main(void)
   {
 	  if (EncoderCallback == 1)
 	  	  {
-	//	  EncoderCallback = 0;
-	//	  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-	//	  RobotState.AnglePitch = Pitch;
+		  EncoderCallback = 0;
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  RobotState.AnglePitch = Pitch;
 		  /*
 		  Counter++;
 		  if(Counter > 4)
@@ -225,20 +225,20 @@ int main(void)
 			  SpeedControl();
 		  }
 		  */
-	//	  AngleControl();
+		  AngleControl();
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
-
+		 /*
 		  //function to test deadzone
-		  for( i = 100; i < 150; i++)
+		  for( i =0; i < 15; i++)
 		  {
 
 			  Motor_SetRideParameters(&MotorA, i, 0);
 			  Motor_Ride(&MotorA);
 			  HAL_Delay(2000);
 		  }
-
+		*/
 //		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, EncoderB.AngularVelocity, RobotState.SpeedTargetB);
 //		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
@@ -342,7 +342,6 @@ void SpeedControl(void)
 }
 void AngleControl(void)
 {
-	//sprawdzam czy robot za bardzo sie nie wychylił
 	if(fabs(RobotState.AnglePitch) > 27.0f)
 	{
 		Motor_SetRideParameters(&MotorA, 0, 0);
@@ -359,8 +358,7 @@ void AngleControl(void)
     RobotState.PwmOutput = PidPwmOutput;
 
     //saturation defense
-    float PwmMapped = MapValues(PWM_MAX_VALUE, PidPwmOutput);
-    float AbsPid = fabsf(PwmMapped);
+    float AbsPid = fabsf(PidPwmOutput);
     float PwmA = 0;
     float PwmB = 0;
 
@@ -372,22 +370,26 @@ void AngleControl(void)
         PwmB = AbsPid + MIN_PWM_B;
 
         // Zabezpieczenie przed przekroczeniem MAX (np. 1000 lub 100%)
-        if(PwmA > PWM_MAX_VALUE) PwmA = PWM_MAX_VALUE;
-        if(PwmB > PWM_MAX_VALUE) PwmB = PWM_MAX_VALUE;
+        if(PwmA > PwmMaxValue) PwmA = PwmMaxValue;
+        if(PwmB > PwmMaxValue) PwmB = PwmMaxValue;
     }
 
-    // Ustalanie kierunku
     uint8_t DirA, DirB;
+    float PwmPercent;
+
+    // Ustalanie kierunku
+    // Zakładamy, że dodatni PWM ma jechać "do przodu" (pod robotem), żeby go wyprostować
     if(PidPwmOutput < 0)
     {
-    	DirA = 1; // Przód
-    	DirB = 0; // Przód
+    	DirA = 1; // Przód (Sprawdź swoje definicje!)
+    	DirB = 0; // Przód (Często jeden silnik jest obrócony, więc 0/1 mogą być różne)
     }
     else
     {
     	DirA = 0; // Tył
     	DirB = 1; // Tył
     }
+    PwmPercent = MapValues(PwmMaxValue, PidPwmOutput);
 
 	Motor_SetRideParameters(&MotorA, PwmA, DirA);
 	Motor_SetRideParameters(&MotorB, PwmB, DirB);

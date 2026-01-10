@@ -46,8 +46,8 @@
 #define ENCODER_DT  0.005f  	// 10ms = 0.01s
 #define ANGLE_DT    0.005f	//same as encoderDt
 
-#define MIN_PWM_A  118.0f  	// Silnik A rusza przy 11
-#define MIN_PWM_B  64.5f 	// Silnik B rusza przy 6
+#define MIN_PWM_A  0.0f  	// Silnik A rusza przy 11
+#define MIN_PWM_B  0.0f 	// Silnik B rusza przy 6
 #define PWM_MAX_VALUE 1000.0
 //PID ANGLE
 #define PID_ANGLE_P 1.0f
@@ -231,11 +231,11 @@ int main(void)
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 		  //function to test deadzone
-		  for( i = 100; i < 150; i++)
+		  for( i = 60; i < 150; i++)
 		  {
 
-			  Motor_SetRideParameters(&MotorA, i, 0);
-			  Motor_Ride(&MotorA);
+			  Motor_SetRideParameters(&MotorB, i, 0);
+			  Motor_Ride(&MotorB);
 			  HAL_Delay(2000);
 		  }
 

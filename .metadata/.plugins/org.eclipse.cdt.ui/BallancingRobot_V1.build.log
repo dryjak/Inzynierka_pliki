@@ -1,31 +1,17 @@
-13:35:40 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
+14:07:41 **** Incremental Build of configuration Debug for project BallancingRobot_V1 ****
 make -j12 all 
 arm-none-eabi-gcc "../Core/Src/main.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/main.d" -MT"Core/Src/main.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/main.o"
-arm-none-eabi-gcc "../Core/Src/motor_simple.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/motor_simple.d" -MT"Core/Src/motor_simple.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/motor_simple.o"
-arm-none-eabi-gcc "../Core/Src/tim.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F411xE -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/tim.d" -MT"Core/Src/tim.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/tim.o"
-In file included from ../Core/Src/motor_simple.c:9:
-../Core/Src/motor_simple.c: In function 'Motor_SetRideParameters':
-../Core/Inc/motor_simple.h:18:29: warning: unsigned conversion from 'int' to 'uint8_t' {aka 'unsigned char'} changes value from '1000' to '232' [-Woverflow]
-   18 | #define MOTOR_PWM_MAX       1000
-      |                             ^~~~
-../Core/Src/motor_simple.c:16:35: note: in expansion of macro 'MOTOR_PWM_MAX'
-   16 |                 Motor->MotorPWM = MOTOR_PWM_MAX;
-      |                                   ^~~~~~~~~~~~~
-../Core/Src/main.c: In function 'AngleControl':
-../Core/Src/main.c:378:11: warning: variable 'PwmPercent' set but not used [-Wunused-but-set-variable]
-  378 |     float PwmPercent;
-      |           ^~~~~~~~~~
 arm-none-eabi-gcc -o "BallancingRobot_V1.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\GithubRepo\Inzynierka_pliki\BallancingRobot_V1\STM32F411CEUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BallancingRobot_V1.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -u _printf_float -u _scanf_float -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: BallancingRobot_V1.elf
  
 arm-none-eabi-size  BallancingRobot_V1.elf 
 arm-none-eabi-objdump -h -S BallancingRobot_V1.elf  > "BallancingRobot_V1.list"
    text	   data	    bss	    dec	    hex	filename
-  45744	    480	   2616	  48840	   bec8	BallancingRobot_V1.elf
+  42608	    476	   2608	  45692	   b27c	BallancingRobot_V1.elf
 Finished building: default.size.stdout
  
 Finished building: BallancingRobot_V1.list
  
 
-13:35:42 Build Finished. 0 errors, 2 warnings. (took 2s.50ms)
+14:07:43 Build Finished. 0 errors, 0 warnings. (took 1s.944ms)
 
