@@ -26,7 +26,7 @@
 
 // Configuration Constants
 #define MPU6050_TIMEOUT 	100
-#define DT					0.005
+#define DT					0.01
 
 // Calibration Offsets (Calculated for specific hardware)
 // There is function below to calibrate your MPU6050

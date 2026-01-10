@@ -1,8 +1,8 @@
 ../Core/Src/main.c:145:5:main	24	static
-../Core/Src/main.c:257:6:SystemClock_Config	88	static
-../Core/Src/main.c:302:13:MX_NVIC_Init	8	static
-../Core/Src/main.c:310:6:HAL_TIM_PeriodElapsedCallback	16	static
-../Core/Src/main.c:320:7:MapValues	24	static
-../Core/Src/main.c:329:6:SpeedControl	16	static
-../Core/Src/main.c:342:6:AngleControl	40	static
-../Core/Src/main.c:405:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:258:6:SystemClock_Config	88	static
+../Core/Src/main.c:303:13:MX_NVIC_Init	8	static
+../Core/Src/main.c:311:6:HAL_TIM_PeriodElapsedCallback	16	static
+../Core/Src/main.c:321:7:MapValues	24	static
+../Core/Src/main.c:330:6:SpeedControl	16	static
+../Core/Src/main.c:343:6:AngleControl	40	static
+../Core/Src/main.c:406:6:Error_Handler	4	static,ignoring_inline_asm

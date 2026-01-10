@@ -43,8 +43,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ENCODER_PULSES_PER_REV 1320
-#define ENCODER_DT  0.005f  	// 10ms = 0.01s
-#define ANGLE_DT    0.005f	//same as encoderDt
+#define ENCODER_DT  0.01f  	// 10ms = 0.01s
+#define ANGLE_DT    0.01f	//same as encoderDt
 
 #define MIN_PWM_A  10.0f  	// Silnik A rusza przy 11
 #define MIN_PWM_B  6.0f 	// Silnik B rusza przy 6
