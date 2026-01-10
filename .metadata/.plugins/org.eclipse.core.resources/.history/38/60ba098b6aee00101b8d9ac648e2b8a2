@@ -43,22 +43,22 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ENCODER_PULSES_PER_REV 1320
-#define ENCODER_DT  	0.005f  	// 10ms = 0.01s
-#define ANGLE_DT    	0.005f		//same as encoderDt
+#define ENCODER_DT  0.005f  	// 10ms = 0.01s
+#define ANGLE_DT    0.005f	//same as encoderDt
 
-#define PWM_MAX_VALUE 	1000.0
+#define MIN_PWM_A  0.0f  	// Silnik A rusza przy 11
+#define MIN_PWM_B  0.0f 	// Silnik B rusza przy 6
+#define PWM_MAX_VALUE 1000.0
 //PID ANGLE
-#define PID_ANGLE_P 	1.0f
-#define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	0
+#define PID_ANGLE_P 50.0f
+#define PID_ANGLE_I 0
+#define PID_ANGLE_D 0
 
-//PID ENCODER
-#define PID_ENCODER_P 	2.8f
-#define PID_ENCODER_I 	28.0f
-#define PID_ENCODER_D 	0.04f
-#define RPM_MAX			320.0f
-#define ENCODER_MAX		150.0f
-#define ANGLE_MAX		27.0f
+//PIS SPEED
+#define PID_SPEED_P 0
+#define PID_SPEED_I 0
+#define PID_SPEED_D 0
+
 //Compensation for mass center
 #define ANGLE_DUE_TO_MASS_ASIMETRY -0.74f
 
@@ -78,21 +78,27 @@ uint8_t MotorA_PWM, MotorB_PWM;
 uint8_t MotorA_Dir, MotorB_Dir;
 
 //Initializing encoders
-PID_t PidEncoderA, PidEncoderB;
 Encoder_t EncoderA, EncoderB;
+float EncoderA_Speed, EncoderB_Speed;
 
 //PID regulator for steering motors speed with MPU6050
 PID_t PidSpeed;
+float AngleMaxFromRegulator = 5.0f;
+
+float EncoderMaxValue = 360.0;
+float EncoderMinValue = -360.0;
 
 uint8_t EncoderCallback = 0;
 
 //PID regulator for steering velocity with MPU6050 readings
 PID_t PidAngle;
-float CalculatedVelocity;
-float PwmA = 0;
-float PwmB = 0;
-uint8_t DirA, DirB;
-uint8_t AngleFlag;
+volatile float PwmA = 0;
+volatile float PwmB = 0;
+volatile uint8_t DirA, DirB;
+
+float AngleMaxValue = 27.0f;
+float AngleMinValue = -27.0f;
+volatile uint8_t AngleFlag;
 
 MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
@@ -103,31 +109,31 @@ uint8_t TMP;
 
 typedef struct{
 	float AnglePitch;		//measured robot tilt angle
-
-	float MotorSpeedA;
-	float MotorSpeedB;
 	float SpeedCurrent;		//aktualna prędkośc - srednia z dwuch kół
 
 	float TargetAngle;		//target angle of the robot (MASS_SIMETRY + velocity)
-	float MotorSpeedTarget;		//Target speed of the robot
+	float SpeedTarget;		//Target speed of the robot
 
-	float PwmOutputA;		//PWM calculated with PID angle regulator
-	float PwmOutputB;
+	float PwmOutput;		//PWM calculated with PID angle regulator
 }RobotState_t;
 
-RobotState_t RobotState;
+volatile RobotState_t RobotState;
 
 uint8_t Counter = 0;
+
 //printing via uart
 char Message[128];
+
+uint8_t i;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
-void EncoderUpdate(void);
-void BalanceRegulator_PD(void);
+float MapValues(float MaxValue, float InputValue);
+void AngleControl(void);
+void SpeedControl(void);
 void MoveRobot(void);
 
 /* USER CODE END PFP */
@@ -194,17 +200,15 @@ int main(void)
   //initializing mpu6050 module
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
-  //initializing PID for encoders and angle
-  PID_Init(&PidEncoderA, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, ENCODER_MAX, -ENCODER_MAX);
-  PID_Init(&PidEncoderB, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, ENCODER_MAX, -ENCODER_MAX);
-
+  //initializing PID for Angle and Velociity
   PID_Init(&PidAngle, PID_ANGLE_P, PID_ANGLE_I, PID_ANGLE_D, ANGLE_DT , PWM_MAX_VALUE, -PWM_MAX_VALUE);
+  PID_Init(&PidSpeed, PID_SPEED_P, PID_SPEED_I, PID_SPEED_D, 4 * ANGLE_DT, EncoderMaxValue, EncoderMinValue);
 
   HAL_TIM_Base_Start_IT(&htim4);
 
   // Wartości początkowe
   RobotState.TargetAngle = ANGLE_DUE_TO_MASS_ASIMETRY;
-  RobotState.MotorSpeedTarget = 0.0f;
+  RobotState.SpeedTarget = 0.0f;
   HAL_Delay(1000);
 
   /* USER CODE END 2 */
@@ -218,15 +222,30 @@ int main(void)
 		  EncoderCallback = 0;
 		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
 		  RobotState.AnglePitch = Pitch;
-		  EncoderUpdate();
-		  BalanceRegulator_PD();
+		  /*
+		  Counter++;
+		  if(Counter > 4)
+		  {
+			  Counter = 0;
+			  SpeedControl();
+		  }
+		  */
+		  AngleControl();
 		  MoveRobot();
-
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
+		  //function to test deadzone
+		  /*
+		  for( i = 100; i < 150; i++)
+		  {
 
+			  Motor_SetRideParameters(&MotorA, i, 0);
+			  Motor_Ride(&MotorA);
+			  HAL_Delay(2000);
+		  }
+		  */
 
 //		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, EncoderB.AngularVelocity, RobotState.SpeedTargetB);
 //		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
@@ -299,58 +318,80 @@ static void MX_NVIC_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 {
-	if(htim->Instance == TIM4)	//0.005s
+	if(htim->Instance == TIM4)	//0.01s
 	{
 		EncoderCallback = 1;
+		//TestMotorAndEncoderB();
+
 	}
 }
 
-void EncoderUpdate(void)
+float MapValues(float MaxValue, float InputValue)
+{
+    // Obliczamy procent mocy (wartość bezwzględna, bo PWM jest zawsze dodatni)
+    float pwmPercent = (fabsf(InputValue) * 1000.0f) / MaxValue;
+
+    // Zabezpieczenie przed przekroczeniem 100%
+    if(pwmPercent > 1000.0f) return 1000.0f;
+    return pwmPercent;
+}
+void SpeedControl(void)
 {
 	//Update encoders
 	Encoder_Update(&EncoderA);
 	Encoder_Update(&EncoderB);
-
 	//Average speed of the robot
-    RobotState.SpeedCurrent += (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
-    RobotState.MotorSpeedA = EncoderA.AngularVelocity;
-    RobotState.MotorSpeedB = EncoderB.AngularVelocity;
+    RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
+
+    //Calculate speed to correct
+    float SpeedCorrection = PID_Compute(&PidSpeed, RobotState.SpeedCurrent, RobotState.SpeedTarget);
+
+    RobotState.TargetAngle = ANGLE_DUE_TO_MASS_ASIMETRY + SpeedCorrection;
 }
-void BalanceRegulator_PD(void)
+void AngleControl(void)
 {
-	//checking if robot is not tilted
-	if (Pitch > ANGLE_MAX || Pitch < -ANGLE_MAX)
+	//sprawdzam czy robot za bardzo sie nie wychylił
+	if(fabs(RobotState.AnglePitch) > 27.0f)
 	{
 		AngleFlag = 1;
-		return;
 	}
 	else
 	{
 		AngleFlag = 0;
 	}
-	//calculate speed required to get to upright position
-	RobotState.MotorSpeedTarget = -1 *  PID_Compute(&PidAngle, Pitch, ANGLE_DUE_TO_MASS_ASIMETRY);
 
-	//calculate PWM required to get to the desired speed
-	RobotState.PwmOutputA = PID_Compute(&PidEncoderA, RobotState.MotorSpeedA, RobotState.MotorSpeedTarget);
-	RobotState.PwmOutputB = PID_Compute(&PidEncoderB, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
+	float PidPwmOutput = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
+    RobotState.PwmOutput = PidPwmOutput;
 
-	if(RobotState.PwmOutputA > 0)	//dobór kierunku
-	{
-		DirA = 1;	//MotorA - kierunek do przodu
-	}
-	else
-	{
-		DirA = 0;	//MotorA - kierunek do tylu
-	}
-	if(RobotState.PwmOutputB > 0)	//dobór kierunku
-	{
-		DirB = 0;	//MotorB - kierunek do przodu
-	}
-	else
-	{
-		DirB = 1;	//MotorB - kierunek do tylu
-	}
+    //saturation defense
+    float AbsPid = fabsf(PidPwmOutput);
+
+    // Jeśli regulator w ogóle chce ruszyć silniki
+    if (AbsPid > 1.0f)
+    {
+        PwmA = AbsPid + MIN_PWM_A;
+        PwmB = AbsPid + MIN_PWM_B;
+
+        if(PwmA > PWM_MAX_VALUE) PwmA = PWM_MAX_VALUE;
+        if(PwmB > PWM_MAX_VALUE) PwmB = PWM_MAX_VALUE;
+    }
+    else
+    {
+        PwmA = 0;
+        PwmB = 0;
+    }
+
+    // Ustalanie kierunku
+    if(PidPwmOutput < 0)
+    {
+    	DirA = 1; // Przód
+    	DirB = 0; // Przód
+    }
+    else
+    {
+    	DirA = 0; // Tył
+    	DirB = 1; // Tył
+    }
 }
 
 void MoveRobot(void)

@@ -92,7 +92,7 @@ float CalculatedVelocity;
 float PwmA = 0;
 float PwmB = 0;
 uint8_t DirA, DirB;
-uint8_t AngleFlag;
+
 
 MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
@@ -204,7 +204,7 @@ int main(void)
 
   // Wartości początkowe
   RobotState.TargetAngle = ANGLE_DUE_TO_MASS_ASIMETRY;
-  RobotState.MotorSpeedTarget = 0.0f;
+  RobotState.SpeedTarget = 0.0f;
   HAL_Delay(1000);
 
   /* USER CODE END 2 */
@@ -329,7 +329,7 @@ void BalanceRegulator_PD(void)
 		AngleFlag = 0;
 	}
 	//calculate speed required to get to upright position
-	RobotState.MotorSpeedTarget = -1 *  PID_Compute(&PidAngle, Pitch, ANGLE_DUE_TO_MASS_ASIMETRY);
+	RobotState.SpeedTarget = -1 *  PID_Compute(&PidAngle, Pitch, ANGLE_DUE_TO_MASS_ASIMETRY);
 
 	//calculate PWM required to get to the desired speed
 	RobotState.PwmOutputA = PID_Compute(&PidEncoderA, RobotState.MotorSpeedA, RobotState.MotorSpeedTarget);
