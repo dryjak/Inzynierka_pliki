@@ -35,8 +35,8 @@ typedef struct
 	GPIO_TypeDef 		*MotorDir2Port;
 	uint16_t			MotorDir2Pin;
 
-	uint8_t 			MotorPWM;
-	uint8_t				Direction;
+	uint16_t 			MotorPWM;
+	uint16_t				Direction;
 
 }Motor_t;
 
@@ -44,7 +44,7 @@ typedef struct
 /*  This function DOES NOT start the PWM timer. Use HAL_TIM_PWM_Start() manually. */
 MotorStatus_t Motor_Init(Motor_t *Motor, TIM_HandleTypeDef *Timer, uint32_t TimerChannel, uint16_t PWM, GPIO_TypeDef *Dir1Port, uint16_t Dir1Pin, GPIO_TypeDef *Dir2Port, uint16_t Dir2Pin);
 //Set target parameters (PWM and Direction) in the struct and updates GPIOs.
-MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint8_t PWM, uint8_t Dir);
+MotorStatus_t Motor_SetRideParameters(Motor_t *Motor, uint16_t PWM, uint16_t Dir);
 //Call Motor_Ride() to apply the PWM change to the timer.
 void Motor_Ride(Motor_t *Motor);
 

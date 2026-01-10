@@ -46,11 +46,11 @@
 #define ENCODER_DT  0.005f  	// 10ms = 0.01s
 #define ANGLE_DT    0.005f	//same as encoderDt
 
-#define MIN_PWM_A  118.0f  	// Silnik A rusza przy 11
-#define MIN_PWM_B  64.5f 	// Silnik B rusza przy 6
+#define MIN_PWM_A  0.0f  	// Silnik A rusza przy 11
+#define MIN_PWM_B  0.0f 	// Silnik B rusza przy 6
 #define PWM_MAX_VALUE 1000.0
 //PID ANGLE
-#define PID_ANGLE_P 1.0f
+#define PID_ANGLE_P 50.0f
 #define PID_ANGLE_I 0
 #define PID_ANGLE_D 0
 
@@ -92,9 +92,13 @@ uint8_t EncoderCallback = 0;
 
 //PID regulator for steering velocity with MPU6050 readings
 PID_t PidAngle;
+volatile float PwmA = 0;
+volatile float PwmB = 0;
+volatile uint8_t DirA, DirB;
 
 float AngleMaxValue = 27.0f;
 float AngleMinValue = -27.0f;
+volatile uint8_t AngleFlag;
 
 MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
@@ -130,6 +134,7 @@ static void MX_NVIC_Init(void);
 float MapValues(float MaxValue, float InputValue);
 void AngleControl(void);
 void SpeedControl(void);
+void MoveRobot(void);
 
 /* USER CODE END PFP */
 
@@ -214,9 +219,9 @@ int main(void)
   {
 	  if (EncoderCallback == 1)
 	  	  {
-	//	  EncoderCallback = 0;
-	//	  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
-	//	  RobotState.AnglePitch = Pitch;
+		  EncoderCallback = 0;
+		  MPU6050_Angle(&MPU6050, &Roll, &Pitch, &Yaw);
+		  RobotState.AnglePitch = Pitch;
 		  /*
 		  Counter++;
 		  if(Counter > 4)
@@ -225,12 +230,14 @@ int main(void)
 			  SpeedControl();
 		  }
 		  */
-	//	  AngleControl();
+		  AngleControl();
+		  MoveRobot();
 
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 		  //function to test deadzone
+		  /*
 		  for( i = 100; i < 150; i++)
 		  {
 
@@ -238,6 +245,7 @@ int main(void)
 			  Motor_Ride(&MotorA);
 			  HAL_Delay(2000);
 		  }
+		  */
 
 //		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, EncoderB.AngularVelocity, RobotState.SpeedTargetB);
 //		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
@@ -321,10 +329,10 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 float MapValues(float MaxValue, float InputValue)
 {
     // Obliczamy procent mocy (wartość bezwzględna, bo PWM jest zawsze dodatni)
-    float pwmPercent = (fabsf(InputValue) * 100.0f) / MaxValue;
+    float pwmPercent = (fabsf(InputValue) * 1000.0f) / MaxValue;
 
     // Zabezpieczenie przed przekroczeniem 100%
-    if(pwmPercent > 100.0f) return 100.0f;
+    if(pwmPercent > 1000.0f) return 1000.0f;
     return pwmPercent;
 }
 void SpeedControl(void)
@@ -345,39 +353,35 @@ void AngleControl(void)
 	//sprawdzam czy robot za bardzo sie nie wychylił
 	if(fabs(RobotState.AnglePitch) > 27.0f)
 	{
-		Motor_SetRideParameters(&MotorA, 0, 0);
-		Motor_SetRideParameters(&MotorB, 0, 0);
-		Motor_Ride(&MotorA);
-		Motor_Ride(&MotorB);
-
-        PID_Reset(&PidAngle);
-        PID_Reset(&PidSpeed);
-		return;
+		AngleFlag = 1;
+	}
+	else
+	{
+		AngleFlag = 0;
 	}
 
 	float PidPwmOutput = PID_Compute(&PidAngle, RobotState.AnglePitch, RobotState.TargetAngle);
     RobotState.PwmOutput = PidPwmOutput;
 
     //saturation defense
-    float PwmMapped = MapValues(PWM_MAX_VALUE, PidPwmOutput);
-    float AbsPid = fabsf(PwmMapped);
-    float PwmA = 0;
-    float PwmB = 0;
+    float AbsPid = fabsf(PidPwmOutput);
 
-    // Jeśli regulator w ogóle chce ruszyć silniki (jest powyżej szumu)
+    // Jeśli regulator w ogóle chce ruszyć silniki
     if (AbsPid > 1.0f)
     {
-        // Dodajemy "skok startowy" do każdego silnika osobno
         PwmA = AbsPid + MIN_PWM_A;
         PwmB = AbsPid + MIN_PWM_B;
 
-        // Zabezpieczenie przed przekroczeniem MAX (np. 1000 lub 100%)
         if(PwmA > PWM_MAX_VALUE) PwmA = PWM_MAX_VALUE;
         if(PwmB > PWM_MAX_VALUE) PwmB = PWM_MAX_VALUE;
     }
+    else
+    {
+        PwmA = 0;
+        PwmB = 0;
+    }
 
     // Ustalanie kierunku
-    uint8_t DirA, DirB;
     if(PidPwmOutput < 0)
     {
     	DirA = 1; // Przód
@@ -388,6 +392,24 @@ void AngleControl(void)
     	DirA = 0; // Tył
     	DirB = 1; // Tył
     }
+}
+
+void MoveRobot(void)
+{
+	if(AngleFlag == 1)
+	{
+		Motor_SetRideParameters(&MotorA, 0, 0);
+		Motor_SetRideParameters(&MotorB, 0, 0);
+		Motor_Ride(&MotorA);
+		Motor_Ride(&MotorB);
+
+        PID_Reset(&PidAngle);
+        PID_Reset(&PidSpeed);
+		return;
+	}
+
+    //float PwmMappedA = MapValues(PWM_MAX_VALUE, PwmA);
+    //float PwmMappedB = MapValues(PWM_MAX_VALUE, PwmB);
 
 	Motor_SetRideParameters(&MotorA, PwmA, DirA);
 	Motor_SetRideParameters(&MotorB, PwmB, DirB);
