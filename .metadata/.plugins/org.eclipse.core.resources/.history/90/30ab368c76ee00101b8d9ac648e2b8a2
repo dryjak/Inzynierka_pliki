@@ -48,9 +48,9 @@
 
 #define PWM_MAX_VALUE 	1000.0
 //PID ANGLE
-#define PID_ANGLE_P 	48.0f
+#define PID_ANGLE_P 	38.0f
 #define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	0.5f
+#define PID_ANGLE_D 	0
 
 //PID ENCODER
 #define PID_ENCODER_P 	2.8f
@@ -60,7 +60,7 @@
 #define ENCODER_MAX		150.0f
 #define ANGLE_MAX		27.0f
 //Compensation for mass center
-#define ANGLE_DUE_TO_MASS_ASIMETRY -2.50f
+#define ANGLE_DUE_TO_MASS_ASIMETRY -2.0f
 
 /* USER CODE END PD */
 

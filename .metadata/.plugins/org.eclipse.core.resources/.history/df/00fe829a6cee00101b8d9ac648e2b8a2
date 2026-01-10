@@ -48,9 +48,9 @@
 
 #define PWM_MAX_VALUE 	1000.0
 //PID ANGLE
-#define PID_ANGLE_P 	48.0f
+#define PID_ANGLE_P 	1.0f
 #define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	0.5f
+#define PID_ANGLE_D 	0
 
 //PID ENCODER
 #define PID_ENCODER_P 	2.8f
@@ -60,7 +60,7 @@
 #define ENCODER_MAX		150.0f
 #define ANGLE_MAX		27.0f
 //Compensation for mass center
-#define ANGLE_DUE_TO_MASS_ASIMETRY -2.50f
+#define ANGLE_DUE_TO_MASS_ASIMETRY -0.74f
 
 /* USER CODE END PD */
 
@@ -195,10 +195,10 @@ int main(void)
   MPU6050_Init(&MPU6050, &hi2c1, 0x68);
 
   //initializing PID for encoders and angle
-  PID_Init(&PidEncoderA, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, PWM_MAX_VALUE, -PWM_MAX_VALUE);
-  PID_Init(&PidEncoderB, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, PWM_MAX_VALUE, -PWM_MAX_VALUE);
+  PID_Init(&PidEncoderA, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, ENCODER_MAX, -ENCODER_MAX);
+  PID_Init(&PidEncoderB, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, ENCODER_MAX, -ENCODER_MAX);
 
-  PID_Init(&PidAngle, PID_ANGLE_P, PID_ANGLE_I, PID_ANGLE_D, ANGLE_DT , ENCODER_MAX, -ENCODER_MAX);
+  PID_Init(&PidAngle, PID_ANGLE_P, PID_ANGLE_I, PID_ANGLE_D, ANGLE_DT , PWM_MAX_VALUE, -PWM_MAX_VALUE);
 
   HAL_TIM_Base_Start_IT(&htim4);
 
@@ -312,7 +312,7 @@ void EncoderUpdate(void)
 	Encoder_Update(&EncoderB);
 
 	//Average speed of the robot
-    RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
+    RobotState.SpeedCurrent += (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
     RobotState.MotorSpeedA = EncoderA.AngularVelocity;
     RobotState.MotorSpeedB = EncoderB.AngularVelocity;
 }
@@ -362,20 +362,16 @@ void MoveRobot(void)
 		Motor_Ride(&MotorA);
 		Motor_Ride(&MotorB);
 
-		PID_Reset(&PidAngle);
-		PID_Reset(&PidSpeed);
-		PID_Reset(&PidEncoderA);
-		PID_Reset(&PidEncoderB);
+        PID_Reset(&PidAngle);
+        PID_Reset(&PidSpeed);
 		return;
 	}
-	float AbsPwmA = fabsf(RobotState.PwmOutputA);
-	float AbsPwmB = fabsf(RobotState.PwmOutputB);
 
-	if(AbsPwmA > PWM_MAX_VALUE) AbsPwmA = PWM_MAX_VALUE;
-	if(AbsPwmB > PWM_MAX_VALUE) AbsPwmB = PWM_MAX_VALUE;
+    //float PwmMappedA = MapValues(PWM_MAX_VALUE, PwmA);
+    //float PwmMappedB = MapValues(PWM_MAX_VALUE, PwmB);
 
-	Motor_SetRideParameters(&MotorA, (uint16_t)AbsPwmA, DirA);
-	Motor_SetRideParameters(&MotorB, (uint16_t)AbsPwmB, DirB);
+	Motor_SetRideParameters(&MotorA, PwmA, DirA);
+	Motor_SetRideParameters(&MotorB, PwmB, DirB);
 	Motor_Ride(&MotorA);
 	Motor_Ride(&MotorB);
 }

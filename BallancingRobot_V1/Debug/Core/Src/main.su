@@ -4,5 +4,5 @@
 ../Core/Src/main.c:300:6:HAL_TIM_PeriodElapsedCallback	16	static
 ../Core/Src/main.c:308:6:EncoderUpdate	8	static
 ../Core/Src/main.c:319:6:BalanceRegulator_PD	8	static
-../Core/Src/main.c:356:6:MoveRobot	8	static
-../Core/Src/main.c:385:6:Error_Handler	4	static,ignoring_inline_asm
+../Core/Src/main.c:356:6:MoveRobot	16	static
+../Core/Src/main.c:389:6:Error_Handler	4	static,ignoring_inline_asm

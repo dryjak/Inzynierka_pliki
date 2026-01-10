@@ -4,5 +4,5 @@
 ../Core/Src/main.c:300:6:HAL_TIM_PeriodElapsedCallback	2
 ../Core/Src/main.c:308:6:EncoderUpdate	1
 ../Core/Src/main.c:319:6:BalanceRegulator_PD	5
-../Core/Src/main.c:356:6:MoveRobot	2
-../Core/Src/main.c:385:6:Error_Handler	1
+../Core/Src/main.c:356:6:MoveRobot	4
+../Core/Src/main.c:389:6:Error_Handler	1
