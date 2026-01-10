@@ -14,8 +14,8 @@
 #define MOTOR_DIR_FORWARD   1
 #define MOTOR_DIR_BACKWARD  0
 
-// PWM Limits corresponding to Timer ARR = 999
-#define MOTOR_PWM_MAX       1000
+// PWM Limits corresponding to Timer ARR = 99
+#define MOTOR_PWM_MAX       100
 #define MOTOR_PWM_MIN       0
 
 typedef enum{
