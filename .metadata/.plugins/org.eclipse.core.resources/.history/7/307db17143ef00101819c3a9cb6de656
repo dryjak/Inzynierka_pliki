@@ -35,13 +35,13 @@ static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculat
 Kalman_t KalmanRoll = {
         .Q_angle = 0.001f,
         .Q_bias = 0.005f,
-        .R_measure = 0.5f
+        .R_measure = 0.1f
 };
 
 Kalman_t KalmanPitch = {
         .Q_angle = 0.001f,
         .Q_bias = 0.005f,
-        .R_measure = 0.5f,
+        .R_measure = 0.1f,
 };
 
 //Complementary filter function to estimate current angle
