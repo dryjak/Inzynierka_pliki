@@ -1,1 +1,2 @@
 ../Core/Src/kalman_filter.c:13:7:Kalman_GetAngle	48	static
+../Core/Src/kalman_filter.c:47:6:Kalman_Init	16	static

@@ -20,9 +20,9 @@ typedef struct {
     float P[2][2];   // Macierz kowariancji błędu
 } Kalman_t;
 
-// Deklaracja instancji dla Pitch i Roll
-Kalman_t KalmanPitch;
-Kalman_t KalmanRoll;
+float Kalman_GetAngle(Kalman_t *kalman, float newAngle, float newRate, float dt);
+void Kalman_Init(Kalman_t *kalman);
+
 
 
 #endif /* INC_KALMAN_FILTER_H_ */

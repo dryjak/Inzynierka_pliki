@@ -10,7 +10,8 @@
 // newAngle = Kąt z akcelerometru (np. z atan2)
 // newRate  = Prędkość z żyroskopu (w stopniach na sekundę!)
 // dt       = Czas cyklu w sekundach (np. 0.005f)
-float Kalman_GetAngle(Kalman_t *kalman, float newAngle, float newRate, float dt) {
+float Kalman_GetAngle(Kalman_t *kalman, float newAngle, float newRate, float dt)
+{
     // KROK 1: PREDYKCJA (Na podstawie żyroskopu)
     kalman->rate = newRate - kalman->bias;
     kalman->angle += dt * kalman->rate;
@@ -42,4 +43,19 @@ float Kalman_GetAngle(Kalman_t *kalman, float newAngle, float newRate, float dt)
     kalman->P[1][1] -= K[1] * P01_temp;
 
     return kalman->angle; // Zwracamy najlepszy szacowany kąt
+}
+void Kalman_Init(Kalman_t *kalman)
+{
+    // Ustawienia domyślne (możesz stroić)
+    kalman->Q_angle = 0.001f;
+    kalman->Q_bias  = 0.003f;
+    kalman->R_measure = 0.5f; // Zwiększ, jeśli robot ma duże wibracje (np. do 0.1)
+
+    kalman->angle = 0.0f;
+    kalman->bias  = 0.0f;
+
+    kalman->P[0][0] = 0.0f;
+    kalman->P[0][1] = 0.0f;
+    kalman->P[1][0] = 0.0f;
+    kalman->P[1][1] = 0.0f;
 }

@@ -71,6 +71,16 @@ typedef enum
 	MPU6050_ERROR
 }MPU6050_STATE_t;
 
+// Kalman structure
+typedef struct {
+    double Q_angle;
+    double Q_bias;
+    double R_measure;
+    double angle;
+    double bias;
+    double P[2][2];
+} Kalman_t;
+
 /* --- Initialization and Setup --- */
 MPU6050_STATE_t MPU6050_Init(MPU6050_t *MPU6050, I2C_HandleTypeDef *Hi2c, uint16_t Address);
 MPU6050_STATE_t MPU6050_WakeUp(MPU6050_t *MPU6050);
@@ -84,5 +94,7 @@ MPU6050_STATE_t MPU6050_DegFromGyro(MPU6050_t *MPU6050, float *RollG, float *Pit
 /* --- Calibration --- */
 MPU6050_STATE_t MPU6050_CalibrateAccel(MPU6050_t *MPU6050, Data_t *AccelCalibratedValues);
 MPU6050_STATE_t MPU6050_CalibrateGyro(MPU6050_t *MPU6050, Data_t *GyroCalibratedValues);
+
+double Kalman_getAngle(Kalman_t *Kalman, double newAngle, double newRate, double dt);
 
 #endif /* INC_MPU6050_H_ */

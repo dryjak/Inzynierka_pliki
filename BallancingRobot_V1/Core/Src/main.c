@@ -48,9 +48,9 @@
 
 #define PWM_MAX_VALUE 	1000.0
 //PID ANGLE
-#define PID_ANGLE_P 	30.0f
+#define PID_ANGLE_P 	5.0f
 #define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	1.0f
+#define PID_ANGLE_D 	0.0f
 
 //PID ENCODER
 #define PID_ENCODER_P 	3.5f
@@ -121,6 +121,8 @@ RobotState_t RobotState;
 uint8_t Counter = 0;
 //printing via uart
 char Message[128];
+
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -204,6 +206,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
+
   // Wartości początkowe
   RobotState.TargetAngle = ANGLE_DUE_TO_MASS_ASIMETRY;
   RobotState.MotorSpeedTarget = 0.0f;
@@ -229,8 +232,8 @@ int main(void)
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 
-		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
-		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
+		 // sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
+		 // HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }
 

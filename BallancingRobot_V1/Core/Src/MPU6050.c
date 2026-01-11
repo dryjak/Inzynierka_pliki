@@ -31,6 +31,19 @@ static MPU6050_STATE_t MPU6050_ReadAcceleration(MPU6050_t *MPU6050, Data_t *Acce
 static MPU6050_STATE_t MPU6050_ReadGyroRaw(MPU6050_t *MPU6050, DataRaw_t *GyroRaw);
 static MPU6050_STATE_t MPU6050_ReadGyro(MPU6050_t *MPU6050, Data_t *GyroCalculated);
 
+
+Kalman_t KalmanRoll = {
+        .Q_angle = 0.001f,
+        .Q_bias = 0.005f,
+        .R_measure = 0.1f
+};
+
+Kalman_t KalmanPitch = {
+        .Q_angle = 0.001f,
+        .Q_bias = 0.005f,
+        .R_measure = 0.1f,
+};
+
 //Complementary filter function to estimate current angle
 static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel);
 
@@ -117,9 +130,9 @@ MPU6050_STATE_t MPU6050_DegFromGyro(MPU6050_t *MPU6050, float *RollG, float *Pit
     Data_t Gyro;
     MPU6050_ReadGyro(MPU6050, &Gyro);
 
-    *RollG  += (Gyro.X) * DT;
-    *PitchG += (Gyro.Y) * DT;
-    *YawG   += (Gyro.Z) * DT;
+    *RollG  = (Gyro.X);
+    *PitchG = (Gyro.Y);
+    *YawG   = (Gyro.Z);
 
     return MPU6050_OK;
 }
@@ -128,6 +141,7 @@ MPU6050_STATE_t MPU6050_DegFromGyro(MPU6050_t *MPU6050, float *RollG, float *Pit
 MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, float *Yaw)
 {
     float RollAccel, PitchAccel;
+    float RollGyro, PitchGyro, YawGyro;
 
     //Get accel angles
     MPU6050_DegFromAccel(MPU6050, &RollAccel, &PitchAccel);
@@ -140,19 +154,48 @@ MPU6050_STATE_t MPU6050_Angle(MPU6050_t *MPU6050, float *Roll, float *Pitch, flo
         *Yaw = 0.0f;
         initialized = 1;
 
-        MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
+        MPU6050_DegFromGyro(MPU6050, &RollGyro, &PitchGyro, &YawGyro);
         return MPU6050_OK;
     }
 
     //Get gyro angles
-    MPU6050_DegFromGyro(MPU6050, Roll, Pitch, Yaw);
+    MPU6050_DegFromGyro(MPU6050, &RollGyro, &PitchGyro, &YawGyro);
 
     //Apply filter
-    ComplementaryFilter(Roll, Pitch, RollAccel, PitchAccel);
+    //ComplementaryFilter(Roll, Pitch, RollAccel, PitchAccel);
+    *Roll = Kalman_getAngle(&KalmanRoll, RollAccel, RollGyro, DT);
+    *Pitch = Kalman_getAngle(&KalmanPitch, PitchAccel, PitchGyro, DT);
 
     return MPU6050_OK;
 }
+double Kalman_getAngle(Kalman_t *Kalman, double newAngle, double newRate, double dt) {
+    double rate = newRate - Kalman->bias;
+    Kalman->angle += dt * rate;
 
+    Kalman->P[0][0] += dt * (dt * Kalman->P[1][1] - Kalman->P[0][1] - Kalman->P[1][0] + Kalman->Q_angle);
+    Kalman->P[0][1] -= dt * Kalman->P[1][1];
+    Kalman->P[1][0] -= dt * Kalman->P[1][1];
+    Kalman->P[1][1] += Kalman->Q_bias * dt;
+
+    double S = Kalman->P[0][0] + Kalman->R_measure;
+    double K[2];
+    K[0] = Kalman->P[0][0] / S;
+    K[1] = Kalman->P[1][0] / S;
+
+    double y = newAngle - Kalman->angle;
+    Kalman->angle += K[0] * y;
+    Kalman->bias += K[1] * y;
+
+    double P00_temp = Kalman->P[0][0];
+    double P01_temp = Kalman->P[0][1];
+
+    Kalman->P[0][0] -= K[0] * P00_temp;
+    Kalman->P[0][1] -= K[0] * P01_temp;
+    Kalman->P[1][0] -= K[1] * P00_temp;
+    Kalman->P[1][1] -= K[1] * P01_temp;
+
+    return Kalman->angle;
+};
 //Complementary filter implementation
 //Combines high-pass filtered gyro data with low-pass filtered accel data.
 static void ComplementaryFilter(float *roll, float *pitch, float roll_accel, float pitch_accel)
