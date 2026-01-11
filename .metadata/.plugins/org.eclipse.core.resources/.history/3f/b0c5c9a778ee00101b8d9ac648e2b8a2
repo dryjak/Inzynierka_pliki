@@ -48,20 +48,19 @@
 
 #define PWM_MAX_VALUE 	1000.0
 //PID ANGLE
-#define PID_ANGLE_P 	30.0f
+#define PID_ANGLE_P 	48.0f
 #define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	1.0f
+#define PID_ANGLE_D 	0.5f
 
 //PID ENCODER
-#define PID_ENCODER_P 	3.5f
+#define PID_ENCODER_P 	2.8f
 #define PID_ENCODER_I 	28.0f
 #define PID_ENCODER_D 	0.04f
-
 #define RPM_MAX			320.0f
 #define ENCODER_MAX		150.0f
 #define ANGLE_MAX		27.0f
 //Compensation for mass center
-#define ANGLE_DUE_TO_MASS_ASIMETRY -2.2f
+#define ANGLE_DUE_TO_MASS_ASIMETRY -2.50f
 
 /* USER CODE END PD */
 
@@ -179,7 +178,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //initializing motors
   //start PWM
-  HAL_Delay(500);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); //for motor A
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); //for motor B
 
@@ -229,7 +227,7 @@ int main(void)
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 
-		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
+		  sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.SpeedTargetB);
 		  HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }

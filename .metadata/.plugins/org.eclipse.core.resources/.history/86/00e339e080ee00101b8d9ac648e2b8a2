@@ -179,7 +179,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //initializing motors
   //start PWM
-  HAL_Delay(500);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); //for motor A
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); //for motor B
 

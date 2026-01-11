@@ -50,7 +50,7 @@
 //PID ANGLE
 #define PID_ANGLE_P 	30.0f
 #define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	1.0f
+#define PID_ANGLE_D 	0.9f
 
 //PID ENCODER
 #define PID_ENCODER_P 	3.5f
@@ -179,7 +179,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   //initializing motors
   //start PWM
-  HAL_Delay(500);
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_1); //for motor A
   HAL_TIM_PWM_Start(&htim1, TIM_CHANNEL_2); //for motor B
 
