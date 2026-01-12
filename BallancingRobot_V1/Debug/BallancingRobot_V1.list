@@ -3529,7 +3529,6 @@ int main(void)
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
-
 		 sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
  8002070:	4b39      	ldr	r3, [pc, #228]	@ (8002158 <main+0x2ac>)
  8002072:	681b      	ldr	r3, [r3, #0]

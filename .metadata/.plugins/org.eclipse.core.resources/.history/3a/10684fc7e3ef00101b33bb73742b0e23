@@ -249,6 +249,7 @@ int main(void)
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
+
 		 sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
 		 HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
