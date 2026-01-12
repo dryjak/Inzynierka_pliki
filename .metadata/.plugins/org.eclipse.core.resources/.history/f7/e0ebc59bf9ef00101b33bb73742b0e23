@@ -43,8 +43,8 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 #define ENCODER_PULSES_PER_REV 1320
-#define ENCODER_DT  	0.005f  	//5ms
-#define ANGLE_DT    	0.005f		//same as ENCODER_DT
+#define ENCODER_DT  	0.005f  	// 10ms = 0.01s
+#define ANGLE_DT    	0.005f		//same as encoderDt
 
 #define PWM_MAX_VALUE 	1000.0
 //PID ANGLE
@@ -65,7 +65,6 @@
 #define RPM_MAX			320.0f
 #define ENCODER_MAX		150.0f
 #define ANGLE_MAX		27.0f
-
 //Compensation for mass center
 #define ANGLE_DUE_TO_MASS_ASIMETRY -2.2f
 #define SPEED_LOOP_DIVIDER  		8
@@ -105,20 +104,19 @@ uint8_t AngleFlag;
 MPU6050_t MPU6050;
 float Roll, Pitch, Yaw;
 
-//Variables to calibrate IMU
 Data_t CalibrateAccel;
 Data_t CalibrateGyro;
 uint8_t TMP;
 
 typedef struct{
-	float AnglePitch;		//Measured robot tilt angle
+	float AnglePitch;		//measured robot tilt angle
 
 	float MotorSpeedA;
 	float MotorSpeedB;
-	float SpeedCurrent;		//Speed average from two wheels
+	float SpeedCurrent;		//aktualna prędkośc - srednia z dwuch kół
 
-	float TargetAngle;		//Target angle of the robot (MASS_SIMETRY + velocity)
-	float MotorSpeedTarget;	//Target speed of the robot
+	float TargetAngle;		//target angle of the robot (MASS_SIMETRY + velocity)
+	float MotorSpeedTarget;		//Target speed of the robot
 
 	float PwmOutputA;		//PWM calculated with PID angle regulator
 	float PwmOutputB;
@@ -143,10 +141,10 @@ char Message[128];
 void SystemClock_Config(void);
 static void MX_NVIC_Init(void);
 /* USER CODE BEGIN PFP */
-void EncoderUpdate(void);		//Update speed and angle
-void BalanceRegulator_PD(void);	//Function that balance whole robot
-void MoveRobot(void);			//Function to move robot
-void SpeedRegulator_PI(void);	//Function to regulate speed of the robot
+void EncoderUpdate(void);
+void BalanceRegulator_PD(void);
+void MoveRobot(void);
+void SpeedRegulator_PI(void);
 
 /* USER CODE END PFP */
 
@@ -222,7 +220,7 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
-  // Start values
+  // Wartości początkowe
   RobotState.TargetAngle = ANGLE_DUE_TO_MASS_ASIMETRY;
   RobotState.MotorSpeedTarget = 0.0f;
   HAL_Delay(1000);
@@ -251,8 +249,8 @@ int main(void)
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
-		 //sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
-		 //HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
+		 sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
+		 HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }
 
@@ -366,27 +364,27 @@ void BalanceRegulator_PD(void)
 	RobotState.PwmOutputA = PID_Compute(&PidEncoderA, RobotState.MotorSpeedA, RobotState.MotorSpeedTarget);
 	RobotState.PwmOutputB = PID_Compute(&PidEncoderB, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
 
-	if(RobotState.PwmOutputA > 0)	//Motor direction A
+	if(RobotState.PwmOutputA > 0)	//dobór kierunku
 	{
-		DirA = 1;	//MotorA - forward
+		DirA = 1;	//MotorA - kierunek do przodu
 	}
 	else
 	{
-		DirA = 0;	//MotorA - backward
+		DirA = 0;	//MotorA - kierunek do tylu
 	}
-	if(RobotState.PwmOutputB > 0)	//Motor direction A
+	if(RobotState.PwmOutputB > 0)	//dobór kierunku
 	{
-		DirB = 0;	//MotorB - forward
+		DirB = 0;	//MotorB - kierunek do przodu
 	}
 	else
 	{
-		DirB = 1;	//MotorB - backward
+		DirB = 1;	//MotorB - kierunek do tylu
 	}
 }
 
 void MoveRobot(void)
 {
-	if(AngleFlag == 1) //check if the robot is laying down
+	if(AngleFlag == 1)
 	{
 		Motor_SetRideParameters(&MotorA, 0, 0);
 		Motor_SetRideParameters(&MotorB, 0, 0);
@@ -399,15 +397,12 @@ void MoveRobot(void)
 		PID_Reset(&PidEncoderB);
 		return;
 	}
-	//calculating PWM
 	float AbsPwmA = fabsf(RobotState.PwmOutputA);
 	float AbsPwmB = fabsf(RobotState.PwmOutputB);
 
-	//saturate PWM
 	if(AbsPwmA > PWM_MAX_VALUE) AbsPwmA = PWM_MAX_VALUE;
 	if(AbsPwmB > PWM_MAX_VALUE) AbsPwmB = PWM_MAX_VALUE;
 
-	//moving motors
 	Motor_SetRideParameters(&MotorA, (uint16_t)AbsPwmA, DirA);
 	Motor_SetRideParameters(&MotorB, (uint16_t)AbsPwmB, DirB);
 	Motor_Ride(&MotorA);

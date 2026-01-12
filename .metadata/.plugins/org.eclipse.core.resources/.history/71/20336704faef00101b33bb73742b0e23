@@ -373,7 +373,6 @@ void BalanceRegulator_PD(void)
 	else
 	{
 		DirA = 0;	//MotorA - backward
-	}
 	if(RobotState.PwmOutputB > 0)	//Motor direction A
 	{
 		DirB = 0;	//MotorB - forward
@@ -399,7 +398,7 @@ void MoveRobot(void)
 		PID_Reset(&PidEncoderB);
 		return;
 	}
-	//calculating PWM
+	//calculating PWM for motors
 	float AbsPwmA = fabsf(RobotState.PwmOutputA);
 	float AbsPwmB = fabsf(RobotState.PwmOutputB);
 
