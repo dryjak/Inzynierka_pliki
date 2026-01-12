@@ -50,18 +50,24 @@
 //PID ANGLE
 #define PID_ANGLE_P 	50.0f
 #define PID_ANGLE_I 	0
-#define PID_ANGLE_D 	0.5f
+#define PID_ANGLE_D 	0.65f
 
 //PID ENCODER
 #define PID_ENCODER_P 	3.5f
 #define PID_ENCODER_I 	28.0f
 #define PID_ENCODER_D 	0.04f
 
+//PID SPEED
+#define PID_SPEED_P		0.05f
+#define PID_SPEED_I		0.01f
+#define PID_SPEED_D		0.0f
+
 #define RPM_MAX			320.0f
 #define ENCODER_MAX		150.0f
 #define ANGLE_MAX		27.0f
 //Compensation for mass center
 #define ANGLE_DUE_TO_MASS_ASIMETRY -2.2f
+#define SPEED_LOOP_DIVIDER  		8
 
 /* USER CODE END PD */
 
@@ -118,10 +124,16 @@ typedef struct{
 
 RobotState_t RobotState;
 
+//PID Speed
+float EncoderSum;
 uint8_t Counter = 0;
+float SetVelocity = 0;
+float SpeedDt = ENCODER_DT * SPEED_LOOP_DIVIDER;
+float MaxAngleOutput = 5.0f;
+float CompensateAngle;
+float DesiredAngle;
 //printing via uart
 char Message[128];
-
 
 /* USER CODE END PV */
 
@@ -132,6 +144,7 @@ static void MX_NVIC_Init(void);
 void EncoderUpdate(void);
 void BalanceRegulator_PD(void);
 void MoveRobot(void);
+void SpeedRegulator_PI(void);
 
 /* USER CODE END PFP */
 
@@ -203,9 +216,9 @@ int main(void)
   PID_Init(&PidEncoderB, PID_ENCODER_P, PID_ENCODER_I, PID_ENCODER_D, ENCODER_DT, PWM_MAX_VALUE, -PWM_MAX_VALUE);
 
   PID_Init(&PidAngle, PID_ANGLE_P, PID_ANGLE_I, PID_ANGLE_D, ANGLE_DT , ENCODER_MAX, -ENCODER_MAX);
+  PID_Init(&PidSpeed, PID_SPEED_P, PID_SPEED_I, PID_SPEED_D, SpeedDt, MaxAngleOutput, -MaxAngleOutput);
 
   HAL_TIM_Base_Start_IT(&htim4);
-
 
   // Wartości początkowe
   RobotState.TargetAngle = ANGLE_DUE_TO_MASS_ASIMETRY;
@@ -227,13 +240,18 @@ int main(void)
 		  BalanceRegulator_PD();
 		  MoveRobot();
 
-
+		  Counter++;
+		  if(Counter >= SPEED_LOOP_DIVIDER)
+		  {
+			  Counter = 0;
+			  SpeedRegulator_PI();
+		  }
 		  //MPU6050_CalibrateAccel(&MPU6050, &CalibrateAccel);
 		  //MPU6050_CalibrateGyro(&MPU6050, &CalibrateGyro);
 
 
-		 // sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
-		 // HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
+		 sprintf(Message, "%.3f;%.2f;%.2f\n", Roll, RobotState.MotorSpeedB, RobotState.MotorSpeedTarget);
+		 HAL_UART_Transmit(&huart2,(uint8_t*) Message, strlen(Message), HAL_MAX_DELAY);
 
 	  	  }
 
@@ -319,6 +337,13 @@ void EncoderUpdate(void)
     RobotState.SpeedCurrent = (EncoderA.AngularVelocity + EncoderB.AngularVelocity) / 2.0f;
     RobotState.MotorSpeedA = EncoderA.AngularVelocity;
     RobotState.MotorSpeedB = EncoderB.AngularVelocity;
+    EncoderSum += RobotState.SpeedCurrent;
+}
+void SpeedRegulator_PI(void)
+{
+	float AverageSpeed = EncoderSum / (float) SPEED_LOOP_DIVIDER;
+	CompensateAngle = PID_Compute(&PidSpeed, AverageSpeed, SetVelocity);
+	EncoderSum = 0.0;
 }
 void BalanceRegulator_PD(void)
 {
@@ -333,7 +358,8 @@ void BalanceRegulator_PD(void)
 		AngleFlag = 0;
 	}
 	//calculate speed required to get to upright position
-	RobotState.MotorSpeedTarget = -1 *  PID_Compute(&PidAngle, Pitch, ANGLE_DUE_TO_MASS_ASIMETRY);
+	DesiredAngle = ANGLE_DUE_TO_MASS_ASIMETRY + CompensateAngle;
+	RobotState.MotorSpeedTarget = -1 *  PID_Compute(&PidAngle, Pitch, DesiredAngle);
 
 	//calculate PWM required to get to the desired speed
 	RobotState.PwmOutputA = PID_Compute(&PidEncoderA, RobotState.MotorSpeedA, RobotState.MotorSpeedTarget);
